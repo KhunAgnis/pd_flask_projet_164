@@ -146,9 +146,11 @@ def produits_update_wtf():
             # Récupèrer la valeur du champ depuis "produit_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
             id_produit_update = form_update.id_produit_update_wtf.data
+            nomProduit_update = form_update.nomproduit_update_wtf.data
             tailleproduit_essai = form_update.tailleProduit_wtf_essai.data
 
             valeur_update_dictionnaire = {"value_id_produit": id_produit_update,
+                                          "value_nomproduit": nomProduit_update,
                                           "value_tailleProduit_essai": tailleproduit_essai
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
