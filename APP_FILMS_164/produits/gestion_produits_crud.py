@@ -38,12 +38,12 @@ def produits_afficher(order_by, id_produit_sel):
 
                     mc_afficher.execute(strsql_produits_afficher)
                 elif order_by == "ASC":
-                    valeur_id_produit_selected_dictionnaire = {"value_id_produit_selected": id_produit_sel}
+                    valeur_id_produit_selected_dictionnaire = {"value_id_Produit_selected": id_produit_sel}
                     strsql_produits_afficher = """SELECT * FROM t_produit WHERE id_Produit = %(value_id_Produit_selected)"""
 
                     mc_afficher.execute(strsql_produits_afficher, valeur_id_produit_selected_dictionnaire)
                 else:
-                    strsql_produits_afficher = """SELECT * FROM t_produit ORDER BY id_produit DESC"""
+                    strsql_produits_afficher = """SELECT * FROM t_produit ORDER BY id_Produit DESC"""
 
                     mc_afficher.execute(strsql_produits_afficher)
 

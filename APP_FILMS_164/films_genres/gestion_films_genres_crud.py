@@ -20,8 +20,8 @@ from APP_FILMS_164.erreurs.exceptions import *
     
     But : Afficher les films avec les produits associés pour chaque film.
     
-    Paramètres : id_produit_sel = 0 >> tous les films.
-                 id_produit_sel = "n" affiche le film dont l'id est "n"
+    Paramètres : id_Produit_sel = 0 >> tous les films.
+                 id_Produit_sel = "n" affiche le film dont l'id est "n"
                  
 """
 
@@ -221,7 +221,7 @@ def update_produit_film_selected():
 
             # SQL pour insérer une nouvelle association entre
             # "fk_film"/"id_film" et "fk_genre"/"id_Produit" dans la "t_produit_film"
-            strsql_insert_produit_film = """INSERT INTO t_produit_film (id_produit_film, fk_genre, fk_film)
+            strsql_insert_produit_film = """INSERT INTO t_produit_film (id_Produit_film, fk_genre, fk_film)
                                                     VALUES (NULL, %(value_fk_genre)s, %(value_fk_film)s)"""
 
             # SQL pour effacer une (des) association(s) existantes entre "id_film" et "id_Produit" dans la "t_produit_film"
