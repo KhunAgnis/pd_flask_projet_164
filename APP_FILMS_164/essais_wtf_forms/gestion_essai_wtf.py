@@ -24,7 +24,7 @@ def mon_premier_wtform():
     if form.validate_on_submit():
         flash(f"Données du form : {form.username.data}, "
               f"nepascliquer={form.case_cocher_npc.data}, "
-              f"{form.nom_genre_wtf.data}", "success")
+              f"{form.nom_produit_wtf.data}", "success")
         return redirect('/homepage')
     else:
         flash(f"il se passe un truc dans le ELSE du petit mon_premier_wtform")
