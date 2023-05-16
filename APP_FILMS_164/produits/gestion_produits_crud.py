@@ -39,7 +39,8 @@ def produits_afficher(order_by, id_produit_sel):
                     mc_afficher.execute(strsql_produits_afficher)
                 elif order_by == "ASC":
                     valeur_id_produit_selected_dictionnaire = {"value_id_Produit_selected": id_produit_sel}
-                    strsql_produits_afficher = """SELECT * FROM t_produit WHERE id_Produit = %(value_id_Produit_selected)s)"""
+                    strsql_produits_afficher = """SELECT * FROM t_produit WHERE id_Produit = %(
+                    value_id_Produit_selected)s """
 
                     mc_afficher.execute(strsql_produits_afficher, valeur_id_produit_selected_dictionnaire)
                 else:
@@ -55,7 +56,7 @@ def produits_afficher(order_by, id_produit_sel):
                 elif not data_produits and id_produit_sel > 0:
                     flash(f"Le produit demandé n'existe pas !!", "warning")
                 else:
-                    flash(f"Données produits affichés !!", "success")
+                    flash(f"Voici la liste des produits.", "success")
 
         except Exception as Exception_produits_afficher:
             raise ExceptionProduitsAfficher(f"fichier : {Path(__file__).name}  ;  "
