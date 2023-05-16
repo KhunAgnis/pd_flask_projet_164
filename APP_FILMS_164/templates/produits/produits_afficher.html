@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %} Afficher Produit {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+
+			</p>
+            <table class="table table-bordered table-sm">
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th class="align-middle">
+                            IdProduit
+                        </th>
+                        <th class="align-middle">
+                            Nom du produit
+                        </th>
+                        <th class="align-middle">
+							Taille du produit
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                        <th class="align-middle">
+
+                        </th>
+                    </tr>
+                </thead>
+            {% endif %}
+
+            {% for row in data %}
+				<tbody>
+					<tr>
+						<td class="align-middle">
+							{{ row.id_Produit }}
+						</td>
+						<td class="align-middle">
+							{{ row.nomProduit }}
+						</td>
+						<td class="align-middle">
+							{{ row.tailleProduit }}
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-primary" href="{{ url_for('produits_ajouter_wtf') }}" role="button">Ajouter</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-warning" href="{{ url_for('produits_update_wtf', id_produit_btn_edit_html=row.id_Produit) }}" role="button">Edit</a>
+						</td>
+						<td class="text-center" class="align-middle">
+							<a class="btn btn-danger" href="{{ url_for('produits_delete_wtf', id_produit_btn_delete_html=row.id_Produit) }}" role="button">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+            {% else %}
+				<tbody>
+					<tr>
+						<td>
+							Aucun produit.
+						</td>
+						<td>
+							<a class="btn btn-primary" href="{{ url_for('produits_ajouter_wtf') }}" role="button">Ajouter</a>
+						</td>
+					</tr>
+				</tbody>
+            {% endfor %}
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
