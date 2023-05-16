@@ -39,7 +39,7 @@ def produits_afficher(order_by, id_produit_sel):
                     mc_afficher.execute(strsql_produits_afficher)
                 elif order_by == "ASC":
                     valeur_id_produit_selected_dictionnaire = {"value_id_Produit_selected": id_produit_sel}
-                    strsql_produits_afficher = """SELECT * FROM t_produit WHERE id_Produit = %(value_id_Produit_selected)"""
+                    strsql_produits_afficher = """SELECT * FROM t_produit WHERE id_Produit = %(value_id_Produit_selected)s)"""
 
                     mc_afficher.execute(strsql_produits_afficher, valeur_id_produit_selected_dictionnaire)
                 else:
@@ -91,8 +91,8 @@ def produits_ajouter_wtf():
         try:
             if form.validate_on_submit():
                 name_produit_wtf = form.nom_produit_wtf.data
-                name_genre = name_produit_wtf.lower()
-                valeurs_insertion_dictionnaire = {"value_intitule_genre": name_genre}
+                name_produit = name_produit_wtf.lower()
+                valeurs_insertion_dictionnaire = {"value_intitule_produits": name_produit}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
                 strsql_insert_genre = """INSERT INTO t_produit (id_produit,nomProduit, tailleProduit) VALUES (NULL,%(value_intitule_produit)s) """
@@ -146,19 +146,17 @@ def produits_update_wtf():
             # Récupèrer la valeur du champ depuis "produit_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
             id_produit_update = form_update.id_produit_update_wtf.data
-            nomproduit_update = nomproduit_update.lower()
-            tailleproduit_essai = form_update.tailleproduit_wtf_essai.data
+            tailleproduit_essai = form_update.tailleProduit_wtf_essai.data
 
             valeur_update_dictionnaire = {"value_id_produit": id_produit_update,
-                                          "value_nomproduit": nomproduit_update,
-                                          "value_tailleproduit_essai": tailleproduit_essai
+                                          "value_tailleProduit_essai": tailleproduit_essai
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intitulegenre = """UPDATE t_genre SET intitule_produit = %(value_name_genre)s, 
+            str_sql_update_intituleproduits = """UPDATE t_produit SET nomproduit = %(value_name_genre)s, 
             date_ins_genre = %(value_date_produit_essai)s WHERE id_produit = %(value_id_produit)s """
             with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_update_intitulegenre, valeur_update_dictionnaire)
+                mconn_bd.execute(str_sql_update_intituleproduits, valeur_update_dictionnaire)
 
             flash(f"Donnée mise à jour !!", "success")
             print(f"Donnée mise à jour !!")
