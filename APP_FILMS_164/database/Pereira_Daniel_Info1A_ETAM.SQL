@@ -13,10 +13,12 @@
 
 
 -- Export de la structure de la base pour pereira_daniel_info1a_etam
+DROP DATABASE IF EXISTS `pereira_daniel_info1a_etam`;
 CREATE DATABASE IF NOT EXISTS `pereira_daniel_info1a_etam` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `pereira_daniel_info1a_etam`;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_categorieproduit
+DROP TABLE IF EXISTS `t_categorieproduit`;
 CREATE TABLE IF NOT EXISTS `t_categorieproduit` (
   `id_Categorie` int NOT NULL,
   `nomCategorie` varchar(50) DEFAULT NULL,
@@ -52,13 +54,14 @@ INSERT INTO `t_categorieproduit` (`id_Categorie`, `nomCategorie`, `descCategorie
 /*!40000 ALTER TABLE `t_categorieproduit` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_couleur
+DROP TABLE IF EXISTS `t_couleur`;
 CREATE TABLE IF NOT EXISTS `t_couleur` (
   `id_Couleur` int NOT NULL,
   `couleur` varchar(50) NOT NULL,
   PRIMARY KEY (`id_Couleur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_couleur : ~10 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_couleur : ~14 rows (environ)
 /*!40000 ALTER TABLE `t_couleur` DISABLE KEYS */;
 INSERT INTO `t_couleur` (`id_Couleur`, `couleur`) VALUES
 	(1, 'Noir'),
@@ -70,10 +73,15 @@ INSERT INTO `t_couleur` (`id_Couleur`, `couleur`) VALUES
 	(7, 'Bordeau'),
 	(8, 'Vert'),
 	(9, 'Bleu foncé'),
-	(10, 'Beige');
+	(10, 'Beige'),
+	(11, 'Blush'),
+	(12, 'Rose bonbon'),
+	(13, 'Rose'),
+	(14, 'Emeraude');
 /*!40000 ALTER TABLE `t_couleur` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produit
+DROP TABLE IF EXISTS `t_produit`;
 CREATE TABLE IF NOT EXISTS `t_produit` (
   `id_Produit` int NOT NULL,
   `tailleProduit` varchar(50) DEFAULT NULL,
@@ -87,13 +95,25 @@ CREATE TABLE IF NOT EXISTS `t_produit` (
   CONSTRAINT `FKProduitCouleur` FOREIGN KEY (`fk_Couleur`) REFERENCES `t_couleur` (`id_Couleur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_produit : ~1 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_produit : ~12 rows (environ)
 /*!40000 ALTER TABLE `t_produit` DISABLE KEYS */;
 INSERT INTO `t_produit` (`id_Produit`, `tailleProduit`, `nomProduit`, `fk_Couleur`, `fk_Categorie`) VALUES
-	(1, 'M', 'Pantalon de pyjama imprimé', 5, 21);
+	(1, 'M', 'Pantalon de pyjama imprimé', 5, 21),
+	(2, 'L', 'Pantalon de pyjama imprimé', 5, 21),
+	(3, 'M', 'Pantalon de pyjama imprimé', 1, 21),
+	(4, 'L', 'Pantalon de pyjama imprimé', 1, 21),
+	(5, '70B', 'Soutien-gorge corbeille', 6, 5),
+	(6, '70B', 'Soutien-gorge corbeille', 4, 5),
+	(7, '75B', 'Soutien-gorge corbeille', 6, 5),
+	(8, '75B', 'Soutien-gorge corbeille', 4, 5),
+	(9, '32', 'String en brodé', 12, 9),
+	(10, '34', 'String en brodé', 14, 9),
+	(11, '36', 'String en brodé', 3, 9),
+	(12, '38', 'String en brodé', 1, 9);
 /*!40000 ALTER TABLE `t_produit` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produitajoutstock
+DROP TABLE IF EXISTS `t_produitajoutstock`;
 CREATE TABLE IF NOT EXISTS `t_produitajoutstock` (
   `id_ProduitAjoutStock` int NOT NULL,
   `DateAjout` date NOT NULL,
@@ -112,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `t_produitajoutstock` (
 /*!40000 ALTER TABLE `t_produitajoutstock` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produitretirerstock
+DROP TABLE IF EXISTS `t_produitretirerstock`;
 CREATE TABLE IF NOT EXISTS `t_produitretirerstock` (
   `id_ProduitRetirerStock` int NOT NULL,
   `DateRetirer` date NOT NULL,
@@ -130,6 +151,7 @@ CREATE TABLE IF NOT EXISTS `t_produitretirerstock` (
 /*!40000 ALTER TABLE `t_produitretirerstock` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_stock
+DROP TABLE IF EXISTS `t_stock`;
 CREATE TABLE IF NOT EXISTS `t_stock` (
   `id_Stock` int NOT NULL,
   `quantiteStock` varchar(50) DEFAULT NULL,
@@ -141,27 +163,31 @@ CREATE TABLE IF NOT EXISTS `t_stock` (
   CONSTRAINT `FKProduitStock` FOREIGN KEY (`fk_Produit`) REFERENCES `t_produit` (`id_Produit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DELIMITER //
-CREATE TRIGGER tr_ajout_stock
-AFTER INSERT ON t_produitajoutstock
-FOR EACH ROW
-BEGIN
-  UPDATE t_stock SET quantiteStock = quantiteStock + NEW.QuantiteAjoute WHERE id_Produit = NEW.fk_Produit;
-END //
-DELIMITER ;
-
-DELIMITER //
-CREATE TRIGGER tr_retrait_stock
-AFTER INSERT ON t_produitretirerstock
-FOR EACH ROW
-BEGIN
-  UPDATE t_stock SET quantiteStock = quantiteStock - NEW.QuantiteRetirer WHERE id_Produit = NEW.fk_Produit;
-END //
-DELIMITER ;
-
--- Export de données de la table pereira_daniel_info1a_etam.t_stock : ~0 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_stock : ~1 rows (environ)
 /*!40000 ALTER TABLE `t_stock` DISABLE KEYS */;
+INSERT INTO `t_stock` (`id_Stock`, `quantiteStock`, `lieuStock`, `dernieredateajout`, `fk_Produit`) VALUES
+	(1, NULL, 'Garage', NULL, 1);
 /*!40000 ALTER TABLE `t_stock` ENABLE KEYS */;
+
+-- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_ajout_stock
+DROP TRIGGER IF EXISTS `tr_ajout_stock`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tr_ajout_stock` AFTER INSERT ON `t_produitajoutstock` FOR EACH ROW BEGIN
+  UPDATE t_stock SET quantiteStock = quantiteStock + NEW.QuantiteAjoute WHERE id_Produit = NEW.fk_Produit;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_retrait_stock
+DROP TRIGGER IF EXISTS `tr_retrait_stock`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tr_retrait_stock` AFTER INSERT ON `t_produitretirerstock` FOR EACH ROW BEGIN
+  UPDATE t_stock SET quantiteStock = quantiteStock - NEW.QuantiteRetirer WHERE id_Produit = NEW.fk_Produit;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

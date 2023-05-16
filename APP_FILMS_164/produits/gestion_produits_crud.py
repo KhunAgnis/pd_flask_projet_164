@@ -38,13 +38,8 @@ def produits_afficher(order_by, id_produit_sel):
 
                     mc_afficher.execute(strsql_produits_afficher)
                 elif order_by == "ASC":
-                    # C'EST LA QUE VOUS ALLEZ DEVOIR PLACER VOTRE PROPRE LOGIQUE MySql
-                    # la commande MySql classique est "SELECT * FROM t_genre"
-                    # Pour "lever"(raise) une erreur s'il y a des erreurs sur les noms d'attributs dans la table
-                    # donc, je précise les champs à afficher
-                    # Constitution d'un dictionnaire pour associer l'id du produit sélectionné avec un nom de variable
                     valeur_id_produit_selected_dictionnaire = {"value_id_produit_selected": id_produit_sel}
-                    strsql_produits_afficher = """SELECT * FROM t_produit WHERE id_Produit = %(value_id_Produit_selected)s"""
+                    strsql_produits_afficher = """SELECT * FROM t_produit WHERE id_Produit = %(value_id_Produit_selected)"""
 
                     mc_afficher.execute(strsql_produits_afficher, valeur_id_produit_selected_dictionnaire)
                 else:
@@ -55,25 +50,18 @@ def produits_afficher(order_by, id_produit_sel):
                 data_produits = mc_afficher.fetchall()
 
                 print("data_produits ", data_produits, " Type : ", type(data_produits))
-
-                # Différencier les messages si la table est vide.
                 if not data_produits and id_produit_sel == 0:
                     flash("""La table "t_produit" est vide. !!""", "warning")
                 elif not data_produits and id_produit_sel > 0:
-                    # Si l'utilisateur change l'id_produit dans l'URL et que le produit n'existe pas,
                     flash(f"Le produit demandé n'existe pas !!", "warning")
                 else:
-                    # Dans tous les autres cas, c'est que la table "t_genre" est vide.
-                    # OM 2020.04.09 La ligne ci-dessous permet de donner un sentiment rassurant aux utilisateurs.
                     flash(f"Données produits affichés !!", "success")
 
         except Exception as Exception_produits_afficher:
             raise ExceptionProduitsAfficher(f"fichier : {Path(__file__).name}  ;  "
                                           f"{produits_afficher.__name__} ; "
                                           f"{Exception_produits_afficher}")
-
-    # Envoie la page "HTML" au serveur.
-    return render_template("/produits_afficher.html", data_produits=data_produits)
+    return render_template("produits/produits_afficher.html", data_produits=data_produits)
 
 
 """
@@ -122,7 +110,7 @@ def produits_ajouter_wtf():
                                             f"{produits_ajouter_wtf.__name__} ; "
                                             f"{Exception_produits_ajouter_wtf}")
 
-    return render_template("/produits_ajouter_wtf.html", form=form)
+    return render_template("produits/produits_ajouter_wtf.html", form=form)
 
 
 """
@@ -199,7 +187,7 @@ def produit_update_wtf():
                                       f"{produit_update_wtf.__name__} ; "
                                       f"{Exception_produit_update_wtf}")
 
-    return render_template("/produits_update_wtf.html", form_update=form_update)
+    return render_template("produits/produits_update_wtf.html", form_update=form_update)
 
 
 """
@@ -302,7 +290,7 @@ def produit_delete_wtf():
                                       f"{produit_delete_wtf.__name__} ; "
                                       f"{Exception_produit_delete_wtf}")
 
-    return render_template("/produits_delete_wtf.html",
+    return render_template("produits/produits_delete_wtf.html",
                            form_delete=form_delete,
                            btn_submit_del=btn_submit_del,
                            data_films_associes=data_films_attribue_produit_delete)
