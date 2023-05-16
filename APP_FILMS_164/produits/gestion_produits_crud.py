@@ -91,8 +91,8 @@ def produits_ajouter_wtf():
     if request.method == "POST":
         try:
             if form.validate_on_submit():
-                name_produit_wtf = form.nom_produit_wtf.data
-                name_produit = name_produit_wtf.lower()
+                name_produits_wtf = form.nom_produits_wtf.data
+                name_produits = name_produits_wtf.lower()
                 valeurs_insertion_dictionnaire = {"value_intitule_produits": name_produit}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 

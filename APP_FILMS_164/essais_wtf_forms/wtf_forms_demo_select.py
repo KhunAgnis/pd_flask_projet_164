@@ -20,9 +20,9 @@ class MonPremierWTForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(message="Il manque le mot de passe !!!")])
 
-    nom_produit_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_produit_wtf = StringField("Clavioter le produit ", validators=[Length(min=2, max=20, message="min 2 max 20"),
-                                                                   Regexp(nom_produit_regexp,
+    nom_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    nom_produits_wtf = StringField("Clavioter le produit ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                   Regexp(nom_produits_regexp,
                                                                           message="Pas de chiffres, de caractères "
                                                                                   "spéciaux, d'espace à double, "
                                                                                   "de double apostrophe, "

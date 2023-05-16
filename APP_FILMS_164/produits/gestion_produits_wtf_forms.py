@@ -15,9 +15,9 @@ class FormWTFAjouterProduit(FlaskForm):
         Dans le formulaire "produits_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
-    nom_produit_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_produit_wtf = StringField("Clavioter le produit ", validators=[Length(min=2, max=20, message="min 2 max 20"),
-                                                                   Regexp(nom_produit_regexp,
+    nom_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    nom_produits_wtf = StringField("Clavioter le produit ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                   Regexp(nom_produits_regexp,
                                                                           message="Pas de chiffres, de caractères "
                                                                                   "spéciaux, "
                                                                                   "d'espace à double, de double "
@@ -41,7 +41,7 @@ class FormWTFUpdateProduit(FlaskForm):
                                                                                          "apostrophe, de double trait "
                                                                                          "union")
                                                                           ])
-    date_produit_wtf_essai = DateField("Essai date", validators=[InputRequired("Date obligatoire"),
+    date_produits_wtf_essai = DateField("Essai date", validators=[InputRequired("Date obligatoire"),
                                                                DataRequired("Date non valide")])
     submit = SubmitField("Update produit")
 

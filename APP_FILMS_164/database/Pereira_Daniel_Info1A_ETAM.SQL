@@ -174,7 +174,7 @@ DROP TRIGGER IF EXISTS `tr_ajout_stock`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `tr_ajout_stock` AFTER INSERT ON `t_produitajoutstock` FOR EACH ROW BEGIN
-  UPDATE t_stock SET quantiteStock = quantiteStock + NEW.QuantiteAjoute WHERE id_Produit = NEW.fk_Produit;
+  UPDATE t_stock SET quantiteStock = quantiteStock + NEW.QuantiteAjoute WHERE fk_Produit = NEW.fk_Produit;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
@@ -184,7 +184,7 @@ DROP TRIGGER IF EXISTS `tr_retrait_stock`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `tr_retrait_stock` AFTER INSERT ON `t_produitretirerstock` FOR EACH ROW BEGIN
-  UPDATE t_stock SET quantiteStock = quantiteStock - NEW.QuantiteRetirer WHERE id_Produit = NEW.fk_Produit;
+  UPDATE t_stock SET quantiteStock = quantiteStock - NEW.QuantiteRetirer WHERE fk_Produit = NEW.fk_Produit;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
