@@ -134,7 +134,7 @@ def produits_ajouter_wtf():
 
 
 @app.route("/produit_update", methods=['GET', 'POST'])
-def produit_update_wtf():
+def produits_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_produit"
     id_produit_update = request.values['id_produit_btn_edit_html']
 
@@ -184,7 +184,7 @@ def produit_update_wtf():
 
     except Exception as Exception_produit_update_wtf:
         raise ExceptionProduitsUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
-                                      f"{produit_update_wtf.__name__} ; "
+                                      f"{produits_update_wtf.__name__} ; "
                                       f"{Exception_produit_update_wtf}")
 
     return render_template("produits/produits_update_wtf.html", form_update=form_update)
@@ -206,7 +206,7 @@ def produit_update_wtf():
 
 
 @app.route("/produit_delete", methods=['GET', 'POST'])
-def produit_delete_wtf():
+def produits_delete_wtf():
     data_films_attribue_produit_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_Produit"
@@ -287,7 +287,7 @@ def produit_delete_wtf():
 
     except Exception as Exception_produit_delete_wtf:
         raise ExceptionProduitsDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
-                                      f"{produit_delete_wtf.__name__} ; "
+                                      f"{produits_delete_wtf.__name__} ; "
                                       f"{Exception_produit_delete_wtf}")
 
     return render_template("produits/produits_delete_wtf.html",
