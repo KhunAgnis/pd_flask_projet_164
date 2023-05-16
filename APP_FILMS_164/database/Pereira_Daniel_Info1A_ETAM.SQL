@@ -169,6 +169,25 @@ INSERT INTO `t_stock` (`id_Stock`, `quantiteStock`, `lieuStock`, `dernieredateaj
 	(1, NULL, 'Garage', NULL, 1);
 /*!40000 ALTER TABLE `t_stock` ENABLE KEYS */;
 
+-- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_ajout_stock
+DROP TRIGGER IF EXISTS `tr_ajout_stock`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tr_ajout_stock` AFTER INSERT ON `t_produitajoutstock` FOR EACH ROW BEGIN
+  UPDATE t_stock SET quantiteStock = quantiteStock + NEW.QuantiteAjoute WHERE id_Produit = NEW.fk_Produit;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
+
+-- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_retrait_stock
+DROP TRIGGER IF EXISTS `tr_retrait_stock`;
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `tr_retrait_stock` AFTER INSERT ON `t_produitretirerstock` FOR EACH ROW BEGIN
+  UPDATE t_stock SET quantiteStock = quantiteStock - NEW.QuantiteRetirer WHERE id_Produit = NEW.fk_Produit;
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
