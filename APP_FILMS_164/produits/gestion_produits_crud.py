@@ -63,7 +63,7 @@ def produits_afficher(order_by, id_produit_sel):
             raise ExceptionProduitsAfficher(f"fichier : {Path(__file__).name}  ;  "
                                           f"{produits_afficher.__name__} ; "
                                           f"{Exception_produits_afficher}")
-    return render_template("produits/produits_afficher.html", data_produits=data_produits)
+    return render_template("produits/produits_afficher.html", data=data_produits)
 
 
 """
