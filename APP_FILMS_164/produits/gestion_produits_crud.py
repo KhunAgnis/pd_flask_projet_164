@@ -49,6 +49,7 @@ def produits_afficher(order_by, id_produit_sel):
                     mc_afficher.execute(strsql_produits_afficher)
 
                 data_produits = mc_afficher.fetchall()
+                print("data_produits ", data_produits, " Type : ", type(data_produits))
 
                 print("data_produits ", data_produits, " Type : ", type(data_produits))
                 if not data_produits and id_produit_sel == 0:
