@@ -34,7 +34,11 @@ def produits_afficher(order_by, id_produit_sel):
         try:
             with DBconnection() as mc_afficher:
                 if order_by == "ASC" and id_produit_sel == 0:
-                    strsql_produits_afficher = """SELECT * FROM t_produit ORDER BY id_Produit ASC"""
+                    strsql_produits_afficher = """select t_produit.id_Produit,t_produit.nomProduit,t_produit.tailleProduit,t_couleur.couleur,t_categorieproduit.descCategorie
+                                                from t_produit
+                                                Inner join t_couleur on t_produit.fk_Couleur = t_couleur.id_couleur
+                                                Inner join t_categorieproduit on t_produit.fk_Categorie = t_categorieproduit.id_categorie 
+                                                ORDER BY id_Produit ASC"""
 
                     mc_afficher.execute(strsql_produits_afficher)
                 elif order_by == "ASC":
@@ -92,12 +96,21 @@ def produits_ajouter_wtf():
     if request.method == "POST":
         try:
             if form.validate_on_submit():
-                name_produits_wtf = form.nom_produits_wtf.data
-                name_produits = name_produits_wtf.lower()
-                valeurs_insertion_dictionnaire = {"value_intitule_produits": name_produit}
+                nom_produits_wtf = form.nom_produits_wtf.data
+                taille_produits_wtf = form.taille_produits_wtf.data
+                couleur_produits_wtf = form.couleur_produits_wtf.data
+                categorie_produits_wtf = form.categorie_produits_wtf.data
+
+                valeurs_insertion_dictionnaire = {"value_nom_produits": nom_produits_wtf}
+                valeurs_insertion_dictionnaire = {"value_taille_produits": taille_produits_wtf}
+                valeurs_insertion_dictionnaire = {"value_couleur_produits": couleur_produits_wtf}
+                valeurs_insertion_dictionnaire = {"value_categorie_produits": categorie_produits_wtf}
+
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_genre = """INSERT INTO t_produit (id_produit,nomProduit, tailleProduit) VALUES (NULL,%(value_intitule_produit)s) """
+                strsql_insert_genre = """INSERT INTO t_produit 
+                                    (id_produit,nomProduit, tailleProduit,fk_couleur,fk_categorie) 
+                                    VALUES (NULL,%(value_nom_produits),%(value_taille_produits),%(value_couleur_produits),%(value_categorie_produits)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
 

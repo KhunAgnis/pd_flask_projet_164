@@ -12,7 +12,7 @@
                 <thead>
                     <tr>
                         <th class="align-middle">
-                            IdProduit
+                            Id Produit
                         </th>
                         <th class="align-middle">
                             Nom du produit
@@ -21,9 +21,18 @@
 							Taille du produit
                         </th>
                         <th class="align-middle">
-
+							Couleur du produit
                         </th>
                         <th class="align-middle">
+							Catégorie du produit
+                        </th>
+						<th class="align-middle">
+
+                        </th>
+						<th class="align-middle">
+
+                        </th>
+						<th class="align-middle">
 
                         </th>
                     </tr>
@@ -41,6 +50,12 @@
 						</td>
 						<td class="align-middle">
 							{{ row.tailleProduit }}
+						</td>
+						<td class="align-middle">
+							{{ row.couleur }}
+						</td>
+						<td class="align-middle">
+							{{ row.descCategorie }}
 						</td>
 						<td class="text-center" class="align-middle">
 							<a class="btn btn-primary" href="{{ url_for('produits_ajouter_wtf') }}" role="button">Ajouter</a>
