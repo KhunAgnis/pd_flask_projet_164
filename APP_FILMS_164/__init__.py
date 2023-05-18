@@ -44,7 +44,8 @@ try:
     from APP_FILMS_164.produits import gestion_produits_crud
     from APP_FILMS_164.demos_om_164 import routes_demos
 
-    from APP_FILMS_164.films_genres import gestion_films_genres_crud
+    from APP_FILMS_164.stock import gestion_stock_wtf_forms
+    from APP_FILMS_164.stock import gestion_stock_crud
     from APP_FILMS_164.erreurs import msg_avertissements
 
     from APP_FILMS_164.couleur import gestion_couleur_crud
