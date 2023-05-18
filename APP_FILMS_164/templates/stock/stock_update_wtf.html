@@ -1,53 +1,25 @@
 {% extends "base.html" %}
-{% block title %} Editer un FILM (WTF) {% endblock %}
+{% block title %} Editer un Stock (WTF) {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<p>
-				Editer un FILM
+				Editer un Stock
 			</p>
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_update_film.hidden_tag() }}
+				{{ form.hidden_tag() }}
 				<div class="form-group">
 					<p>
-						{{ form_update_film.nom_film_update_wtf.label }}<br>
-						{{ form_update_film.nom_film_update_wtf(cols=50, rows=3) }}<br>
-						{% for error in form_update_film.nom_film_update_wtf.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update_film.duree_film_update_wtf.label }}<br>
-						{{ form_update_film.duree_film_update_wtf(size=32) }}<br>
-						{% for error in form_update_film.duree_film_update_wtf.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update_film.description_film_update_wtf.label }}<br>
-						{{ form_update_film.description_film_update_wtf(cols=50, rows=10) }}<br>
-						{% for error in form_update_film.description_film_update_wtf.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update_film.cover_link_film_update_wtf.label }}<br>
-						{{ form_update_film.cover_link_film_update_wtf(cols=100, rows=10) }}<br>
-						{% for error in form_update_film.cover_link_film_update_wtf.errors %}
-						<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update_film.datesortie_film_update_wtf.label }}<br>
-						{{ form_update_film.datesortie_film_update_wtf(size=12) }}<br>
-						{% for error in form_update_film.datesortie_film_update_wtf.errors %}
+						{{ form_update_stock.nom_stock_update_wtf.label }}<br>
+						{{ form_update_stock.nom_stock_update_wtf(cols=50, rows=3) }}<br>
+						{% for error in form_update_stock.nom_stock_update_wtf.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 				</div>
-				{{ form_update_film.submit(class="btn btn-primary") }}
+				{{ form_update_stock.submit(class="btn btn-primary") }}
 			</form>
 		</div>
 	</div>
