@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} Afficher FILMS {% endblock %}
+{% block title %} Afficher les couleurs {% endblock %}
 {% block body %}
 <div class="container">
 	<div class="col-md-12">
@@ -8,22 +8,13 @@
 				<thead>
 					<tr>
 						<th class="" >
-						  Id
+						  IdCouleur
 						</th>
 						<th class="" >
-						  Nom
+						  Couleur
 						</th>
 						<th class="" >
-						  Durée
-						</th>
-						<th class="" >
-						  Date de sortie
-						</th>
-						<th class="" >
-						  Description
-						</th>
-						<th class="" >
-						  Affiche
+
 						</th>
 					</tr>
 				</thead>
@@ -32,10 +23,10 @@
 			<tbody>
 				<tr>
 					  <th class="align-middle">
-						  {{ row.id_film }}
+						  {{ row.id_couleur }}
 					  </th>
 					  <th class="align-middle">
-						{{ row.nom_film }}
+						{{ row.couleur }}
 					  </th>
 					  <th class="align-middle">
 						{{ row.duree_film|default("", True) }}

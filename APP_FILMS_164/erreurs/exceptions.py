@@ -111,11 +111,11 @@ class ExceptionGenresFilmsAfficherData(Base):
     pass
 
 
-class ExceptionFilmUpdateWtf(Base):
+class ExceptionCouleurUpdateWtf(Base):
     pass
 
 
-class ExceptionFilmDeleteWtf(Base):
+class ExceptionCouleurDeleteWtf(Base):
     pass
 
 
