@@ -40,7 +40,7 @@ def couleur_afficher(order_by, id_couleur_sel):
                     mc_afficher.execute(strsql_couleur_afficher)
                 elif order_by == "ASC":
                     valeur_id_couleur_selected_dictionnaire = {"value_id_couleur_selected": id_couleur_sel}
-                    strsql_couleur_afficher = """SELECT * FROM t_couleur WHERE id_Produit = %(
+                    strsql_couleur_afficher = """SELECT * FROM t_couleur WHERE id_couleur = %(
                     value_id_couleur_selected)s """
 
                     mc_afficher.execute(strsql_couleur_afficher, valeur_id_couleur_selected_dictionnaire)
