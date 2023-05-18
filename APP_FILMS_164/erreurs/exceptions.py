@@ -95,19 +95,19 @@ class ExceptionProduitsAjouterWtf(Base):
     pass
 
 
-class ExceptionFilmsGenresAfficher(Base):
+class ExceptionCouleurAfficher(Base):
     pass
 
 
-class ExceptionEditGenreFilmSelected(Base):
+class ExceptionEditCouleurSelected(Base):
     pass
 
 
-class ExceptionUpdateGenreFilmSelected(Base):
+class ExceptionUpdateCouleurSelected(Base):
     pass
 
 
-class ExceptionGenresFilmsAfficherData(Base):
+class ExceptionCouleurAfficherData(Base):
     pass
 
 
