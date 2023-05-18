@@ -29,6 +29,42 @@ Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_updat
             On ne doit pas accepter un champ vide.
 """
 
+@app.route("/couleur_afficher/<string:order_by>/<int:id_couleur_sel>", methods=['GET', 'POST'])
+def couleur_afficher(order_by, id_couleur_sel):
+    if request.method == "GET":
+        try:
+            with DBconnection() as mc_afficher:
+                if order_by == "ASC" and id_couleur_sel == 0:
+                    strsql_couleur_afficher = """select * from t_couleur ORDER BY id_couleur ASC"""
+
+                    mc_afficher.execute(strsql_couleur_afficher)
+                elif order_by == "ASC":
+                    valeur_id_couleur_selected_dictionnaire = {"value_id_couleur_selected": id_couleur_sel}
+                    strsql_couleur_afficher = """SELECT * FROM t_couleur WHERE id_Produit = %(
+                    value_id_couleur_selected)s """
+
+                    mc_afficher.execute(strsql_couleur_afficher, valeur_id_couleur_selected_dictionnaire)
+                else:
+                    strsql_couleur_afficher = """SELECT * FROM t_couleur ORDER BY id_couleur DESC"""
+
+                    mc_afficher.execute(strsql_couleur_afficher)
+
+                data_couleur = mc_afficher.fetchall()
+                print("data_couleur ", data_couleur, " Type : ", type(data_couleur))
+
+                print("data_couleur ", data_couleur, " Type : ", type(data_couleur))
+                if not data_couleur and id_couleur_sel == 0:
+                    flash("""La table "t_couleur" est vide. !!""", "warning")
+                elif not data_couleur and id_couleur_sel > 0:
+                    flash(f"La couleur demandée n'existe pas !!", "warning")
+                else:
+                    flash(f"Voici la liste des couleurs.", "success")
+
+        except Exception as Exception_couleur_afficher:
+            raise ExceptionCouleurAfficher(f"fichier : {Path(__file__).name}  ;  "
+                                          f"{couleur_afficher.__name__} ; "
+                                          f"{Exception_couleur_afficher}")
+    return render_template("couleur/couleur_afficher.html", data=data_couleur)
 
 @app.route("/couleur_add", methods=['GET', 'POST'])
 def couleur_add_wtf():
@@ -94,7 +130,7 @@ def couleur_update_wtf():
                                           }
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_nom_couleur = """UPDATE t_film SET couleur = %(value_nom_couleur)s,"""
+            str_sql_update_nom_couleur = """UPDATE t_couleur SET couleur = %(value_nom_couleur)s,"""
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_nom_couleur, valeur_update_dictionnaire)
 
@@ -103,10 +139,10 @@ def couleur_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('films_genres_afficher', id_film_sel=id_film_update))
+            return redirect(url_for('films_genres_afficher', id_couleur_sel=id_couleur_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_produit" de la "t_genre"
-            str_sql_id_couleur = "SELECT * FROM t_film WHERE id_film = %(value_id_film)s"
+            str_sql_id_couleur = "SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"
             valeur_select_dictionnaire = {"value_id_couleur": id_couleur_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_couleur, valeur_select_dictionnaire)
