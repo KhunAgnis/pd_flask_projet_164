@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %} Effacer une Couleur (WTF) {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Effacer une Couleur
+			</p>
+			<table class="table table-responsive-sm">
+				{% if data_couleur_del %}
+				<thead>
+				<tr>
+					<th class="">
+						IdCouleur
+					</th>
+					<th class="">
+						Nom de la couleur
+					</th>
+				</tr>
+				</thead>
+				{% endif %}
+				{% for row in data_couleur_del %}
+				<tbody>
+				<tr>
+					<th class="align-middle">
+						{{ row.id_couleur }}
+					</th>
+					<th class="align-middle">
+						{{ row.couleur }}
+					</th>
+				</tr>
+				</tr>
+				</tbody>
+				{% else %}
+				<tbody>
+				<tr>
+
+				</tr>
+				</tbody>
+				{% endfor %}
+
+			</table>
+
+			<form action="" method="POST" novalidate>
+				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+				{{ form_delete_couleur.hidden_tag() }}
+				{{ form_delete_couleur.submit_btn_conf_del_couleur(class="btn btn-info") }}
+
+				{% if btn_submit_del %}
+					{{ form_delete_couleur.submit_btn_del_couleur(class="btn btn-danger") }}
+				{% endif %}
+
+				{{ form_delete_couleur.submit_btn_annuler(class="btn btn-primary") }}
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
