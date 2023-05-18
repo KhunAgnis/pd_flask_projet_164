@@ -139,7 +139,7 @@ def couleur_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('films_genres_afficher', id_couleur_sel=id_couleur_update))
+            return redirect(url_for('couleur_afficher', id_couleur_sel=id_couleur_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_produit" de la "t_genre"
             str_sql_id_couleur = "SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"
