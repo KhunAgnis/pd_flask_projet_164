@@ -16,7 +16,7 @@ class FormWTFAjouterProduit(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_produits_wtf = StringField("Clavioter le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_produits_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                    Regexp(nom_produits_regexp,
                                                                           message="Pas de chiffres, de caractères "
                                                                                   "spéciaux, "
@@ -24,17 +24,17 @@ class FormWTFAjouterProduit(FlaskForm):
                                                                                   "apostrophe, de double trait union")
                                                                    ])
     taille_produits_regexp = r"^([A-Z]|[0-9])+$"
-    taille_produits_wtf = StringField("Clavioter la taille", validators=[
+    taille_produits_wtf = StringField("Insérer la taille", validators=[
                                                                 Length(min=1, max=20, message="Min 1 max 20"),
                                                                 Regexp(taille_produits_regexp, message="Chiffre et lettre uniquement (pas de caractères spéciaux)")
                                                                     ])
     couleur_produits_regexp = r"^([A-Z]|[0-9])+$"
-    couleur_produits_wtf = StringField("Clavioter la couleur ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    couleur_produits_wtf = StringField("Choisir la couleur ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                         Regexp(couleur_produits_regexp,
                                                                                message="Chiffre et lettre uniquement (pas de caractères spéciaux)")
                                                                         ])
     categorie_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    categorie_produits_wtf = StringField("Clavioter la catégorie ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    categorie_produits_wtf = StringField("Choisir la catégorie ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                         Regexp(categorie_produits_regexp,
                                                                                message="Chiffre et lettre uniquement (pas de caractères spéciaux)")
                                                                         ])
