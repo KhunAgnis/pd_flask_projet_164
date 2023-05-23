@@ -18,10 +18,7 @@ class FormWTFAjouterProduit(FlaskForm):
     nom_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
     nom_produits_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                    Regexp(nom_produits_regexp,
-                                                                          message="Pas de chiffres, de caractères "
-                                                                                  "spéciaux, "
-                                                                                  "d'espace à double, de double "
-                                                                                  "apostrophe, de double trait union")
+                                                                          message="Lettre uniquement")
                                                                    ])
     taille_produits_regexp = r"^([A-Z]|[0-9])+$"
     taille_produits_wtf = StringField("Insérer la taille", validators=[

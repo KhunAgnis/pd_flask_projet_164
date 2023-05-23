@@ -1,22 +1,30 @@
 {% extends "base.html" %}
 {% block title %} /!\ ERREUR 404 /!\ {% endblock %}
 {% block body %}
+<style>
+	.navbar {
+		height: 60px; /* Ajustez cette valeur selon vos besoins */
+	}
+</style>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<h3>
-				/!\ ERREUR 404 /!\
+			<h3 class="text-rouge">
+				<br>
+  				/!\ ERREUR 404 /!\
 			</h3>
+
 			<main class="site-content">
 				<p>
 					<br>
-					Le serveur n'a pas trouvé la ressource demandée.<br>
+					<em>Le serveur n'a pas trouvé la ressource demandée.</em><br>
 					<br>
 					<br>
 					<br>
+					Pour revenir à la page principale, cliquez sur le lien ci-dessous :
 					<br>
-					Pour revenir à la page principale, cliquez sur le lien ci-dessous.<br>
-					<a href="http://127.0.0.1:5005/homepage" target="_blank">http://127.0.0.1:5005/homepage</a>
+					<br>
+					<a class='text-violet'href="http://127.0.0.1:5005/homepage" target="_blank">http://127.0.0.1:5005/homepage</a>
 					<br>
 					<br>
 					<br>
@@ -31,4 +39,5 @@
 		</div>
 	</div>
 </div>
+
 {% endblock %}

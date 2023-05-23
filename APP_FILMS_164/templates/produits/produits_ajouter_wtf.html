@@ -2,48 +2,75 @@
 {% block title %} Ajouter un Produit (WTF) {% endblock %}
 {% block body %}
 <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<p>
-				Ajouter un nouveau Produit
-			</p>
-			<form action="" method="POST" novalidate>
-				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form.hidden_tag() }}
-				<div class="form-group">
-					<p>
-						{{ form.nom_produits_wtf.label }}<br>
-						{{ form.nom_produits_wtf(size=24) }}<br>
-						{% for error in form.nom_produits_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form.taille_produits_wtf.label }}<br>
-						{{ form.taille_produits_wtf(size=24) }}<br>
-						{% for error in form.taille_produits_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form.couleur_produits_wtf.label }}<br>
-						{{ form.couleur_produits_wtf(size=24) }}<br>
-						{% for error in form.couleur_produits_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form.categorie_produits_wtf.label }}<br>
-						{{ form.categorie_produits_wtf(size=24) }}<br>
-						{% for error in form.categorie_produits_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-				</div>
-				{{ form.submit(class="btn btn-primary") }}
-			</form>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                Ajouter un nouveau Produit
+            </p>
+            <form action="" method="POST" novalidate>
+                <!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+                {{ form.hidden_tag() }}
+                <div class="form-group {% if form.nom_produits_wtf.errors %}{% if form.nom_produits_wtf.data %}has-success{% else %}has-danger{% endif %}{% endif %}">
+                    <label for="{{ form.nom_produits_wtf.id }}">{{ form.nom_produits_wtf.label }}</label>
+                    {% if form.nom_produits_wtf.errors %}
+                        <input type="text" class="form-control form-control-sm is-invalid" id="{{ form.nom_produits_wtf.id }}" name="{{ form.nom_produits_wtf.name }}" value="{{ form.nom_produits_wtf.data }}">
+                        {% for error in form.nom_produits_wtf.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% elif form.nom_produits_wtf.data %}
+                        <input type="text" class="form-control form-control-sm is-valid" id="{{ form.nom_produits_wtf.id }}" name="{{ form.nom_produits_wtf.name }}" value="{{ form.nom_produits_wtf.data }}">
+                        <div class="valid-feedback">Vous avez utilisé le bon format.</div>
+                    {% else %}
+                        {{ form.nom_produits_wtf(class='form-control form-control-sm', maxlength=20, style='max-width: 400px;') }}
+                    {% endif %}
+                </div>
+                <div class="form-group {% if form.taille_produits_wtf.errors %}has-danger{% endif %}">
+                    <label for="{{ form.taille_produits_wtf.id }}">{{ form.taille_produits_wtf.label }}</label>
+                    {% if form.taille_produits_wtf.errors %}
+                        <input type="text" class="form-control is-invalid" id="{{ form.taille_produits_wtf.id }}" name="{{ form.taille_produits_wtf.name }}">
+                        {% for error in form.taille_produits_wtf.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                    {% elif form.nom_produits_wtf.data %}
+                        <input type="text" class="form-control is-valid" id="{{ form.taille_produits_wtf.id }}" name="{{ form.taille_produits_wtf.name }}" value="{{ form.taille_produits_wtf.data }}">
+                        <div class="valid-feedback">Vous avez utilisé le bon format.</div>
+                    {% else %}
+                        {{ form.nom_produits_wtf(class='form-control', maxlength=20, style='max-width: 400px;') }}
+                    {% endif %}
+                </div>
+                <div class="form-group {% if form.couleur_produits_wtf.errors %}has-danger{% endif %}">
+                    <label for="{{ form.couleur_produits_wtf.id }}">{{ form.couleur_produits_wtf.label }}</label>
+                    {% if form.couleur_produits_wtf.errors %}
+                        <input type="text" class="form-control is-invalid" id="{{ form.couleur_produits_wtf.id }}" name="{{ form.couleur_produits_wtf.name }}">
+                        {% for error in form.couleur_produits_wtf.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                    {% elif form.nom_produits_wtf.data %}
+                        <input type="text" class="form-control is-valid" id="{{ form.couleur_produits_wtf.id }}" name="{{ form.couleur_produits_wtf.name }}" value="{{ form.couleur_produits_wtf.data }}">
+                        <div class="valid-feedback">Vous avez utilisé le bon format.</div>
+                    {% else %}
+                        {{ form.nom_produits_wtf(class='form-control', maxlength=20, style='max-width: 400px;') }}
+                    {% endif %}
+                </div>
+                <div class="form-group {% if form.categorie_produits_wtf.errors %}has-danger{% endif %}">
+                    <label for="{{ form.categorie_produits_wtf.id }}">{{ form.categorie_produits_wtf.label }}</label>
+                    {% if form.categorie_produits_wtf.errors %}
+                        <input type="text" class="form-control is-invalid" id="{{ form.categorie_produits_wtf.id }}" name="{{ form.categorie_produits_wtf.name }}">
+                        {% for error in form.categorie_produits_wtf.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% elif form.nom_produits_wtf.data %}
+                        <input type="text" class="form-control is-valid" id="{{ form.categorie_produits_wtf.id }}" name="{{ form.categorie_produits_wtf.name }}" value="{{ form.categorie_produits_wtf.data }}">
+                        <div class="valid-feedback">Vous avez utilisé le bon format.</div>
+                    {% else %}
+                        {{ form.nom_produits_wtf(class='form-control', maxlength=20, style='max-width: 400px;') }}
+                    {% endif %}
+                    </p>
+                </div>
+                {{ form.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
