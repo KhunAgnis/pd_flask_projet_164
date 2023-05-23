@@ -15,7 +15,7 @@
 
 	<!-- Stylesheets en local -->
 	<!-- https://bootswatch.com/solar/-->
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootswatch-4/solar/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootswatch-4/lux/bootstrap.min.css') }}">
 	<!-- https://bootswatch.com/darkly/ -->
 <!--	 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootswatch-4/darkly/bootstrap.min.css') }}">-->
 	<!--	https://bootswatch.com/cyborg/-->
@@ -35,8 +35,13 @@
 
 {% include 'flash_messages.html' %}
 <!-- Navigation -->
+<style>
+	.navbar {
+		height: 60px; /* Ajustez cette valeur selon vos besoins */
+	}
+</style>
 <div class="container">
-	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-secondary">
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="{{ url_for('mapageprincipale') }}">Stock ETAM - Daniel Pereira</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
