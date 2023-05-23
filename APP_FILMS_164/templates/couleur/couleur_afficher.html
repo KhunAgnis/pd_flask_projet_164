@@ -3,15 +3,15 @@
 {% block body %}
 <div class="container">
 	<div class="col-md-12">
-		<table class="table table-responsive-sm">
+		<table class="table table-bordered table-sm">
             {% if data %}
 				<thead>
 					<tr class="table-info">
 						<th class="" >
-						  IdCouleur
+						  id_Couleur
 						</th>
 						<th class="" >
-						  Nom de la couleur
+						  couleur
 						</th>
 						<th class="align-middle">
 							Pour ajouter
@@ -29,7 +29,7 @@
 			<tbody>
 				<tr>
 					  <th class="align-middle">
-						  {{ row.id_couleur }}
+						  {{ row.id_Couleur }}
 					  </th>
 					  <th class="align-middle">
 						{{ row.couleur }}
@@ -38,7 +38,7 @@
 						<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Ajouter</a>
 					  </th>
 					  <th class="align-middle">
-						<a class="btn btn-warning" href="{{ url_for('couleur_update_wtf', id_couleur_btn_edit_html=row.id_couleur) }}" role="button">Edit</a>
+						<a class="btn btn-warning" href="{{ url_for('couleur_update_wtf', id_couleur_btn_edit_html=row.id_Couleur) }}" role="button">Edit</a>
 					  </th>
 					  <th class="align-middle">
 						<a class="btn btn-danger" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Delete</a>

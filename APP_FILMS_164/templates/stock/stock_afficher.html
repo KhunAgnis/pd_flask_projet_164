@@ -3,7 +3,7 @@
 {% block body %}
 <div class="container">
 	<div class="col-md-12">
-		<table class="table table-responsive-sm">
+		<table class="table table-bordered table-sm">
             {% if data %}
 				<thead>
 					<tr class="table-info">
@@ -13,6 +13,9 @@
 						<th class="" >
 						  Lieu du stock
 						</th>
+						<th class="align-middle">
+							Quantité dans le stock
+                        </th>
 						<th class="align-middle">
 							Pour ajouter
                         </th>
@@ -33,6 +36,9 @@
 					  </th>
 					  <th class="align-middle">
 						{{ row.lieuStock }}
+					  </th>
+					<th class="align-middle">
+						{{ row.quantiteStock }}
 					  </th>
 					  <th class="align-middle">
 						<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Ajouter</a>
