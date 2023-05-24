@@ -13,8 +13,9 @@ from APP_FILMS_164 import app
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
 from APP_FILMS_164.produits.gestion_produits_wtf_forms import FormWTFAjouterProduit
-from APP_FILMS_164.produits.gestion_produits_wtf_forms import FormWTFDeleteProduit
 from APP_FILMS_164.produits.gestion_produits_wtf_forms import FormWTFUpdateProduit
+from APP_FILMS_164.produits.gestion_produits_wtf_forms import FormWTFDeleteProduit
+
 
 """
     Auteur : OM 2021.03.16
@@ -181,20 +182,27 @@ def produits_update_wtf():
         if form_update.validate_on_submit():
             # Récupèrer la valeur du champ depuis "produit_update_wtf.html" après avoir cliqué sur "SUBMIT".
             # Puis la convertir en lettres minuscules.
-            id_produit_update = form_update.id_produit_update_wtf.data
-            nomProduit_update = form_update.nomproduit_update_wtf.data
-            tailleproduit_essai = form_update.tailleProduit_wtf_essai.data
+            nom_produits_update = form_update.nom_produits_update_wtf.data
+            taille_produits_essai = form_update.taille_produits_wtf_essai.data
+            couleur_produits_update = form_update.couleur_produits_update_wtf.data
+            categorie_produits_update = form_update.categorie_produits_update_wtf.data
 
             valeur_update_dictionnaire = {"value_id_produit": id_produit_update,
-                                          "value_nomproduit": nomProduit_update,
-                                          "value_tailleProduit_essai": tailleproduit_essai
+                                          "value_tailleProduit_essai": taille_produits_essai,
+                                          "value_nomproduit": nom_produits_update,
+                                          "couleur_produits_update": couleur_produits_update,
+                                          "categorie_produits_update": categorie_produits_update
                                           }
+
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_intituleproduits = """UPDATE t_produit SET nomproduit = %(value_name_genre)s, 
-            date_ins_genre = %(value_date_produit_essai)s WHERE id_produit = %(value_id_produit)s """
+            str_sql_update_produits = """UPDATE t_produit SET tailleProduit = %(value_tailleProduit_essai)s, 
+            nomProduits = %(value_nomproduit)s, 
+            fk_Couleur = %(couleur_produits_update)s, 
+            fk_Categorie = %(categorie_produits_update)s,
+            RWHERE id_Produit = %(value_id_produit)s """
             with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_update_intituleproduits, valeur_update_dictionnaire)
+                mconn_bd.execute(str_sql_update_produits, valeur_update_dictionnaire)
 
             flash(f"Donnée mise à jour !!", "success")
             print(f"Donnée mise à jour !!")
@@ -211,12 +219,14 @@ def produits_update_wtf():
                 mybd_conn.execute(str_sql_id_produit, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom produit" pour l'UPDATE
             data_nom_produit = mybd_conn.fetchone()
-            print("data_nom_produit ", data_nom_produit, " type ", type(data_nom_produit), " produit ",
-                  data_nom_produit["intitule_produit"])
+            print("data_nom_produits ", data_nom_produit, " type ", type(data_nom_produit), " produits ",
+                  data_nom_produit["tailleProduit"])
 
             # Afficher la valeur sélectionnée dans les champs du formulaire "produit_update_wtf.html"
-            form_update.nom_produit_update_wtf.data = data_nom_produit["intitule_produit"]
-            form_update.date_produit_wtf_essai.data = data_nom_produit["date_ins_genre"]
+            form_update.taille_produits_wtf_essai.data = data_nom_produit["tailleProduit"]
+            form_update.nom_produits_update_wtf.data = data_nom_produit["nomProduit"]
+            form_update.couleur_produits_update_wtf.data = data_nom_produit["fk_Couleur"]
+            form_update.categorie_produits_update_wtf.data = data_nom_produit["fk_Categorie"]
 
     except Exception as Exception_produit_update_wtf:
         raise ExceptionProduitsUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
