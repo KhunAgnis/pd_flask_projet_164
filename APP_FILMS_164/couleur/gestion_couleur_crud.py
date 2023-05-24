@@ -11,7 +11,7 @@ from flask import url_for
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFAddCouleur
+from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFAjouterCouleur
 from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFDeleteCouleur
 from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFUpdateCouleur
 
@@ -66,16 +66,16 @@ def couleur_afficher(order_by, id_couleur_sel):
                                           f"{Exception_couleur_afficher}")
     return render_template("couleur/couleur_afficher.html", data=data_couleur)
 
-@app.route("/couleur_add", methods=['GET', 'POST'])
-def couleur_add_wtf():
+@app.route("/couleur_ajouter", methods=['GET', 'POST'])
+def couleur_ajouter_wtf():
     # Objet formulaire pour AJOUTER un film
-    form_add_couleur = FormWTFAddCouleur()
+    form_ajouter_couleur = FormWTFAjouterCouleur()
     if request.method == "POST":
         try:
-            if form_add_couleur.validate_on_submit():
-                nom_couleur_add = form_add_couleur.nom_couleur_add_wtf.data
+            if form_ajouter_couleur.validate_on_submit():
+                nom_couleur_ajouter = form_ajouter_couleur.nom_couleur_add_wtf.data
 
-                valeurs_insertion_dictionnaire = {"value_nom_couleur": nom_couleur_add}
+                valeurs_insertion_dictionnaire = {"value_nom_couleur": nom_couleur_ajouter}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
                 strsql_insert_couleur = """INSERT INTO t_couleur (id_couleur,couleur) VALUES (NULL,%(value_nom_couleur)s) """
@@ -86,14 +86,14 @@ def couleur_add_wtf():
                 print(f"Données insérées !!")
 
                 # Pour afficher et constater l'insertion du nouveau film (id_film_sel=0 => afficher tous les films)
-                return redirect(url_for('couleur_genres_afficher', id_film_sel=0))
+                return redirect(url_for('couleur/couleur_add', id_film_sel=0))
 
         except Exception as Exception_produits_ajouter_wtf:
-            raise ExceptionCouleurAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
-                                            f"{couleur_add_wtf.__name__} ; "
+            raise ExceptionCouleurAjouter(f"fichier : {Path(__file__).name}  ;  "
+                                            f"{couleur_ajouter_wtf.__name__} ; "
                                             f"{Exception_produits_ajouter_wtf}")
 
-    return render_template("couleur/couleur_add_wtf.html", form_add_film=form_add_couleur)
+    return render_template("couleur/couleur_ajouter_wtf.html", form_add_film=form_ajouter_couleur)
 
 
 """Editer(update) un film qui a été sélectionné dans le formulaire "films_genres_afficher.html"
