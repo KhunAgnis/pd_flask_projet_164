@@ -59,3 +59,11 @@ class FormWTFDeleteCouleur(FlaskForm):
     submit_btn_del_couleur = SubmitField("Effacer la couleur")
     submit_btn_conf_del_couleur = SubmitField("Etes-vous sur de vouloir effacer ?")
     submit_btn_annuler = SubmitField("Annuler la suppression")
+
+
+class FormWTFAjouterCouleur:
+    nom_couleur_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    nom_couleur_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                  Regexp(nom_couleur_regexp,
+                                                                         message="Lettre uniquement")
+                                                                  ])
