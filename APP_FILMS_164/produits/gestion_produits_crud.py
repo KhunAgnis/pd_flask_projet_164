@@ -108,17 +108,38 @@ def produits_ajouter_wtf():
 
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_genre = """INSERT INTO t_produit 
+                strsql_insert_produits = """INSERT INTO t_produit 
                                     (id_produit,nomProduit, tailleProduit,fk_couleur,fk_categorie) 
                                     VALUES (NULL,%(value_nom_produits),%(value_taille_produits),%(value_couleur_produits),%(value_categorie_produits)s) """
                 with DBconnection() as mconn_bd:
-                    mconn_bd.execute(strsql_insert_genre, valeurs_insertion_dictionnaire)
+                    mconn_bd.execute(strsql_insert_produits, valeurs_insertion_dictionnaire)
 
                 flash(f"Données insérées !!", "success")
                 print(f"Données insérées !!")
 
                 # Pour afficher et constater l'insertion de la valeur, on affiche en ordre inverse. (DESC)
                 return redirect(url_for('produits_afficher', order_by='DESC', id_produit_sel=0))
+
+            if request.method == "GET":
+                with DBconnection() as mc_afficher:
+                    strsql_couleur_produits_afficher = """SELECT * FROM t_couleur ORDER BY id_couleur ASC"""
+                    mc_afficher.execute(strsql_couleur_produits_afficher)
+
+                data_couleur = mc_afficher.fetchall()
+                print("demo_select_wtf data_couleur ", data_couleur, " Type : ", type(data_couleur))
+
+                """
+                    Préparer les valeurs pour la liste déroulante de l'objet "FormWTFAddClient"
+                    la liste déroulante est définie dans le "APP_FILMS_164/clients/gestion_clients_wtf_forms.py" 
+                    le formulaire qui utilise la liste déroulante "APP_FILMS_164/templates/clients/client_add_wtf.html"
+                """
+                couleur_val_list_dropdown = []
+                for i in data_couleur:
+                    couleur_val_list_dropdown = [(i["id_couleur"], i["couleur"]) for i in data_couleur]
+
+                print("couleur_val_list_dropdown ", couleur_val_list_dropdown)
+                # Les valeurs sont chargées dans la liste déroulante
+                form.couleur_produits_wtf.choices = couleur_val_list_dropdown
 
         except Exception as Exception_produits_ajouter_wtf:
             raise ExceptionProduitsAjouterWtf(f"fichier : {Path(__file__).name}  ;  "

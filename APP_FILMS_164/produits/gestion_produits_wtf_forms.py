@@ -4,7 +4,7 @@
     Gestion des formulaires avec WTF
 """
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField
+from wtforms import StringField, DateField, SelectField
 from wtforms import SubmitField
 from wtforms.validators import Length, InputRequired, DataRequired
 from wtforms.validators import Regexp
@@ -25,11 +25,11 @@ class FormWTFAjouterProduit(FlaskForm):
                                                                 Length(min=1, max=20, message="Min 1 max 20"),
                                                                 Regexp(taille_produits_regexp, message="Chiffre et lettre uniquement (pas de caractères spéciaux)")
                                                                     ])
-    couleur_produits_regexp = r"^([A-Z]|[0-9])+$"
-    couleur_produits_wtf = StringField("Choisir la couleur ", validators=[Length(min=2, max=20, message="min 2 max 20"),
-                                                                        Regexp(couleur_produits_regexp,
-                                                                               message="Chiffre et lettre uniquement (pas de caractères spéciaux)")
-                                                                        ])
+    couleur_produits_wtf = SelectField('Choisir la couleur',
+                                      validators=[DataRequired(message="Sélectionner une couleur.")],
+                                      validate_choice=False
+                                      )
+
     categorie_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
     categorie_produits_wtf = StringField("Choisir la catégorie ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                         Regexp(categorie_produits_regexp,
