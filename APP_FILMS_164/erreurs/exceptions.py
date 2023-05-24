@@ -120,6 +120,8 @@ class ExceptionCouleurUpdateWtf(Base):
 class ExceptionCouleurDeleteWtf(Base):
     pass
 
+class ExceptionStockAfficher(Base):
+    pass
 
 class ExceptionInitAppFilms164(Base):
     pass

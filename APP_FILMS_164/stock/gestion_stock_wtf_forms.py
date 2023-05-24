@@ -11,7 +11,7 @@ from wtforms.validators import Regexp
 
 
 
-class FormWTFAddCouleur(FlaskForm):
+class FormWTFAjouterStock(FlaskForm):
     """
         Dans le formulaire "produits_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
