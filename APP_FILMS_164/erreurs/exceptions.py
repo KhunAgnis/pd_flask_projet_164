@@ -94,6 +94,8 @@ class ExceptionProduitsUpdateWtf(Base):
 class ExceptionProduitsAjouterWtf(Base):
     pass
 
+class ExceptionCouleurAjouterWTF(Base) :
+    pass
 
 class ExceptionCouleurAfficher(Base):
     pass

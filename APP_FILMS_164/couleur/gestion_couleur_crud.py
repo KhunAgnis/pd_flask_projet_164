@@ -69,11 +69,11 @@ def couleur_afficher(order_by, id_couleur_sel):
 @app.route("/couleur_ajouter", methods=['GET', 'POST'])
 def couleur_ajouter_wtf():
     # Objet formulaire pour AJOUTER un film
-    form_ajouter_couleur = FormWTFAjouterCouleur()
+    form = FormWTFAjouterCouleur()
     if request.method == "POST":
         try:
-            if form_ajouter_couleur.validate_on_submit():
-                nom_couleur_ajouter = form_ajouter_couleur.nom_couleur_add_wtf.data
+            if form.validate_on_submit():
+                nom_couleur_ajouter = form.nom_couleur_ajouter_wtf.data
 
                 valeurs_insertion_dictionnaire = {"value_nom_couleur": nom_couleur_ajouter}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
@@ -86,14 +86,14 @@ def couleur_ajouter_wtf():
                 print(f"Données insérées !!")
 
                 # Pour afficher et constater l'insertion du nouveau film (id_film_sel=0 => afficher tous les films)
-                return redirect(url_for('couleur/couleur_add', id_film_sel=0))
+                return redirect(url_for('couleur/couleur_ajouter', id_film_sel=0))
 
-        except Exception as Exception_produits_ajouter_wtf:
-            raise ExceptionCouleurAjouter(f"fichier : {Path(__file__).name}  ;  "
+        except Exception as Exception_couleur_ajouter_wtf:
+            raise ExceptionCouleurAjouterWTF(f"fichier : {Path(__file__).name}  ;  "
                                             f"{couleur_ajouter_wtf.__name__} ; "
-                                            f"{Exception_produits_ajouter_wtf}")
+                                            f"{Exception_couleur_ajouter_wtf}")
 
-    return render_template("couleur/couleur_ajouter_wtf.html", form_add_film=form_ajouter_couleur)
+    return render_template("couleur/couleur_ajouter_wtf.html", form=form)
 
 
 """Editer(update) un film qui a été sélectionné dans le formulaire "films_genres_afficher.html"

@@ -62,6 +62,7 @@ class FormWTFDeleteCouleur(FlaskForm):
 
 
 class FormWTFAjouterCouleur:
+
     nom_couleur_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
     nom_couleur_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                   Regexp(nom_couleur_regexp,
