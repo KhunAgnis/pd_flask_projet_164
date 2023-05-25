@@ -56,7 +56,7 @@ def Gallerie_afficher(order_by, id_gallerie_sel):
                 elif not data_categorieproduit and id_gallerie_sel > 0:
                     flash(f"La catégorie demandée n'existe pas !!", "warning")
                 else:
-                    flash(f"Voici la liste des catégories.", "success")
+                    flash(f"Voici les images relatives aux différentes catégories.", "success")
 
         except Exception as Exception_Gallerie_afficher:
             raise ExceptionCategorieProduitAfficher(f"fichier : {Path(__file__).name}  ;  "
