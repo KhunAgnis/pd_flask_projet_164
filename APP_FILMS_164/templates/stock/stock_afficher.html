@@ -8,9 +8,6 @@
 				<thead>
 					<tr class="table-info">
 						<th class="" >
-						  IdStock
-						</th>
-						<th class="" >
 						  Lieu du stock
 						</th>
 						<th class="align-middle">
@@ -19,6 +16,9 @@
 						<th class="align-middle">
 							Produit dans le stock
                         </th>
+						<th class="align-middle">
+							Taille du produit
+                        </th>
 					</tr>
 				</thead>
 			{% endif %}
@@ -26,16 +26,16 @@
 			<tbody>
 				<tr>
 					  <th class="align-middle">
-						  {{ row.id_stock }}
-					  </th>
-					  <th class="align-middle">
 						{{ row.lieuStock }}
 					  </th>
 					<th class="align-middle">
 						{{ row.quantiteStock }}
 					  </th>
 					<th class="align-middle">
-						{{ row.fk_Produit }}
+						{{ row.nomProduit }}
+					  </th>
+					<th class="align-middle">
+						{{ row.tailleProduit }}
 					  </th>
 				</tr>
 			</tbody>
