@@ -49,12 +49,12 @@ def categorieproduit_afficher(order_by, id_categorie_sel):
                     mc_afficher.execute(strsql_categorieproduit_afficher)
 
                 data_stock = mc_afficher.fetchall()
-                print("data_categorie ", data_categorie, " Type : ", type(data_categorie))
+                print("data_categorieproduit ", data_categorieproduit, " Type : ", type(data_categorieproduit))
 
-                print("data_categorie ", data_categorie, " Type : ", type(data_categorie))
-                if not data_categorie and id_categorie_sel == 0:
+                print("data_categorieproduit ", data_categorieproduit, " Type : ", type(data_categorieproduit))
+                if not data_categorieproduit and id_categorie_sel == 0:
                     flash("""La table "t_categorieproduit" est vide. !!""", "warning")
-                elif not data_categorie and id_categorie_sel > 0:
+                elif not data_categorieproduit and id_categorie_sel > 0:
                     flash(f"La catégorie demandée n'existe pas !!", "warning")
                 else:
                     flash(f"Voici la liste des catégories.", "success")
@@ -64,4 +64,4 @@ def categorieproduit_afficher(order_by, id_categorie_sel):
                                           f"{categorieproduit_afficher.__name__} ; "
                                           f"{Exception_categorieproduit_afficher}")
 
-    return render_template("categorieproduit/categorieproduit_afficher.html", data=data_categorie)
+    return render_template("categorieproduit/categorieproduit_afficher.html", data=data_categorieproduit)
