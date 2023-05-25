@@ -8,7 +8,7 @@
 				<thead>
 					<tr class="table-info">
 						<th class="" >
-						  id_Categorie
+						  idCategorie
 						</th>
 						<th class="" >
 						  Nom de la Categorie
@@ -17,7 +17,7 @@
 						  Description de la Categorie
 						</th>
 						<th class="" >
-						  Images
+						  Image associée
 						</th>
 					</tr>
 				</thead>
@@ -35,7 +35,7 @@
 						{{ row.descCategorie }}
 					  </th>
 					  <th class="align-middle">
-						<img class="img" src={{ row.images_Categorie|default(None, True) }} style="border: 0;display:block; width:150px; max-height:auto;"  alt = "image masquée FFP8 (in COVID-19 Memory) (absente) mod 164">
+						<img class="img" src={{ row.images_Categorie|default(None, True) }} style="border: 0;display:block; width:150px; max-height:auto;"  alt = "Aucune image associée à cette description">
 					  </th>
 					</tr>
 				</tr>
