@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %} Afficher FILMS {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="col-md-12">
+		<table class="table table-bordered table-sm">
+            {% if data %}
+				<thead>
+					<tr class="table-info">
+						<th class="" >
+						  id_Categorie
+						</th>
+						<th class="" >
+						  Nom de la Categorie
+						</th>
+						<th class="" >
+						  Description de la Categorie
+						</th>
+						<th class="" >
+						  Images
+						</th>
+					</tr>
+				</thead>
+			{% endif %}
+			{% for row in data %}
+			<tbody>
+				<tr>
+					  <th class="align-middle">
+						  {{ row.id_Categorie }}
+					  </th>
+					  <th class="align-middle">
+						{{ row.nomCategorie }}
+					  </th>
+					<th class="align-middle">
+						{{ row.descCategorie }}
+					  </th>
+					  <th class="align-middle">
+						<img class="img" src={{ row.images_Categorie|default(None, True) }} style="border: 0;display:block; width:150px; max-height:auto;"  alt = "image masquée FFP8 (in COVID-19 Memory) (absente) mod 164">
+					  </th>
+					</tr>
+				</tr>
+			</tbody>
+			{% else %}
+				<tbody>
+					<tr>
+						<td>
+							Aucun film.
+						</td>
+						<td>
+							<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
+						</td>
+					</tr>
+				</tbody>
+			{% endfor %}
+
+		</table>
+	</div>
+</div>
+{% endblock %}
