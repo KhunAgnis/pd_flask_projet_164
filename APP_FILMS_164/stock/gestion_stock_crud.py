@@ -4,14 +4,13 @@ Auteur : OM 2022.04.11
 """
 from pathlib import Path
 
-from flask import redirect
+
 from flask import request
-from flask import session
-from flask import url_for
+
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.stock.gestion_stock_wtf_forms import FormWTFAjouterStock
+
 
 
 """Ajouter un film grâce au formulaire "couleur_add_wtf.html"
@@ -34,7 +33,7 @@ def stock_afficher(order_by, id_stock_sel):
         try:
             with DBconnection() as mc_afficher:
                 if order_by == "ASC" and id_stock_sel == 0:
-                    strsql_stock_afficher = """select id_Stock, lieuStock, quantiteStock, t_produit.nomProduit
+                    strsql_stock_afficher = """select t_stock.id_Stock, t_stock.lieuStock, t_stock.quantiteStock, t_produit.nomProduit
                                                from t_stock 
                                                Inner join t_produit on t_stock.fk_Produit = t_produit.id_Produit
                                                ORDER BY id_stock ASC"""
