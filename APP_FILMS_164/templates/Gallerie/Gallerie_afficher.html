@@ -7,16 +7,16 @@
             {% if data %}
 				<thead>
 					<tr class="table-info">
-						<th class="" >
+						<th class="center-text" >
 						  N° de la Categorie
 						</th>
-						<th class="" >
+						<th class="center-text" >
 						  Nom de la Categorie
 						</th>
-						<th class="" >
+						<th class="center-text" >
 						  Description de la Categorie
 						</th>
-						<th class="" >
+						<th class="center-text" >
 						  Image relative à la description
 						</th>
 					</tr>
@@ -25,13 +25,13 @@
 			{% for row in data %}
 			<tbody>
 				<tr>
-					  <th class="align-middle">
+					  <th class="align-middle center-text">
 						  {{ row.id_Categorie }}
 					  </th>
-					  <th class="align-middle">
+					  <th class="align-middle center-text">
 						{{ row.nomCategorie }}
 					  </th>
-					<th class="align-middle">
+					<th class="align-middle center-text">
 						{{ row.descCategorie }}
 					  </th>
 					  <th class="align-middle">
@@ -56,6 +56,12 @@
 		</table>
 	</div>
 </div>
+
+<style>
+  .center-text {
+    text-align: center;
+  }
+</style>
 
 <style>
   .center-image {
