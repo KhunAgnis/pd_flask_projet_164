@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %} Afficher les Catégories {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="col-md-12">
+		<table class="table table-bordered table-sm">
+            {% if data %}
+				<thead>
+					<tr class="table-info">
+						<th class="" >
+						  id_Categorie
+						</th>
+						<th class="" >
+						  Nom de la Categorie
+						</th>
+						<th class="" >
+						  Description de la Categorie
+						</th>
+						<th class="align-middle">
+							Pour ajouter
+                        </th>
+						<th class="align-middle">
+							Pour modifier
+                        </th>
+						<th class="align-middle">
+							Pour supprimer
+                        </th>
+					</tr>
+				</thead>
+			{% endif %}
+			{% for row in data %}
+			<tbody>
+				<tr>
+					  <th class="align-middle">
+						  {{ row.id_Categorie }}
+					  </th>
+					  <th class="align-middle">
+						{{ row.nomCategorie }}
+					  </th>
+					<th class="align-middle">
+						{{ row.descCategorie }}
+					  </th>
+					  <th class="align-middle">
+						<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Ajouter</a>
+					  </th>
+					  <th class="align-middle">
+						<a class="btn btn-warning" href="{{ url_for('couleur_update_wtf', id_couleur_btn_edit_html=row.id_Couleur) }}" role="button">Edit</a>
+					  </th>
+					  <th class="align-middle">
+						<a class="btn btn-danger" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Delete</a>
+					  </th>
+				</tr>
+			</tbody>
+			{% else %}
+				<tbody>
+					<tr>
+						<td>
+							Aucune catégorie.
+						</td>
+						<td>
+							<a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}" role="button">Add</a>
+						</td>
+					</tr>
+				</tbody>
+			{% endfor %}
+
+		</table>
+	</div>
+</div>
+{% endblock %}

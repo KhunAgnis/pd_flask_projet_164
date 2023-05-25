@@ -123,6 +123,21 @@ class ExceptionCouleurDeleteWtf(Base):
 class ExceptionStockAfficher(Base):
     pass
 
+class ExceptionCategorieProduitAfficher(Base):
+    pass
+
+
+class ExceptionCategorieProduitDeleteWtf(Base):
+    pass
+
+
+class ExceptionCategorieProduitUpdateWtf(Base):
+    pass
+
+
+class ExceptionCategorieProduitAjouterWtf(Base):
+    pass
+
 class ExceptionInitAppFilms164(Base):
     pass
 
