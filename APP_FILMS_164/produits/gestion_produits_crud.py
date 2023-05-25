@@ -323,10 +323,10 @@ def produits_delete_wtf():
                 # vu qu'il n'y a qu'un seul champ "nom produit" pour l'action DELETE
                 data_nom_produit = mydb_conn.fetchone()
                 print("data_nom_produit ", data_nom_produit, " type ", type(data_nom_produit), " produit ",
-                      data_nom_produit["nomproduit"])
+                      data_nom_produit["nomProduit"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "produit_delete_wtf.html"
-            form_delete.nom_produit_delete_wtf.data = data_nom_produit["nomproduit"]
+            form_delete.nom_produit_delete_wtf.data = data_nom_produit["nomProduit"]
 
             # Le bouton pour l'action "DELETE" dans le form. "produit_delete_wtf.html" est caché.
             btn_submit_del = False
