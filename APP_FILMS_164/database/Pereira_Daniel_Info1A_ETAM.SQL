@@ -23,34 +23,35 @@ CREATE TABLE IF NOT EXISTS `t_categorieproduit` (
   `id_Categorie` int NOT NULL,
   `nomCategorie` varchar(50) DEFAULT NULL,
   `descCategorie` varchar(50) DEFAULT NULL,
+  `imagesCategorie` text,
   PRIMARY KEY (`id_Categorie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Export de données de la table pereira_daniel_info1a_etam.t_categorieproduit : ~22 rows (environ)
 /*!40000 ALTER TABLE `t_categorieproduit` DISABLE KEYS */;
-INSERT INTO `t_categorieproduit` (`id_Categorie`, `nomCategorie`, `descCategorie`) VALUES
-	(1, 'Soutien-gorge', 'Sans coque'),
-	(2, 'Soutien-gorge', 'Avec coque'),
-	(3, 'Soutien-gorge', 'Push-up'),
-	(4, 'Soutien-gorge', 'Bandeaux'),
-	(5, 'Soutien-gorge', 'Corbeille'),
-	(6, 'Culotte', 'Menstruelle'),
-	(7, 'Culotte', 'Shortys'),
-	(8, 'Culotte', 'Tanga'),
-	(9, 'Culotte', 'String'),
-	(10, 'Culotte', 'Hipsters'),
-	(11, 'Culotte', 'Shapewear'),
-	(12, 'Lingerie', 'Body'),
-	(13, 'Lingerie', 'Porte-jartelles'),
-	(14, 'Lingerie', 'Collants'),
-	(15, 'Maillot de bain', '2 pièces'),
-	(16, 'Maillot de bain', '1 pièce'),
-	(17, 'Maillot de bain', 'Beachwear'),
-	(18, 'Pyjama', 'Nuisette'),
-	(19, 'Pyjama', 'Chemise de nuit'),
-	(20, 'Pyjama', 'Déshabillé/Kimono'),
-	(21, 'Pyjama', 'Bas de pyjama'),
-	(22, 'Pyjama', 'Haut de pyjama');
+INSERT INTO `t_categorieproduit` (`id_Categorie`, `nomCategorie`, `descCategorie`, `imagesCategorie`) VALUES
+	(1, 'Soutien-gorge', 'Sans coque', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYYEh0CpA_W3qjzmWq7zCPlqmOcjRyKM0EDtF-y9AtA&s'),
+	(2, 'Soutien-gorge', 'Avec coque', NULL),
+	(3, 'Soutien-gorge', 'Push-up', NULL),
+	(4, 'Soutien-gorge', 'Bandeaux', NULL),
+	(5, 'Soutien-gorge', 'Corbeille', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw47ebd800/653917780_x.jpg?sw=1000&sh=1180&strip=false'),
+	(6, 'Culotte', 'Menstruelle', NULL),
+	(7, 'Culotte', 'Shortys', NULL),
+	(8, 'Culotte', 'Tanga', NULL),
+	(9, 'Culotte', 'String', NULL),
+	(10, 'Culotte', 'Hipsters', NULL),
+	(11, 'Culotte', 'Shapewear', NULL),
+	(12, 'Lingerie', 'Body', NULL),
+	(13, 'Lingerie', 'Porte-jartelles', NULL),
+	(14, 'Lingerie', 'Collants', NULL),
+	(15, 'Maillot de bain', '2 pièces', NULL),
+	(16, 'Maillot de bain', '1 pièce', NULL),
+	(17, 'Maillot de bain', 'Beachwear', NULL),
+	(18, 'Pyjama', 'Nuisette', NULL),
+	(19, 'Pyjama', 'Chemise de nuit', NULL),
+	(20, 'Pyjama', 'Déshabillé/Kimono', NULL),
+	(21, 'Pyjama', 'Bas de pyjama', NULL),
+	(22, 'Pyjama', 'Haut de pyjama', NULL);
 /*!40000 ALTER TABLE `t_categorieproduit` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_couleur
@@ -127,8 +128,10 @@ CREATE TABLE IF NOT EXISTS `t_produitajoutstock` (
   CONSTRAINT `FK_ProduitAjoutStock_Stock` FOREIGN KEY (`fk_Stock`) REFERENCES `t_stock` (`id_Stock`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_produitajoutstock : ~0 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_produitajoutstock : ~1 rows (environ)
 /*!40000 ALTER TABLE `t_produitajoutstock` DISABLE KEYS */;
+INSERT INTO `t_produitajoutstock` (`id_ProduitAjoutStock`, `DateAjout`, `QuantiteAjoute`, `fk_Stock`, `fk_Produit`) VALUES
+	(1, '2023-05-25', 100, 1, 2);
 /*!40000 ALTER TABLE `t_produitajoutstock` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produitretirerstock
@@ -146,15 +149,17 @@ CREATE TABLE IF NOT EXISTS `t_produitretirerstock` (
   CONSTRAINT `FK_ProduitRetirerStock_Stock` FOREIGN KEY (`fk_Stock`) REFERENCES `t_stock` (`id_Stock`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_produitretirerstock : ~0 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_produitretirerstock : ~1 rows (environ)
 /*!40000 ALTER TABLE `t_produitretirerstock` DISABLE KEYS */;
+INSERT INTO `t_produitretirerstock` (`id_ProduitRetirerStock`, `DateRetirer`, `QuantiteRetirer`, `fk_Stock`, `fk_Produit`) VALUES
+	(1, '2021-05-24', 5, 1, 2);
 /*!40000 ALTER TABLE `t_produitretirerstock` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_stock
 DROP TABLE IF EXISTS `t_stock`;
 CREATE TABLE IF NOT EXISTS `t_stock` (
   `id_Stock` int NOT NULL,
-  `quantiteStock` varchar(50) DEFAULT NULL,
+  `quantiteStock` int DEFAULT NULL,
   `lieuStock` varchar(50) NOT NULL,
   `dernieredateajout` date DEFAULT NULL,
   `fk_Produit` int NOT NULL,
@@ -163,10 +168,11 @@ CREATE TABLE IF NOT EXISTS `t_stock` (
   CONSTRAINT `FKProduitStock` FOREIGN KEY (`fk_Produit`) REFERENCES `t_produit` (`id_Produit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_stock : ~1 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_stock : ~2 rows (environ)
 /*!40000 ALTER TABLE `t_stock` DISABLE KEYS */;
 INSERT INTO `t_stock` (`id_Stock`, `quantiteStock`, `lieuStock`, `dernieredateajout`, `fk_Produit`) VALUES
-	(1, NULL, 'Garage', NULL, 1);
+	(1, NULL, 'Garage', NULL, 2),
+	(2, NULL, 'Garage', '2023-05-24', 7);
 /*!40000 ALTER TABLE `t_stock` ENABLE KEYS */;
 
 -- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_ajout_stock
@@ -174,17 +180,21 @@ DROP TRIGGER IF EXISTS `tr_ajout_stock`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `tr_ajout_stock` AFTER INSERT ON `t_produitajoutstock` FOR EACH ROW BEGIN
-  UPDATE t_stock SET quantiteStock = quantiteStock + NEW.QuantiteAjoute WHERE fk_Produit = NEW.fk_Produit;
+  UPDATE t_stock
+  SET quantiteStock = quantiteStock + NEW.QuantiteAjoute
+  WHERE fk_Produit = NEW.fk_Produit;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
 
--- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_retrait_stock
-DROP TRIGGER IF EXISTS `tr_retrait_stock`;
+-- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_retirer_stock
+DROP TRIGGER IF EXISTS `tr_retirer_stock`;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
-CREATE TRIGGER `tr_retrait_stock` AFTER INSERT ON `t_produitretirerstock` FOR EACH ROW BEGIN
-  UPDATE t_stock SET quantiteStock = quantiteStock - NEW.QuantiteRetirer WHERE fk_Produit = NEW.fk_Produit;
+CREATE TRIGGER `tr_retirer_stock` AFTER INSERT ON `t_produitretirerstock` FOR EACH ROW BEGIN
+  UPDATE t_stock
+  SET quantiteStock = quantiteStock - NEW.QuantiteRetirer
+  WHERE fk_Produit = NEW.fk_Produit;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
