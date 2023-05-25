@@ -282,13 +282,15 @@ def produits_delete_wtf():
                 valeur_delete_dictionnaire = {"value_id_produit": id_produit_delete}
                 print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-                str_sql_delete_films_genre = """DELETE FROM t_produit_film WHERE fk_genre = %(value_id_produit)s"""
-                str_sql_delete_idgenre = """DELETE FROM t_genre WHERE id_Produit = %(value_id_produit)s"""
+                str_sql_delete_produit = """DELETE FROM t_produit WHERE id_produit = %(value_id_produit)s"""
+                str_sql_delete_fk_couleur = """DELETE FROM t_produit WHERE fk_Couleur = %(value_id_produit)s"""
+                str_sql_delete_fk_categorie = """DELETE FROM t_produit WHERE fk_Categorie = %(value_id_produit)s"""
                 # Manière brutale d'effacer d'abord la "fk_genre", même si elle n'existe pas dans la "t_produit_film"
                 # Ensuite on peut effacer le produit vu qu'il n'est plus "lié" (INNODB) dans la "t_produit_film"
                 with DBconnection() as mconn_bd:
-                    mconn_bd.execute(str_sql_delete_films_genre, valeur_delete_dictionnaire)
-                    mconn_bd.execute(str_sql_delete_idgenre, valeur_delete_dictionnaire)
+                    mconn_bd.execute(str_sql_delete_produit, valeur_delete_dictionnaire)
+                    mconn_bd.execute(str_sql_delete_fk_couleur, valeur_delete_dictionnaire)
+                    mconn_bd.execute(str_sql_delete_fk_categorie, valeur_delete_dictionnaire)
 
                 flash(f"Produit définitivement effacé !!", "success")
                 print(f"Produit définitivement effacé !!")
@@ -301,13 +303,11 @@ def produits_delete_wtf():
             print(id_produit_delete, type(id_produit_delete))
 
             # Requête qui affiche tous les films_genres qui ont le produit que l'utilisateur veut effacer
-            str_sql_produits_films_delete = """SELECT id_produit_film, nom_film, id_Produit, intitule_produit FROM t_produit_film 
-                                            INNER JOIN t_film ON t_produit_film.fk_film = t_film.id_film
-                                            INNER JOIN t_genre ON t_produit_film.fk_genre = t_genre.id_Produit
-                                            WHERE fk_genre = %(value_id_produit)s"""
+            str_sql_produits_delete = """SELECT * FROM t_produit 
+                                            WHERE id_produit = %(value_id_produit)s"""
 
             with DBconnection() as mydb_conn:
-                mydb_conn.execute(str_sql_produits_films_delete, valeur_select_dictionnaire)
+                mydb_conn.execute(str_sql_produits_delete, valeur_select_dictionnaire)
                 data_films_attribue_produit_delete = mydb_conn.fetchall()
                 print("data_films_attribue_produit_delete...", data_films_attribue_produit_delete)
 
@@ -316,17 +316,17 @@ def produits_delete_wtf():
                 session['data_films_attribue_produit_delete'] = data_films_attribue_produit_delete
 
                 # Opération sur la BD pour récupérer "id_Produit" et "intitule_produit" de la "t_genre"
-                str_sql_id_produit = "SELECT id_Produit, intitule_produit FROM t_genre WHERE id_Produit = %(value_id_produit)s"
+                str_sql_id_produit = "SELECT * FROM t_produit WHERE id_Produit = %(value_id_produit)s"
 
                 mydb_conn.execute(str_sql_id_produit, valeur_select_dictionnaire)
                 # Une seule valeur est suffisante "fetchone()",
                 # vu qu'il n'y a qu'un seul champ "nom produit" pour l'action DELETE
                 data_nom_produit = mydb_conn.fetchone()
                 print("data_nom_produit ", data_nom_produit, " type ", type(data_nom_produit), " produit ",
-                      data_nom_produit["intitule_produit"])
+                      data_nom_produit["nomproduit"])
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "produit_delete_wtf.html"
-            form_delete.nom_produit_delete_wtf.data = data_nom_produit["intitule_produit"]
+            form_delete.nom_produit_delete_wtf.data = data_nom_produit["nomproduit"]
 
             # Le bouton pour l'action "DELETE" dans le form. "produit_delete_wtf.html" est caché.
             btn_submit_del = False
