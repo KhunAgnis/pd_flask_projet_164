@@ -35,7 +35,7 @@
 						{{ row.descCategorie }}
 					  </th>
 					  <th class="align-middle">
-  						<img class="img" src="{{ row.imagesCategorie }}" style="border: 0; display:block; width:150px; max-height:auto;" alt="Aucune image associée à cette description">
+  						<img class="img center-image"" src="{{ row.imagesCategorie }}" style="border: 0; display:block; width:150px; max-height:auto;" alt="Aucune image associée à cette description">
 					  </th>
 					</tr>
 				</tr>
@@ -56,4 +56,11 @@
 		</table>
 	</div>
 </div>
+
+<style>
+  .center-image {
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
 {% endblock %}
