@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} /!\ ERREUR 404 /!\ {% endblock %}
+{% block title %} ERREUR 404 {% endblock %}
 {% block body %}
 <style>
 	.navbar {
@@ -17,7 +17,9 @@
 			<main class="site-content">
 				<p>
 					<br>
-					<em>Le serveur n'a pas trouvé la ressource demandée.</em><br>
+					<span style="color: red;">
+    				<em>Le serveur n'a pas trouvé la ressource demandée.</em>
+					</span><br>
 					<br>
 					<br>
 					<br>
@@ -40,4 +42,9 @@
 	</div>
 </div>
 
+<style>
+  .text-rouge {
+    color: red; /* Remplacez "violet" par la couleur de votre choix */
+  }
+</style>
 {% endblock %}
