@@ -20,7 +20,7 @@ USE `pereira_daniel_info1a_etam`;
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_categorieproduit
 DROP TABLE IF EXISTS `t_categorieproduit`;
 CREATE TABLE IF NOT EXISTS `t_categorieproduit` (
-  `id_Categorie` int NOT NULL,
+  `id_Categorie` int AUTO_INCREMENT,
   `nomCategorie` varchar(50) DEFAULT NULL,
   `descCategorie` varchar(50) DEFAULT NULL,
   `imagesCategorie` text,
@@ -57,7 +57,7 @@ INSERT INTO `t_categorieproduit` (`id_Categorie`, `nomCategorie`, `descCategorie
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_couleur
 DROP TABLE IF EXISTS `t_couleur`;
 CREATE TABLE IF NOT EXISTS `t_couleur` (
-  `id_Couleur` int NOT NULL,
+  `id_Couleur` int AUTO_INCREMENT,
   `couleur` varchar(50) NOT NULL,
   PRIMARY KEY (`id_Couleur`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -84,7 +84,7 @@ INSERT INTO `t_couleur` (`id_Couleur`, `couleur`) VALUES
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produit
 DROP TABLE IF EXISTS `t_produit`;
 CREATE TABLE IF NOT EXISTS `t_produit` (
-  `id_Produit` int NOT NULL,
+  `id_Produit` int AUTO_INCREMENT,
   `tailleProduit` varchar(50) DEFAULT NULL,
   `nomProduit` varchar(50) DEFAULT NULL,
   `fk_Couleur` int DEFAULT NULL,
@@ -116,7 +116,7 @@ INSERT INTO `t_produit` (`id_Produit`, `tailleProduit`, `nomProduit`, `fk_Couleu
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produitajoutstock
 DROP TABLE IF EXISTS `t_produitajoutstock`;
 CREATE TABLE IF NOT EXISTS `t_produitajoutstock` (
-  `id_ProduitAjoutStock` int NOT NULL,
+  `id_ProduitAjoutStock` int AUTO_INCREMENT,
   `DateAjout` date NOT NULL,
   `QuantiteAjoute` int NOT NULL,
   `fk_Stock` int NOT NULL,
@@ -137,7 +137,7 @@ INSERT INTO `t_produitajoutstock` (`id_ProduitAjoutStock`, `DateAjout`, `Quantit
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produitretirerstock
 DROP TABLE IF EXISTS `t_produitretirerstock`;
 CREATE TABLE IF NOT EXISTS `t_produitretirerstock` (
-  `id_ProduitRetirerStock` int NOT NULL,
+  `id_ProduitRetirerStock` int AUTO_INCREMENT,
   `DateRetirer` date NOT NULL,
   `QuantiteRetirer` int NOT NULL,
   `fk_Stock` int NOT NULL,
@@ -158,7 +158,7 @@ INSERT INTO `t_produitretirerstock` (`id_ProduitRetirerStock`, `DateRetirer`, `Q
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_stock
 DROP TABLE IF EXISTS `t_stock`;
 CREATE TABLE IF NOT EXISTS `t_stock` (
-  `id_Stock` int NOT NULL,
+  `id_Stock` int AUTO_INCREMENT,
   `quantiteStock` int DEFAULT NULL,
   `lieuStock` varchar(50) NOT NULL,
   `dernieredateajout` date DEFAULT NULL,

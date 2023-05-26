@@ -50,6 +50,7 @@ try:
 
     from APP_FILMS_164.couleur import gestion_couleur_crud
     from APP_FILMS_164.couleur import gestion_couleur_wtf_forms
+
     from APP_FILMS_164.categorieproduit import gestion_categorieproduit_crud
     from APP_FILMS_164.categorieproduit import gestion_categorieproduit_wtf_forms
 

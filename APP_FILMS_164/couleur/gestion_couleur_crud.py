@@ -15,6 +15,8 @@ from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFAjouterCouleu
 from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFDeleteCouleur
 from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFUpdateCouleur
 
+
+
 """Ajouter un film grâce au formulaire "couleur_add_wtf.html"
 Auteur : OM 2022.04.11
 Définition d'une "route" /film_add
@@ -31,28 +33,26 @@ Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_updat
 
 @app.route("/couleur_afficher/<string:order_by>/<int:id_couleur_sel>", methods=['GET', 'POST'])
 def couleur_afficher(order_by, id_couleur_sel):
+    data_couleur = []  # Initialiser la variable data_couleur à une liste vide
+
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
                 if order_by == "ASC" and id_couleur_sel == 0:
                     strsql_couleur_afficher = """select * from t_couleur ORDER BY id_couleur ASC"""
-
                     mc_afficher.execute(strsql_couleur_afficher)
                 elif order_by == "ASC":
                     valeur_id_couleur_selected_dictionnaire = {"value_id_couleur_selected": id_couleur_sel}
-                    strsql_couleur_afficher = """SELECT * FROM t_couleur WHERE id_couleur = %(
-                    value_id_couleur_selected)s """
-
+                    strsql_couleur_afficher = """SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur_selected)s """
                     mc_afficher.execute(strsql_couleur_afficher, valeur_id_couleur_selected_dictionnaire)
+
                 else:
                     strsql_couleur_afficher = """SELECT * FROM t_couleur ORDER BY id_couleur DESC"""
-
                     mc_afficher.execute(strsql_couleur_afficher)
 
                 data_couleur = mc_afficher.fetchall()
                 print("data_couleur ", data_couleur, " Type : ", type(data_couleur))
 
-                print("data_couleur ", data_couleur, " Type : ", type(data_couleur))
                 if not data_couleur and id_couleur_sel == 0:
                     flash("""La table "t_couleur" est vide. !!""", "warning")
                 elif not data_couleur and id_couleur_sel > 0:
@@ -68,25 +68,26 @@ def couleur_afficher(order_by, id_couleur_sel):
 
 @app.route("/couleur_ajouter", methods=['GET', 'POST'])
 def couleur_ajouter_wtf():
-    # Objet formulaire pour AJOUTER un film
     form = FormWTFAjouterCouleur()
     if request.method == "POST":
         try:
             if form.validate_on_submit():
-                nom_couleur_ajouter = form.nom_couleur_ajouter_wtf.data
+                nom_couleur_ajouter = form.nom_couleur_wtf.data
 
-                valeurs_insertion_dictionnaire = {"value_nom_couleur": nom_couleur_ajouter}
+                valeurs_insertion_dictionnaire = {
+                    "value_nom_couleur": nom_couleur_ajouter
+                }
+
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_couleur = """INSERT INTO t_couleur (id_couleur,couleur) VALUES (NULL,%(value_nom_couleur)s) """
+                strsql_insert_couleur = """INSERT INTO t_couleur (id_couleur,couleur) VALUES %(value_nom_couleur)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_couleur, valeurs_insertion_dictionnaire)
 
                 flash(f"Données insérées !!", "success")
                 print(f"Données insérées !!")
 
-                # Pour afficher et constater l'insertion du nouveau film (id_film_sel=0 => afficher tous les films)
-                return redirect(url_for('couleur/couleur_ajouter', id_film_sel=0))
+                return redirect(url_for('couleur_afficher', order_by='ASC', id_couleur_sel=0))
 
         except Exception as Exception_couleur_ajouter_wtf:
             raise ExceptionCouleurAjouterWTF(f"fichier : {Path(__file__).name}  ;  "
@@ -114,23 +115,25 @@ Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_updat
 
 @app.route("/couleur_update", methods=['GET', 'POST'])
 def couleur_update_wtf():
-    # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_film"
+    # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_couleur"
     id_couleur_update = request.values['id_couleur_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
-    form_update_couleur = FormWTFUpdateCouleur()
+    form_update = FormWTFUpdateCouleur()
     try:
-        print(" on submit ", form_update_couleur.validate_on_submit())
-        if form_update_couleur.validate_on_submit():
+        print(" on submit ", form_update.validate_on_submit())
+        if form_update.validate_on_submit():
             # Récupèrer la valeur du champ depuis "produit_update_wtf.html" après avoir cliqué sur "SUBMIT".
-            nom_couleur_update = form_update_couleur.nom_couleur_update_wtf.data
+            nom_couleur_update = form_update.nom_couleur_update_wtf.data
 
-            valeur_update_dictionnaire = {"value_id_couleur": id_couleur_update,
-                                          "value_nom_couleur": nom_couleur_update,
-                                          }
+            valeur_update_dictionnaire = {"value_id_couleur": id_couleur_update, "value_nom_couleur": nom_couleur_update}
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_nom_couleur = """UPDATE t_couleur SET couleur = %(value_nom_couleur)s,"""
+            str_sql_update_nom_couleur = """
+                UPDATE t_couleur
+                SET couleur = %(value_nom_couleur)s
+                WHERE id_couleur = %(value_id_couleur)s
+            """
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_nom_couleur, valeur_update_dictionnaire)
 
@@ -138,30 +141,25 @@ def couleur_update_wtf():
             print(f"Donnée mise à jour !!")
 
             # afficher et constater que la donnée est mise à jour.
-            # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('couleur_afficher', id_couleur_sel=id_couleur_update))
+            # Afficher seulement la couleur modifiée, "ASC" et l'"id_couleur_update"
+            return redirect(url_for('couleur_afficher', order_by="ASC", id_couleur_sel=id_couleur_update))
         elif request.method == "GET":
-            # Opération sur la BD pour récupérer "id_film" et "intitule_produit" de la "t_genre"
+            # Opération sur la BD pour récupérer "id_couleur" et "couleur" de la "t_couleur"
             str_sql_id_couleur = "SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"
             valeur_select_dictionnaire = {"value_id_couleur": id_couleur_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_couleur, valeur_select_dictionnaire)
-            # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom produit" pour l'UPDATE
-            data_film = mybd_conn.fetchone()
-            print("data_film ", data_film, " type ", type(data_film), " produit ",
-                  data_film["nom_film"])
+            # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "couleur" pour l'UPDATE
+            data_couleur = mybd_conn.fetchone()
+            print("data_couleur ", data_couleur, " type ", type(data_couleur), " couleur ", data_couleur["couleur"])
 
-            # Afficher la valeur sélectionnée dans le champ du formulaire "film_update_wtf.html"
-            form_update_couleur.nom_couleur_update_wtf.data = data_film["nom_couleur"]
-            # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
-            print(f" duree film  ", data_film["duree_film"], "  type ", type(data_film["duree_film"]))
+            # Afficher la valeur sélectionnée dans le champ du formulaire "couleur_update_wtf.html"
+            form_update.nom_couleur_update_wtf.data = data_couleur["couleur"]
 
     except Exception as Exception_couleur_update_wtf:
-        raise ExceptionCouleurUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
-                                     f"{couleur_update_wtf.__name__} ; "
-                                     f"{Exception_couleur_update_wtf}")
+        raise ExceptionCouleurUpdateWtf(f"fichier : {Path(__file__).name}  ;  {couleur_update_wtf.__name__} ; {Exception_couleur_update_wtf}")
 
-    return render_template("couleur/couleur_update_wtf.html", form_update_couleur=form_update_couleur)
+    return render_template("couleur/couleur_update_wtf.html", form_update=form_update)
 
 
 """Effacer(delete) un film qui a été sélectionné dans le formulaire "films_genres_afficher.html"

@@ -200,7 +200,7 @@ def produits_update_wtf():
             nomProduits = %(value_nomproduit)s, 
             fk_Couleur = %(couleur_produits_update)s, 
             fk_Categorie = %(categorie_produits_update)s,
-            RWHERE id_Produit = %(value_id_produit)s """
+            WHERE id_Produit = %(value_id_produit)s """
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_produits, valeur_update_dictionnaire)
 

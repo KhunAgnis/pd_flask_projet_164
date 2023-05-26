@@ -11,21 +11,16 @@ from wtforms.validators import Regexp
 
 
 
-class FormWTFAddCouleur(FlaskForm):
-    """
-        Dans le formulaire "produits_ajouter_wtf.html" on impose que le champ soit rempli.
-        Définition d'un "bouton" submit avec un libellé personnalisé.
-    """
-    nom_couleur_regexp = ""
-    nom_couleur_add_wtf = StringField("Nom de la couleur ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
-                                                               Regexp(nom_couleur_regexp,
-                                                                      message="Pas de chiffres, de caractères "
-                                                                              "spéciaux, "
-                                                                              "d'espace à double, de double "
-                                                                              "apostrophe, de double trait union")
-                                                               ])
+class FormWTFAjouterCouleur(FlaskForm):
+
+    nom_couleur_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    nom_couleur_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                 Regexp(nom_couleur_regexp,
+                                                                        message="Lettre uniquement")
+                                                                 ])
 
     submit = SubmitField("Enregistrer la couleur")
+
 
 
 class FormWTFUpdateCouleur(FlaskForm):
@@ -35,13 +30,10 @@ class FormWTFUpdateCouleur(FlaskForm):
     """
 
     nom_couleur_regexp = ""
-    nom_couleur_add_wtf = StringField("Nom de la couleur ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
-                                                                        Regexp(nom_couleur_regexp,
-                                                                               message="Pas de chiffres, de caractères "
-                                                                                       "spéciaux, "
-                                                                                       "d'espace à double, de double "
-                                                                                       "apostrophe, de double trait union")
-                                                                        ])
+    nom_couleur_update_wtf = StringField("Nom de la couleur ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                 Regexp(nom_couleur_regexp,
+                                                                        message="Lettre uniquement")
+                                                                 ])
 
     submit = SubmitField("Mettre à jour la couleur")
 
@@ -59,12 +51,3 @@ class FormWTFDeleteCouleur(FlaskForm):
     submit_btn_del_couleur = SubmitField("Effacer la couleur")
     submit_btn_conf_del_couleur = SubmitField("Etes-vous sur de vouloir effacer ?")
     submit_btn_annuler = SubmitField("Annuler la suppression")
-
-
-class FormWTFAjouterCouleur:
-
-    nom_couleur_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_couleur_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
-                                                                  Regexp(nom_couleur_regexp,
-                                                                         message="Lettre uniquement")
-                                                                  ])
