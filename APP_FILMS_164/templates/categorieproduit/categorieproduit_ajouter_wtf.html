@@ -13,21 +13,21 @@
 				<div class="form-group">
 					<p>
 						{{ form.nom_categorieproduit_wtf.label }}<br>
-						{{ form.nom_categorieproduit_wtf(size=24) }}<br>
+						{{ form.nom_categorieproduit_wtf(size=24, maxlength=20, class='form-control' ~ (' is-invalid' if form.nom_categorieproduit_wtf.errors else ''), style='max-width: 400px;') }}<br>
 						{% for error in form.nom_categorieproduit_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
 						{{ form.desc_categorieproduit_wtf.label }}<br>
-						{{ form.desc_categorieproduit_wtf(size=24) }}<br>
+						{{ form.desc_categorieproduit_wtf(size=24, maxlength=20, class='form-control' ~ (' is-invalid' if form.desc_categorieproduit_wtf.errors else ''), style='max-width: 400px;') }}<br>
 						{% for error in form.desc_categorieproduit_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
 						{{ form.images_categorieproduit_wtf.label }}<br>
-						{{ form.images_categorieproduit_wtf(size=24) }}<br>
+						{{ form.images_categorieproduit_wtf(size=24, maxlength=20, class='form-control' ~ (' is-invalid' if form.images_categorieproduit_wtf.errors else ''), style='max-width: 400px;') }}<br>
 						{% for error in form.images_categorieproduit_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
@@ -39,4 +39,3 @@
 	</div>
 </div>
 {% endblock %}
-

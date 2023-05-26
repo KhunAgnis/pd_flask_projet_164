@@ -17,21 +17,21 @@ class FormWTFAjouterCategorieProduit(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_categorieproduit_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_categorieproduit_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_categorieproduit_wtf = StringField("Insérer le nom de la catégorie ", validators=[Length(min=2, max=200, message="Nom valide attendu"),
                                                                   Regexp(nom_categorieproduit_regexp,
                                                                          message="Lettre uniquement")
                                                                   ])
     desc_categorieproduit_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    desc_categorieproduit_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    desc_categorieproduit_wtf = StringField("Inscriver une breve description ", validators=[Length(min=2, max=200, message="Description brève attendue"),
                                                                           Regexp(desc_categorieproduit_regexp,
                                                                                  message="Lettre uniquement")
                                                                           ])
 
     images_categorieproduit_regexp = "^https?://[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$"
-    images_categorieproduit_wtf = StringField("Insérer le nom ",
-                                            validators=[Length(min=2, max=20, message="min 2 max 20"),
+    images_categorieproduit_wtf = StringField("Ajouter le lien de l'image ",
+                                            validators=[Length(min=2, max=200, message='Insérer un lien valide'),
                                                         Regexp(images_categorieproduit_regexp,
-                                                               message="Lettre uniquement")
+                                                               message="Format JPG,JPEG,GIF,PNG")
                                                         ])
 
     submit = SubmitField("Enregistrer cette Catégorie de Produit")
