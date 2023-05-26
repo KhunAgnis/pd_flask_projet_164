@@ -163,6 +163,7 @@ def couleur_update_wtf():
     return render_template("couleur/couleur_update_wtf.html", form_update=form_update)
 
 
+
 """Effacer(delete) un film qui a été sélectionné dans le formulaire "films_genres_afficher.html"
 Auteur : OM 2022.04.11
 Définition d'une "route" /film_delete
@@ -243,8 +244,8 @@ def couleur_delete_wtf():
                 # Une seule valeur est suffisante "fetchone()",
                 # vu qu'il n'y a qu'un seul champ "nom couleur" pour l'action DELETE
                 data_couleur = mydb_conn.fetchone()
-                print("data_couleur", data_couleur, " type ", type(data_couleur), " couleur ",
-                      data_couleur["data_couleur"])
+                print("data_couleur", data_couleur, " type ", type(data_couleur), " couleur ", data_couleur)
+
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "couleur_delete_wtf.html"
             form_delete.nom_couleur_delete_wtf.data = data_couleur["data_couleur"]
@@ -259,5 +260,4 @@ def couleur_delete_wtf():
 
     return render_template("couleur/couleur_delete_wtf.html",
                            form_delete=form_delete,
-                           btn_submit_del=btn_submit_del,
-                           data_films_associes=data_films_attribue_couleur_delete)
+                           btn_submit_del=btn_submit_del)
