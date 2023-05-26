@@ -88,7 +88,7 @@ def couleur_ajouter_wtf():
                 flash(f"Données insérées !!", "success")
                 print(f"Données insérées !!")
 
-                return redirect(url_for('couleur_afficher', order_by='ASC', id_couleur_sel=0))
+                return redirect(url_for('couleur_afficher', order_by='DESC', id_couleur_sel=0))
 
         except Exception as Exception_couleur_ajouter_wtf:
             raise ExceptionCouleurAjouterWTF(f"fichier : {Path(__file__).name}  ;  "

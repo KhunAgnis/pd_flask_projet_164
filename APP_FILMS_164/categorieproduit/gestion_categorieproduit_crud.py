@@ -74,15 +74,23 @@ def categorieproduit_afficher(order_by, id_categorie_sel):
 def categorieproduit_ajouter_wtf():
     # Objet formulaire pour AJOUTER un film
     form = FormWTFAjouterCategorieProduit()
+
     if request.method == "POST":
         try:
             if form.validate_on_submit():
                 nom_categorieproduit_ajouter = form.nom_categorieproduit_ajouter_wtf.data
+                desc_categorieproduit_ajouter = form.desc_categorieproduit_ajouter_wtf.data
+                images_categorieproduit_ajouter = form.nom_categorieproduit_ajouter_wtf.data
 
                 valeurs_insertion_dictionnaire = {"value_nom_categorieproduit": nom_categorieproduit_ajouter}
+                valeurs_insertion_dictionnaire = {"value_desc_categorieproduit": desc_categorieproduit_ajouter}
+                valeurs_insertion_dictionnaire = {"value_images_categorieproduit": images_categorieproduit_ajouter}
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_categorieproduit = """INSERT INTO t_categorieproduit (id_categorieproduit,categorieproduit) VALUES (NULL,%(value_nom_categorieproduit)s) """
+                strsql_insert_categorieproduit = """INSERT INTO t_categorieproduit
+                                                    (id_categorieproduit,nomCategorie, descCategorie, imagesCategorie) 
+                                                    VALUES (NULL,%(value_nom_categorieproduit), %(value_desc_categorieproduit),
+                                                    %(value_images_categorieproduit)s) """
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_categorieproduit, valeurs_insertion_dictionnaire)
 
@@ -90,7 +98,8 @@ def categorieproduit_ajouter_wtf():
                 print(f"Données insérées !!")
 
                 # Pour afficher et constater l'insertion du nouveau film (id_film_sel=0 => afficher tous les films)
-                return redirect(url_for('categorieproduit/categorieproduit_ajouter', id_categorie_sel=0))
+                return redirect(url_for('ajouter_categorieproduit', order_by='DESC', id_categorie_sel=0))
+
 
         except Exception as Exception_categorieproduit_ajouter_wtf:
             raise ExceptionCategorieProduitAjouterWtf(f"fichier : {Path(__file__).name}  ;  "

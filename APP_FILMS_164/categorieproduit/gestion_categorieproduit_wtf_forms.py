@@ -16,16 +16,25 @@ class FormWTFAjouterCategorieProduit(FlaskForm):
         Dans le formulaire "produits_ajouter_wtf.html" on impose que le champ soit rempli.
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
-    nom_couleur_regexp = ""
-    nom_couleur_add_wtf = StringField("Nom de la couleur ", validators=[Length(min=2, max=2000, message="min 2 max 20"),
-                                                               Regexp(nom_couleur_regexp,
-                                                                      message="Pas de chiffres, de caractères "
-                                                                              "spéciaux, "
-                                                                              "d'espace à double, de double "
-                                                                              "apostrophe, de double trait union")
-                                                               ])
+    nom_categorieproduit_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    nom_categorieproduit_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                  Regexp(nom_categorieproduit_regexp,
+                                                                         message="Lettre uniquement")
+                                                                  ])
+    desc_categorieproduit_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
+    desc_categorieproduit_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                                          Regexp(desc_categorieproduit_regexp,
+                                                                                 message="Lettre uniquement")
+                                                                          ])
 
-    submit = SubmitField("Enregistrer la couleur")
+    images_categorieproduit_regexp = "^https?://[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$"
+    images_categorieproduit_wtf = StringField("Insérer le nom ",
+                                            validators=[Length(min=2, max=20, message="min 2 max 20"),
+                                                        Regexp(images_categorieproduit_regexp,
+                                                               message="Lettre uniquement")
+                                                        ])
+
+    submit = SubmitField("Enregistrer cette Catégorie de Produit")
 
 
 class FormWTFUpdateCategorieProduit(FlaskForm):
