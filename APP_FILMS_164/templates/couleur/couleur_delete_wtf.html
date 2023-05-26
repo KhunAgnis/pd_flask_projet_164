@@ -7,51 +7,51 @@
 			<p>
 				Effacer une Couleur
 			</p>
-			<table class="table table-responsive-sm">
-				{% if data_couleur_del %}
-				<thead>
-				<tr>
-					<th class="">
-						IdCouleur
-					</th>
-					<th class="">
-						Nom de la couleur
-					</th>
-				</tr>
-				</thead>
-				{% endif %}
-				{% for row in data_couleur_del %}
-				<tbody>
-				<tr>
-					<th class="align-middle">
-						{{ row.id_couleur }}
-					</th>
-					<th class="align-middle">
-						{{ row.couleur }}
-					</th>
-				</tr>
-				</tr>
-				</tbody>
-				{% else %}
-				<tbody>
-				<tr>
-
-				</tr>
-				</tbody>
-				{% endfor %}
-
-			</table>
-
 			<form action="" method="POST" novalidate>
 				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_delete_couleur.hidden_tag() }}
-				{{ form_delete_couleur.submit_btn_conf_del_couleur(class="btn btn-info") }}
+				{{ form_delete.hidden_tag() }}
+				<table class="table table-bordered table-sm">
+					{% if data_couleur_associes %}
+					{% else %}
+						<h3>Cette couleur à effacer n'est associée à rien.</h3>
+					{% endif %}
+					{% if data_couleur_associes %}
+						<thead>
+							<tr>
+								<th>
+									couleur(S)
+								</th>
+							</tr>
+						</thead>
+						{% for row in data_couleur_associes %}
+							<tbody>
+								<tr>
+									<td>
+										{{ row.couleur }}
+									</td>
+								</tr>
+							</tbody>
+						{% endfor %}
+					{% endif %}
+				</table>
+
+
+				<div class="form-group">
+					<p>
+						{{ form_delete.nom_couleur_delete_wtf.label }}<br>
+						{{ form_delete.nom_couleur_delete_wtf(size=32, readonly=true) }}<br>
+						{% for error in form_delete.nom_couleur_delete_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+				</div>
+				{{ form_delete.submit_btn_conf_del(class="btn btn-info") }}
 
 				{% if btn_submit_del %}
-					{{ form_delete_couleur.submit_btn_del_couleur(class="btn btn-danger") }}
+					{{ form_delete.submit_btn_del(class="btn btn-danger") }}
 				{% endif %}
 
-				{{ form_delete_couleur.submit_btn_annuler(class="btn btn-primary") }}
+				{{ form_delete.submit_btn_annuler(class="btn btn-primary") }}
 			</form>
 		</div>
 	</div>

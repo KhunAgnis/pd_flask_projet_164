@@ -21,7 +21,7 @@ from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFUpdateCouleur
 Auteur : OM 2022.04.11
 Définition d'une "route" /film_add
 
-Test : exemple: cliquer sur le menu "Films/produits" puis cliquer sur le bouton "ADD" d'un "film"
+Test : exemple: cliquer sur le menu "Films/couleurs" puis cliquer sur le bouton "ADD" d'un "film"
 
 Paramètres : sans
 
@@ -102,11 +102,11 @@ def couleur_ajouter_wtf():
 Auteur : OM 2022.04.11
 Définition d'une "route" /film_update
 
-Test : exemple: cliquer sur le menu "Films/produits" puis cliquer sur le bouton "EDIT" d'un "film"
+Test : exemple: cliquer sur le menu "Films/couleurs" puis cliquer sur le bouton "EDIT" d'un "film"
 
 Paramètres : sans
 
-But : Editer(update) un produit qui a été sélectionné dans le formulaire "produits_afficher.html"
+But : Editer(update) un couleur qui a été sélectionné dans le formulaire "couleurs_afficher.html"
 
 Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_update_wtf.html",
             le contrôle de la saisie s'effectue ici en Python.
@@ -124,7 +124,7 @@ def couleur_update_wtf():
     try:
         print(" on submit ", form_update.validate_on_submit())
         if form_update.validate_on_submit():
-            # Récupèrer la valeur du champ depuis "produit_update_wtf.html" après avoir cliqué sur "SUBMIT".
+            # Récupèrer la valeur du champ depuis "couleur_update_wtf.html" après avoir cliqué sur "SUBMIT".
             nom_couleur_update = form_update.nom_couleur_update_wtf.data
 
             valeur_update_dictionnaire = {"value_id_couleur": id_couleur_update, "value_nom_couleur": nom_couleur_update}
@@ -178,72 +178,86 @@ Remarque :  Dans le champ "nom_film_delete_wtf" du formulaire "films/film_delete
 
 @app.route("/couleur_delete", methods=['GET', 'POST'])
 def couleur_delete_wtf():
-    # Pour afficher ou cacher les boutons "EFFACER"
-    data_couleur_delete = None
+    data_films_attribue_couleur_delete = None
     btn_submit_del = None
-    # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_film"
+    # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_couleur"
     id_couleur_delete = request.values['id_couleur_btn_delete_html']
 
-    # Objet formulaire pour effacer le film sélectionné.
-    form_delete_couleur = FormWTFDeleteCouleur()
+    # Objet formulaire pour effacer le couleur sélectionné.
+    form_delete = FormWTFDeleteCouleur()
     try:
-        # Si on clique sur "ANNULER", afficher tous les films.
-        if form_delete_couleur.submit_btn_annuler.data:
-            return redirect(url_for("couleur_afficher", id_couleur_sel=0))
+        print(" on submit ", form_delete.validate_on_submit())
+        if request.method == "POST" and form_delete.validate_on_submit():
 
-        if form_delete_couleur.submit_btn_conf_del_couleur.data:
-            # Récupère les données afin d'afficher à nouveau
-            # le formulaire "films/film_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
-            data_couleur_delete = session['data_couleur_delete']
-            print("data_couleur_delete ", data_couleur_delete)
+            if form_delete.submit_btn_annuler.data:
+                return redirect(url_for("couleur_afficher", order_by="ASC", id_couleur_sel=0))
 
-            flash(f"Effacer la couleur de façon définitive de la BD !!!", "danger")
-            # L'utilisateur vient de cliquer sur le bouton de confirmation pour effacer...
-            # On affiche le bouton "Effacer produit" qui va irrémédiablement EFFACER le produit
-            btn_submit_del = True
+            if form_delete.submit_btn_conf_del.data:
+                # Récupère les données afin d'afficher à nouveau
+                # le formulaire "couleur/couleur_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
+                data_films_attribue_couleur_delete = session['data_films_attribue_couleur_delete']
+                print("data_films_attribue_couleur_delete ", data_films_attribue_couleur_delete)
 
-        # L'utilisateur a vraiment décidé d'effacer.
-        if form_delete_couleur.submit_btn_del_couleur.data:
-            valeur_delete_dictionnaire = {"value_id_couleur": id_couleur_delete}
-            print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
+                flash(f"Effacer le couleur de façon définitive de la BD !!!", "danger")
+                # L'utilisateur vient de cliquer sur le bouton de confirmation pour effacer...
+                # On affiche le bouton "Effacer couleur" qui va irrémédiablement EFFACER le couleur
+                btn_submit_del = True
 
-            str_sql_delete_couleur = """DELETE FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"""
-            # Manière brutale d'effacer d'abord la "fk_film", même si elle n'existe pas dans la "t_produit_film"
-            # Ensuite on peut effacer le film vu qu'il n'est plus "lié" (INNODB) dans la "t_produit_film"
-            with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_delete_couleur, valeur_delete_dictionnaire)
+            if form_delete.submit_btn_del.data:
+                valeur_delete_dictionnaire = {"value_id_couleur": id_couleur_delete}
+                print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-            flash(f"Couleur définitivement effacée !!", "success")
-            print(f"Couleur définitivement effacée !!")
+                str_sql_delete_couleur = """DELETE FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"""
+                # Manière brutale d'effacer d'abord la "fk_genre", même si elle n'existe pas dans la "t_couleur_film"
+                # Ensuite on peut effacer le couleur vu qu'il n'est plus "lié" (INNODB) dans la "t_couleur_film"
+                with DBconnection() as mconn_bd:
+                    mconn_bd.execute(str_sql_delete_couleur, valeur_delete_dictionnaire)
 
-            # afficher les données
-            return redirect(url_for('couleur_afficher', id_couleur_sel=0))
+                flash(f"couleur définitivement effacé !!", "success")
+                print(f"couleur définitivement effacé !!")
+
+                # afficher les données
+                return redirect(url_for('couleur_afficher', order_by="ASC", id_couleur_sel=0))
+
         if request.method == "GET":
             valeur_select_dictionnaire = {"value_id_couleur": id_couleur_delete}
             print(id_couleur_delete, type(id_couleur_delete))
 
-            # Requête qui affiche le film qui doit être efffacé.
-            str_sql_produits_couleur_delete = """SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"""
+            # Requête qui affiche tous les films_genres qui ont le couleur que l'utilisateur veut effacer
+            str_sql_couleur_delete = """SELECT * FROM t_couleur 
+                                            WHERE id_couleur = %(value_id_couleur)s"""
 
             with DBconnection() as mydb_conn:
-                mydb_conn.execute(str_sql_produits_couleur_delete, valeur_select_dictionnaire)
-                data_couleur_delete = mydb_conn.fetchall()
-                print("data_couleur_delete...", data_couleur_delete)
+                mydb_conn.execute(str_sql_couleur_delete, valeur_select_dictionnaire)
+                data_films_attribue_couleur_delete = mydb_conn.fetchall()
+                print("data_films_attribue_couleur_delete...", data_films_attribue_couleur_delete)
 
                 # Nécessaire pour mémoriser les données afin d'afficher à nouveau
-                # le formulaire "films/film_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
-                session['data_couleur_delete'] = data_couleur_delete
+                # le formulaire "couleur/couleur_delete_wtf.html" lorsque le bouton "Etes-vous sur d'effacer ?" est cliqué.
+                session['data_films_attribue_couleur_delete'] = data_films_attribue_couleur_delete
 
-            # Le bouton pour l'action "DELETE" dans le form. "film_delete_wtf.html" est caché.
+                # Opération sur la BD pour récupérer "id_couleur" et "intitule_couleur" de la "t_genre"
+                str_sql_id_couleur = "SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"
+
+                mydb_conn.execute(str_sql_id_couleur, valeur_select_dictionnaire)
+                # Une seule valeur est suffisante "fetchone()",
+                # vu qu'il n'y a qu'un seul champ "nom couleur" pour l'action DELETE
+                data_couleur = mydb_conn.fetchone()
+                print("data_couleur", data_couleur, " type ", type(data_couleur), " couleur ",
+                      data_couleur["data_couleur"])
+
+            # Afficher la valeur sélectionnée dans le champ du formulaire "couleur_delete_wtf.html"
+            form_delete.nom_couleur_delete_wtf.data = data_couleur["data_couleur"]
+
+            # Le bouton pour l'action "DELETE" dans le form. "couleur_delete_wtf.html" est caché.
             btn_submit_del = False
 
     except Exception as Exception_couleur_delete_wtf:
         raise ExceptionCouleurDeleteWtf(f"fichier : {Path(__file__).name}  ;  "
-                                     f"{couleur_delete_wtf.__name__} ; "
-                                     f"{Exception_couleur_delete_wtf}")
+                                      f"{couleur_delete_wtf.__name__} ; "
+                                      f"{Exception_couleur_delete_wtf}")
 
     return render_template("couleur/couleur_delete_wtf.html",
-                           form_delete_couleur=form_delete_couleur,
+                           form_delete=form_delete,
                            btn_submit_del=btn_submit_del,
-                           data_couleur_del=data_couleur_delete
-                           )
+                           data_films_associes=data_films_attribue_couleur_delete)

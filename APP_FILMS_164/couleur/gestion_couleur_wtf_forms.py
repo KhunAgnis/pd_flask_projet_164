@@ -48,6 +48,6 @@ class FormWTFDeleteCouleur(FlaskForm):
         submit_btn_annuler : Bouton qui permet d'afficher la table "t_film".
     """
     nom_couleur_delete_wtf = StringField("Effacer cette couleur")
-    submit_btn_del_couleur = SubmitField("Effacer la couleur")
-    submit_btn_conf_del_couleur = SubmitField("Etes-vous sur de vouloir effacer ?")
+    submit_btn_del = SubmitField("Effacer la couleur")
+    submit_btn_conf_del = SubmitField("Etes-vous sur de vouloir effacer ?")
     submit_btn_annuler = SubmitField("Annuler la suppression")
