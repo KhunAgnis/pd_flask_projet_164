@@ -80,7 +80,7 @@ def categorieproduit_ajouter_wtf():
             if form.validate_on_submit():
                 nom_categorieproduit_ajouter = form.nom_categorieproduit_ajouter_wtf.data
                 desc_categorieproduit_ajouter = form.desc_categorieproduit_ajouter_wtf.data
-                images_categorieproduit_ajouter = form.nom_categorieproduit_ajouter_wtf.data
+                images_categorieproduit_ajouter = form.images_categorieproduit_ajouter_wtf.data
 
                 valeurs_insertion_dictionnaire = {"value_nom_categorieproduit": nom_categorieproduit_ajouter}
                 valeurs_insertion_dictionnaire = {"value_desc_categorieproduit": desc_categorieproduit_ajouter}
@@ -136,23 +136,26 @@ def categorieproduit_update_wtf():
         print(" on submit ", form_update_categorieproduit.validate_on_submit())
         if form_update_categorieproduit.validate_on_submit():
             # Récupèrer la valeur du champ depuis "produit_update_wtf.html" après avoir cliqué sur "SUBMIT".
-            nom_categorieproduit_update = form_update_categorieproduit.nom_categorieproduit_update_wtf.data
+            nom_categorieproduit_ajouter = form.nom_categorieproduit_update_wtf.data
+            desc_categorieproduit_ajouter = form.desc_categorieproduit_update_wtf.data
+            images_categorieproduit_ajouter = form.images_categorieproduit_update_wtf.data
 
-            valeur_update_dictionnaire = {"value_id_categorieproduit": id_categorieproduit_update,
-                                          "value_nom_categorieproduit": nom_categorieproduit_update,
-                                          }
-            print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
+            valeurs_update_dictionnaire = {"value_nom_categorieproduit": nom_categorieproduit_ajouter}
+            valeurs_update_dictionnaire = {"value_desc_categorieproduit": desc_categorieproduit_ajouter}
+            valeurs_update_dictionnaire = {"value_images_categorieproduit": images_categorieproduit_ajouter}
+            print("valeurs_update_dictionnaire ", valeurs_update_dictionnaire)
 
-            str_sql_update_nom_categorieproduit = """UPDATE t_categorieproduit SET categorieproduit = %(value_nom_categorieproduit)s,"""
+            str_sql_update_nom_categorieproduit = """UPDATE t_categorieproduit SET nomCategorie, descCategorie, imagesCategorie
+                                                    = %(value_nom_categorieproduit)s,"""
             with DBconnection() as mconn_bd:
-                mconn_bd.execute(str_sql_update_nom_categorieproduit, valeur_update_dictionnaire)
+                mconn_bd.execute(str_sql_update_nom_categorieproduit, valeurs_update_dictionnaire)
 
             flash(f"Donnée mise à jour !!", "success")
             print(f"Donnée mise à jour !!")
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('categorieproduit_afficher', id_categorieproduit_sel=id_categorieproduit_update))
+            return redirect(url_for('categorieproduit_update', id_categorieproduit_sel=id_categorieproduit_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_produit" de la "t_genre"
             str_sql_id_categorieproduit = "SELECT * FROM t_categorieproduit WHERE id_categorieproduit = %(value_id_categorieproduit)s"

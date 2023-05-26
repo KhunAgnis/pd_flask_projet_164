@@ -8,6 +8,8 @@ from flask import redirect
 from flask import request
 from flask import session
 from flask import url_for
+from flask import render_template
+
 
 from APP_FILMS_164 import app
 from APP_FILMS_164.database.database_tools import DBconnection
@@ -102,16 +104,22 @@ def produits_ajouter_wtf():
                 couleur_produits_wtf = form.couleur_produits_wtf.data
                 categorie_produits_wtf = form.categorie_produits_wtf.data
 
-                valeurs_insertion_dictionnaire = {"value_nom_produits": nom_produits_wtf}
-                valeurs_insertion_dictionnaire = {"value_taille_produits": taille_produits_wtf}
-                valeurs_insertion_dictionnaire = {"value_couleur_produits": couleur_produits_wtf}
-                valeurs_insertion_dictionnaire = {"value_categorie_produits": categorie_produits_wtf}
+                valeurs_insertion_dictionnaire = {
+                    "value_nom_produits": nom_produits_wtf,
+                    "value_taille_produits": taille_produits_wtf,
+                    "value_couleur_produits": couleur_produits_wtf,
+                    "value_categorie_produits": categorie_produits_wtf
+                }
 
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_produits = """INSERT INTO t_produit 
-                                    (id_produit,nomProduit, tailleProduit,fk_couleur,fk_categorie) 
-                                    VALUES (NULL,%(value_nom_produits),%(value_taille_produits),%(value_couleur_produits),%(value_categorie_produits)s) """
+                strsql_insert_produits = """
+                    INSERT INTO t_produit (id_produit, nomProduit, tailleProduit, fk_couleur, fk_categorie) 
+                    VALUES (NULL, %(value_nom_produits)s, %(value_taille_produits)s, 
+                            (SELECT couleur FROM t_couleur WHERE id_couleur = %(value_couleur_produits)s), 
+                            %(value_categorie_produits)s)
+                """
+
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_produits, valeurs_insertion_dictionnaire)
 
@@ -196,11 +204,14 @@ def produits_update_wtf():
 
             print("valeur_update_dictionnaire ", valeur_update_dictionnaire)
 
-            str_sql_update_produits = """UPDATE t_produit SET tailleProduit = %(value_tailleProduit_essai)s, 
-            nomProduits = %(value_nomproduit)s, 
-            fk_Couleur = %(couleur_produits_update)s, 
-            fk_Categorie = %(categorie_produits_update)s,
-            WHERE id_Produit = %(value_id_produit)s """
+            str_sql_update_produits = """
+                UPDATE t_produit SET tailleProduit = %(value_tailleProduit_essai)s, 
+                nomProduits = %(value_nomproduit)s, 
+                fk_Couleur = %(couleur_produits_update)s, 
+                fk_Categorie = %(categorie_produits_update)s
+                WHERE id_Produit = %(value_id_produit)s
+            """
+
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_produits, valeur_update_dictionnaire)
 

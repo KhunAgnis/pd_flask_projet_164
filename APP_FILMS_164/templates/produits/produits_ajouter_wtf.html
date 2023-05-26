@@ -38,12 +38,12 @@
                         {{ form.nom_produits_wtf(class='form-control', maxlength=20, style='max-width: 400px;') }}
                     {% endif %}
 
-      <div class="form-group {% if form.couleur_produits_wtf.errors %}has-danger{% endif %}">
+     <div class="form-group {% if form.couleur_produits_wtf.errors %}has-danger{% endif %}">
     <label for="{{ form.couleur_produits_wtf.id }}">{{ form.couleur_produits_wtf.label }}</label>
     {% if form.couleur_produits_wtf.errors %}
         <select class="form-control is-invalid spaced" id="{{ form.couleur_produits_wtf.id }}" name="{{ form.couleur_produits_wtf.name }}" style="max-width: 400px;">
             {% for couleur in t_Couleur %}
-                <option value="{{ couleur.id_couleur }}">{{ couleur.couleur }}</option>
+                <option value="{{ couleur.couleur }}">{{ couleur.couleur }}</option>
             {% endfor %}
         </select>
         {% for error in form.couleur_produits_wtf.errors %}
@@ -52,28 +52,19 @@
     {% elif form.couleur_produits_wtf.data %}
         <select class="form-control is-valid spaced" id="selected_couleur" name="{{ form.couleur_produits_wtf.name }}" style="max-width: 400px;">
             {% for couleur in t_Couleur %}
-                <option value="{{ couleur.id_couleur }}">{{ couleur.couleur }}</option>
+                <option value="{{ couleur.couleur }}">{{ couleur.couleur }}</option>
             {% endfor %}
         </select>
         <div class="valid-feedback">Vous avez sélectionné une couleur.</div>
     {% else %}
         <select class="form-control spaced" id="{{ form.couleur_produits_wtf.id }}" name="{{ form.couleur_produits_wtf.name }}" style="max-width: 400px;">
             {% for couleur in t_Couleur %}
-                <option value="{{ couleur.id_couleur }}">{{ couleur.couleur }}</option>
+                <option value="{{ couleur.couleur }}">{{ couleur.couleur }}</option>
             {% endfor %}
         </select>
     {% endif %}
 </div>
-                    <!-- Ajoutez ce bloc de code dans votre template pour afficher le contenu de t_Couleur -->
-{% if t_Couleur %}
-    <ul>
-        {% for couleur in t_Couleur %}
-            <li>{{ couleur.id_couleur }} - {{ couleur.couleur }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Aucune donnée n'est disponible dans t_Couleur.</p>
-{% endif %}
+
 
 
 
