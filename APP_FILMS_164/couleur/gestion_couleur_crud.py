@@ -80,7 +80,8 @@ def couleur_ajouter_wtf():
 
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
-                strsql_insert_couleur = """INSERT INTO t_couleur (id_couleur,couleur) VALUES %(value_nom_couleur)s) """
+                strsql_insert_couleur = """INSERT INTO t_couleur (couleur) VALUES (%(value_nom_couleur)s)"""
+
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_couleur, valeurs_insertion_dictionnaire)
 
