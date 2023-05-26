@@ -20,47 +20,47 @@ USE `pereira_daniel_info1a_etam`;
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_categorieproduit
 DROP TABLE IF EXISTS `t_categorieproduit`;
 CREATE TABLE IF NOT EXISTS `t_categorieproduit` (
-  `id_Categorie` int AUTO_INCREMENT,
+  `id_Categorie` int NOT NULL AUTO_INCREMENT,
   `nomCategorie` varchar(50) DEFAULT NULL,
   `descCategorie` varchar(50) DEFAULT NULL,
   `imagesCategorie` text,
   PRIMARY KEY (`id_Categorie`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_categorieproduit : ~22 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_categorieproduit : ~2 rows (environ)
 /*!40000 ALTER TABLE `t_categorieproduit` DISABLE KEYS */;
 INSERT INTO `t_categorieproduit` (`id_Categorie`, `nomCategorie`, `descCategorie`, `imagesCategorie`) VALUES
-	(1, 'Soutien-gorge', 'Sans coque', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRYYEh0CpA_W3qjzmWq7zCPlqmOcjRyKM0EDtF-y9AtA&s'),
-	(2, 'Soutien-gorge', 'Avec coque', NULL),
-	(3, 'Soutien-gorge', 'Push-up', NULL),
-	(4, 'Soutien-gorge', 'Bandeaux', NULL),
+	(1, 'Soutien-gorge', 'Sans coque', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw62f46944/Visuel%20market/SG-MIDNIGHT.jpg?sw=1000&sh=1180&strip=false'),
+	(2, 'Soutien-gorge', 'Avec coque', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwf9e03003/653838585_x.jpg?sw=1000&sh=1180&strip=false'),
+	(3, 'Soutien-gorge', 'Push-up', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwd8bbb1b7/653575781_x.jpg?sw=1000&sh=1180&strip=false'),
+	(4, 'Soutien-gorge', 'Bandeaux', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw6d5d7209/653575881_x.jpg?sw=1000&sh=1180&strip=false'),
 	(5, 'Soutien-gorge', 'Corbeille', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw47ebd800/653917780_x.jpg?sw=1000&sh=1180&strip=false'),
-	(6, 'Culotte', 'Menstruelle', NULL),
-	(7, 'Culotte', 'Shortys', NULL),
-	(8, 'Culotte', 'Tanga', NULL),
-	(9, 'Culotte', 'String', NULL),
-	(10, 'Culotte', 'Hipsters', NULL),
-	(11, 'Culotte', 'Shapewear', NULL),
-	(12, 'Lingerie', 'Body', NULL),
-	(13, 'Lingerie', 'Porte-jartelles', NULL),
-	(14, 'Lingerie', 'Collants', NULL),
-	(15, 'Maillot de bain', '2 pièces', NULL),
-	(16, 'Maillot de bain', '1 pièce', NULL),
-	(17, 'Maillot de bain', 'Beachwear', NULL),
-	(18, 'Pyjama', 'Nuisette', NULL),
-	(19, 'Pyjama', 'Chemise de nuit', NULL),
-	(20, 'Pyjama', 'Déshabillé/Kimono', NULL),
-	(21, 'Pyjama', 'Bas de pyjama', NULL),
-	(22, 'Pyjama', 'Haut de pyjama', NULL);
+	(6, 'Culotte', 'Menstruelle', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwc892192e/652889405_6.jpg?sw=1000&sh=1180&strip=false'),
+	(7, 'Culotte', 'Shortys', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw28dde847/651450780_x.jpg?sw=1000&sh=1180&strip=false'),
+	(8, 'Culotte', 'Tanga', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw70f4b6ee/653068805_x.jpg?sw=1000&sh=1180&strip=false'),
+	(9, 'Culotte', 'String', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw327b756a/653913780_x.jpg?sw=1000&sh=1180&strip=false'),
+	(10, 'Culotte', 'Hipsters', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw4a28272f/652455170_x.jpg?sw=1000&sh=1180&strip=false'),
+	(11, 'Culotte', 'Shapewear', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw3e4cc3f1/652441383_x.jpg?sw=1000&sh=1180&strip=false'),
+	(12, 'Lingerie', 'Body', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwc57dc5d8/653723105_x.jpg?sw=1000&sh=1180&strip=false'),
+	(13, 'Lingerie', 'Porte-jartelles', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwce733cd1/653819878_x.jpg?sw=1000&sh=1180&strip=false'),
+	(14, 'Lingerie', 'Collants', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw1ddc0f8d/652583405_c.jpg?sw=1000&sh=1180&strip=false'),
+	(15, 'Maillot de bain', '2 pièces', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwe22b8bc2/Visuel%20market/010_ETAM%20050423_508-V2-CMJN.jpg?sw=1000&sh=1180&strip=false'),
+	(16, 'Maillot de bain', '1 pièce', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw68f0ef51/653978105_x.jpg?sw=1000&sh=1180&strip=false'),
+	(17, 'Maillot de bain', 'Beachwear', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwfc613191/653922168_x.jpg?sw=1000&sh=1180&strip=false'),
+	(18, 'Pyjama', 'Nuisette', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw6cecdc76/653789701_x.jpg?sw=1000&sh=1180&strip=false'),
+	(19, 'Pyjama', 'Chemise de nuit', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwc6fd783d/653957870_c.jpg?sw=1000&sh=1180&strip=false'),
+	(20, 'Pyjama', 'Déshabillé/Kimono', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw302a071e/653665673_x.jpg?sw=1000&sh=1180&strip=false'),
+	(21, 'Pyjama', 'Bas de pyjama', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw0548802e/653948580_x.jpg?sw=1000&sh=1180&strip=false'),
+	(22, 'Pyjama', 'Haut de pyjama', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dwacf8ce65/653893546_x.jpg?sw=1000&sh=1180&strip=false');
 /*!40000 ALTER TABLE `t_categorieproduit` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_couleur
 DROP TABLE IF EXISTS `t_couleur`;
 CREATE TABLE IF NOT EXISTS `t_couleur` (
-  `id_Couleur` int AUTO_INCREMENT,
+  `id_Couleur` int NOT NULL AUTO_INCREMENT,
   `couleur` varchar(50) NOT NULL,
   PRIMARY KEY (`id_Couleur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Export de données de la table pereira_daniel_info1a_etam.t_couleur : ~14 rows (environ)
 /*!40000 ALTER TABLE `t_couleur` DISABLE KEYS */;
@@ -78,13 +78,14 @@ INSERT INTO `t_couleur` (`id_Couleur`, `couleur`) VALUES
 	(11, 'Blush'),
 	(12, 'Rose bonbon'),
 	(13, 'Rose'),
-	(14, 'Emeraude');
+	(14, 'Emeraude'),
+	(15, 'Kaki');
 /*!40000 ALTER TABLE `t_couleur` ENABLE KEYS */;
 
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produit
 DROP TABLE IF EXISTS `t_produit`;
 CREATE TABLE IF NOT EXISTS `t_produit` (
-  `id_Produit` int AUTO_INCREMENT,
+  `id_Produit` int NOT NULL AUTO_INCREMENT,
   `tailleProduit` varchar(50) DEFAULT NULL,
   `nomProduit` varchar(50) DEFAULT NULL,
   `fk_Couleur` int DEFAULT NULL,
@@ -94,9 +95,9 @@ CREATE TABLE IF NOT EXISTS `t_produit` (
   KEY `fk_Couleur` (`fk_Couleur`),
   CONSTRAINT `FKProduitCategorie` FOREIGN KEY (`fk_Categorie`) REFERENCES `t_categorieproduit` (`id_Categorie`),
   CONSTRAINT `FKProduitCouleur` FOREIGN KEY (`fk_Couleur`) REFERENCES `t_couleur` (`id_Couleur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_produit : ~12 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_produit : ~0 rows (environ)
 /*!40000 ALTER TABLE `t_produit` DISABLE KEYS */;
 INSERT INTO `t_produit` (`id_Produit`, `tailleProduit`, `nomProduit`, `fk_Couleur`, `fk_Categorie`) VALUES
 	(1, 'M', 'Pantalon de pyjama imprimé', 5, 21),
@@ -116,7 +117,7 @@ INSERT INTO `t_produit` (`id_Produit`, `tailleProduit`, `nomProduit`, `fk_Couleu
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produitajoutstock
 DROP TABLE IF EXISTS `t_produitajoutstock`;
 CREATE TABLE IF NOT EXISTS `t_produitajoutstock` (
-  `id_ProduitAjoutStock` int AUTO_INCREMENT,
+  `id_ProduitAjoutStock` int NOT NULL AUTO_INCREMENT,
   `DateAjout` date NOT NULL,
   `QuantiteAjoute` int NOT NULL,
   `fk_Stock` int NOT NULL,
@@ -126,9 +127,9 @@ CREATE TABLE IF NOT EXISTS `t_produitajoutstock` (
   KEY `FK_ProduitAjoutStock_Stock` (`fk_Stock`),
   CONSTRAINT `FK_ProduitAjoutStock_Produit` FOREIGN KEY (`fk_Produit`) REFERENCES `t_produit` (`id_Produit`),
   CONSTRAINT `FK_ProduitAjoutStock_Stock` FOREIGN KEY (`fk_Stock`) REFERENCES `t_stock` (`id_Stock`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_produitajoutstock : ~1 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_produitajoutstock : ~0 rows (environ)
 /*!40000 ALTER TABLE `t_produitajoutstock` DISABLE KEYS */;
 INSERT INTO `t_produitajoutstock` (`id_ProduitAjoutStock`, `DateAjout`, `QuantiteAjoute`, `fk_Stock`, `fk_Produit`) VALUES
 	(1, '2023-05-25', 100, 1, 2);
@@ -137,7 +138,7 @@ INSERT INTO `t_produitajoutstock` (`id_ProduitAjoutStock`, `DateAjout`, `Quantit
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_produitretirerstock
 DROP TABLE IF EXISTS `t_produitretirerstock`;
 CREATE TABLE IF NOT EXISTS `t_produitretirerstock` (
-  `id_ProduitRetirerStock` int AUTO_INCREMENT,
+  `id_ProduitRetirerStock` int NOT NULL AUTO_INCREMENT,
   `DateRetirer` date NOT NULL,
   `QuantiteRetirer` int NOT NULL,
   `fk_Stock` int NOT NULL,
@@ -147,9 +148,9 @@ CREATE TABLE IF NOT EXISTS `t_produitretirerstock` (
   KEY `FK_ProduitRetirerStock_Stock` (`fk_Stock`),
   CONSTRAINT `FK_ProduitRetirerStock_Produit` FOREIGN KEY (`fk_Produit`) REFERENCES `t_produit` (`id_Produit`),
   CONSTRAINT `FK_ProduitRetirerStock_Stock` FOREIGN KEY (`fk_Stock`) REFERENCES `t_stock` (`id_Stock`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_produitretirerstock : ~1 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_produitretirerstock : ~0 rows (environ)
 /*!40000 ALTER TABLE `t_produitretirerstock` DISABLE KEYS */;
 INSERT INTO `t_produitretirerstock` (`id_ProduitRetirerStock`, `DateRetirer`, `QuantiteRetirer`, `fk_Stock`, `fk_Produit`) VALUES
 	(1, '2021-05-24', 5, 1, 2);
@@ -158,7 +159,7 @@ INSERT INTO `t_produitretirerstock` (`id_ProduitRetirerStock`, `DateRetirer`, `Q
 -- Export de la structure de la table pereira_daniel_info1a_etam. t_stock
 DROP TABLE IF EXISTS `t_stock`;
 CREATE TABLE IF NOT EXISTS `t_stock` (
-  `id_Stock` int AUTO_INCREMENT,
+  `id_Stock` int NOT NULL AUTO_INCREMENT,
   `quantiteStock` int DEFAULT NULL,
   `lieuStock` varchar(50) NOT NULL,
   `dernieredateajout` date DEFAULT NULL,
@@ -166,13 +167,23 @@ CREATE TABLE IF NOT EXISTS `t_stock` (
   PRIMARY KEY (`id_Stock`),
   KEY `FKProduitStock` (`fk_Produit`),
   CONSTRAINT `FKProduitStock` FOREIGN KEY (`fk_Produit`) REFERENCES `t_produit` (`id_Produit`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_stock : ~2 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_stock : ~0 rows (environ)
 /*!40000 ALTER TABLE `t_stock` DISABLE KEYS */;
 INSERT INTO `t_stock` (`id_Stock`, `quantiteStock`, `lieuStock`, `dernieredateajout`, `fk_Produit`) VALUES
-	(1, NULL, 'Garage', NULL, 2),
-	(2, NULL, 'Garage', '2023-05-24', 7);
+	(1, NULL, 'Garage', NULL, 1),
+	(2, NULL, 'Garage', NULL, 2),
+	(3, NULL, 'Garage', NULL, 3),
+	(4, NULL, 'Garage', NULL, 4),
+	(5, NULL, 'Arrière-boutique', NULL, 5),
+	(6, NULL, 'Arrière-boutique', NULL, 6),
+	(7, NULL, 'Arrière-boutique', NULL, 7),
+	(8, NULL, 'Arrière-boutique', NULL, 8),
+	(9, NULL, 'Rayon', NULL, 9),
+	(10, NULL, 'Rayon', NULL, 10),
+	(11, NULL, 'Rayon', NULL, 11),
+	(12, NULL, 'Rayon', NULL, 12);
 /*!40000 ALTER TABLE `t_stock` ENABLE KEYS */;
 
 -- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_ajout_stock
