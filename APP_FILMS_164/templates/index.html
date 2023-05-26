@@ -1,36 +1,26 @@
 {% extends "base.html" %}
-{% block title %} Stock ETAM {% endblock %}
+{% block title %} Bonus {% endblock %}
 {% block body %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>
-                <br>
-                <br>
-                <em>Bienvenue sur la gestion du Stock interne du Magasin <span class="text-violet">ETAM</span> à Lausanne.</em>
-                <br>
-                <br>
-            </h3>
-            <h3>
-                <br>
-                Sur ce site vous pourrez : <br>
-                <br>
-            </h3>
-            <ul>
-                <li class="list-item" style="margin-top: 10px;">Consulter vos produits.</li>
-                <li class="list-item" style="margin-top: 10px;">Voir le stock disponible.</li>
-                <li class="list-item" style="margin-top: 10px;">Connaître le nombre de produit par stock.</li>
-                <li class="list-item" style="margin-top: 10px;">Voir les couleurs disponibles.</li>
-                <li class="list-item" style="margin-top: 10px;">Voir les catégories de produits.</li>
-                <br>
-                <br>
-                <br>
-            </ul>
-        </div>
-    </div>
+<!-- Page troll -->
+<div style="text-align: center;">
+    <br>
+    <br>
+    <h1 style="font-size: 70px; color: red;">Erreur 404</h1>
+    <br>
+    <br>
+    <p style="font-size: 48px;">La page que vous recherchez n'existe pas.</p>
+    <br>
+    <p style="font-size: 70px;">Vous allez être redirigé.</p>
+    <br>
+    <br>
+    <br>
 </div>
 
+
 <script>
-    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    setTimeout(function() {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    }, 3000); // Délai de 3 secondes (3000 millisecondes)
 </script>
+
 {% endblock %}
