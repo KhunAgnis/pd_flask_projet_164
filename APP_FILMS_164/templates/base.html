@@ -73,7 +73,7 @@
 
 					</li>
 					<li class="nav-item">
-					<a class="nav-link" href="{{ url_for('Gallerie_afficher', order_by='ASC', id_gallerie_sel=0) }}">Gallerie</a>
+					<a class="nav-link" href="{{ url_for('galerie_afficher', order_by='ASC', id_galerie_sel=0) }}">Galerie</a>
 					</li>
 
 					<li class="nav-item dropdown">
@@ -81,7 +81,7 @@
 							Maccaud
 						</a>
 						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-							<li><a class="dropdown-item" href="{{ url_for('index') }}">Démo index (sans template)</a></li>
+							<li><a class="dropdown-item" href="{{ url_for('index') }}">Easter Egg</a></li>
 							<li><a class="dropdown-item" href="404.html">404</a></li>
 							<li><a class="dropdown-item" href="{{ url_for('mon_premier_wtform') }}">Essai form</a></li>
 							<li><a class="dropdown-item" href="{{ url_for('demo_select_wtf') }}">Essai DROPDOWN</a></li>

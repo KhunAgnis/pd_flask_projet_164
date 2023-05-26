@@ -60,7 +60,7 @@ def categorieproduit_afficher(order_by, id_categorie_sel):
                 elif not data_categorieproduit and id_categorie_sel > 0:
                     flash(f"La catégorie demandée n'existe pas !!", "warning")
                 else:
-                    flash(f"Voici la liste des catégories.", "success")
+                    flash(f"Voici la liste des catégories et de leur description.", "success")
 
         except Exception as Exception_categorieproduit_afficher:
             raise ExceptionCategorieProduitAfficher(f"fichier : {Path(__file__).name}  ;  "

@@ -26,41 +26,41 @@ from APP_FILMS_164.erreurs.exceptions import *
 """
 
 
-@app.route("/Gallerie_afficher/<string:order_by>/<int:id_gallerie_sel>", methods=['GET', 'POST'])
-def Gallerie_afficher(order_by, id_gallerie_sel):
+@app.route("/galerie_afficher/<string:order_by>/<int:id_galerie_sel>", methods=['GET', 'POST'])
+def galerie_afficher(order_by, id_galerie_sel):
     if request.method == "GET":
         try:
             with DBconnection() as mc_afficher:
-                if order_by == "ASC" and id_gallerie_sel == 0:
-                    strsql_Gallerie_afficher = """select * from t_categorieproduit 
+                if order_by == "ASC" and id_galerie_sel == 0:
+                    strsql_galerie_afficher = """select * from t_categorieproduit 
                                                           ORDER BY id_categorie ASC"""
 
-                    mc_afficher.execute(strsql_Gallerie_afficher)
+                    mc_afficher.execute(strsql_galerie_afficher)
                 elif order_by == "ASC":
-                    valeur_id_categorieproduit_selected_dictionnaire = {"value_id_categorieproduit_selected": id_gallerie_sel}
-                    strsql_Gallerie_afficher = """SELECT * FROM t_categorieproduit WHERE id_categorie = %(
-                    value_id_gallerie_selected)s """
+                    valeur_id_categorieproduit_selected_dictionnaire = {"value_id_categorieproduit_selected": id_galerie_sel}
+                    strsql_galerie_afficher = """SELECT * FROM t_categorieproduit WHERE id_categorie = %(
+                    value_id_galerie_selected)s """
 
-                    mc_afficher.execute(strsql_Gallerie_afficher, valeur_id_categorieproduit_selected_dictionnaire)
+                    mc_afficher.execute(strsql_galerie_afficher, valeur_id_categorieproduit_selected_dictionnaire)
                 else:
-                    strsql_Gallerie_afficher = """SELECT * FROM t_categorieproduit ORDER BY id_categorie DESC"""
+                    strsql_galerie_afficher = """SELECT * FROM t_categorieproduit ORDER BY id_categorie DESC"""
 
-                    mc_afficher.execute(strsql_Gallerie_afficher)
+                    mc_afficher.execute(strsql_galerie_afficher)
 
                 data_categorieproduit = mc_afficher.fetchall()
                 print("data_categorieproduit ", data_categorieproduit, " Type : ", type(data_categorieproduit))
 
                 print("data_categorieproduit ", data_categorieproduit, " Type : ", type(data_categorieproduit))
-                if not data_categorieproduit and id_gallerie_sel == 0:
+                if not data_categorieproduit and id_galerie_sel == 0:
                     flash("""La table "t_categorieproduit" est vide. !!""", "warning")
-                elif not data_categorieproduit and id_gallerie_sel > 0:
+                elif not data_categorieproduit and id_galerie_sel > 0:
                     flash(f"La catégorie demandée n'existe pas !!", "warning")
                 else:
                     flash(f"Voici les images relatives aux différentes catégories.", "success")
 
-        except Exception as Exception_Gallerie_afficher:
+        except Exception as Exception_galerie_afficher:
             raise ExceptionCategorieProduitAfficher(f"fichier : {Path(__file__).name}  ;  "
-                                          f"{Gallerie_afficher.__name__} ; "
-                                          f"{Exception_Gallerie_afficher}")
+                                          f"{galerie_afficher.__name__} ; "
+                                          f"{Exception_galerie_afficher}")
 
-    return render_template("Gallerie/Gallerie_afficher.html", data=data_categorieproduit)
+    return render_template("galerie/galerie_afficher.html", data=data_categorieproduit)

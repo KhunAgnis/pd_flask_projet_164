@@ -4,7 +4,7 @@
     Pour faire des tests divers et variés, avec la notion de "routes" avec FLASK
 """
 
-from flask import render_template
+from flask import render_template, redirect
 from APP_FILMS_164 import app
 from APP_FILMS_164.erreurs.msg_erreurs import *
 from APP_FILMS_164.erreurs.exceptions import *
@@ -12,7 +12,8 @@ from APP_FILMS_164.erreurs.exceptions import *
 
 @app.route('/index')
 def index():
-    return "Hello, le MONDE du Module 164 !"
+    youtube_link = "https://www.youtube.com/watch?v=dQw4w9WgXcQ?autoplay=1"  # Remplacez cela par votre propre lien YouTube
+    return redirect(youtube_link)
 
 
 @app.route('/')

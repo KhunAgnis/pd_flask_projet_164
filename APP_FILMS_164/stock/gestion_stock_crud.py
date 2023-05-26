@@ -59,7 +59,7 @@ def stock_afficher(order_by, id_stock_sel):
                 elif not data_stock and id_stock_sel > 0:
                     flash(f"Le stock demandé n'existe pas !!", "warning")
                 else:
-                    flash(f"Voici la liste des stocks.", "success")
+                    flash(f"Voici la liste des produits dans les stocks.", "success")
 
         except Exception as Exception_stock_afficher:
             raise ExceptionStockAfficher(f"fichier : {Path(__file__).name}  ;  "
