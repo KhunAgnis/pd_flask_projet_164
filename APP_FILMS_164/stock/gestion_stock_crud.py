@@ -36,7 +36,7 @@ def stock_afficher(order_by, id_stock_sel):
                     strsql_stock_afficher = """select t_stock.lieuStock, t_stock.quantiteStock, t_produit.nomProduit, t_produit.tailleProduit
                                                from t_stock 
                                                Inner join t_produit on t_stock.fk_Produit = t_produit.id_Produit
-                                               ORDER BY id_stock ASC"""
+                                               ORDER BY lieuStock ASC"""
 
                     mc_afficher.execute(strsql_stock_afficher)
                 elif order_by == "ASC":
