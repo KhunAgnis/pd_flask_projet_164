@@ -13,7 +13,7 @@ from flask import url_for
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
-
+from APP_FILMS_164.ajoutstock.gestion_ajoutstock_wtf_forms import FormWTFAjouterStock
 
 
 """Ajouter un film grâce au formulaire "couleur_add_wtf.html"

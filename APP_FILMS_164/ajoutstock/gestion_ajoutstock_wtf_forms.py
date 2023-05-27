@@ -25,9 +25,9 @@ class FormWTFAjouterStock(FlaskForm):
     quantite_ajouter_wtf = StringField("Inscrire la quantité ",
                                        validators=[Length(min=1, max=200, message="Quantité attendue"),
                                                    Regexp(quantite_ajouter_regexp,
-                                                          message="Veuillez entrer un nombre entre 0 et 9")])
+                                                          message="Veuillez entrer un nombre")])
 
-
-produit_id = SelectField("Produit", coerce=int, validators=[DataRequired()])
+    produit_id = SelectField("Produit", coerce=int, validators=[DataRequired()])
 
     submit = SubmitField("Enregistrer dans le stock")
+
