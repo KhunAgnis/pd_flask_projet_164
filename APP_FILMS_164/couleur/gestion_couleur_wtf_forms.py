@@ -14,7 +14,7 @@ from wtforms.validators import Regexp
 class FormWTFAjouterCouleur(FlaskForm):
 
     nom_couleur_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_couleur_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_couleur_wtf = StringField("Nouvelle couleur à ajouter ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                  Regexp(nom_couleur_regexp,
                                                                         message="Lettre uniquement")
                                                                  ])

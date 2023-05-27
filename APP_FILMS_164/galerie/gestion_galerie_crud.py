@@ -37,11 +37,11 @@ def galerie_afficher(order_by, id_galerie_sel):
 
                     mc_afficher.execute(strsql_galerie_afficher)
                 elif order_by == "ASC":
-                    valeur_id_categorieproduit_selected_dictionnaire = {"value_id_categorieproduit_selected": id_galerie_sel}
+                    valeur_id_categorie_selected_dictionnaire = {"value_id_categorie_selected": id_galerie_sel}
                     strsql_galerie_afficher = """SELECT * FROM t_categorieproduit WHERE id_categorie = %(
                     value_id_galerie_selected)s """
 
-                    mc_afficher.execute(strsql_galerie_afficher, valeur_id_categorieproduit_selected_dictionnaire)
+                    mc_afficher.execute(strsql_galerie_afficher, valeur_id_categorie_selected_dictionnaire)
                 else:
                     strsql_galerie_afficher = """SELECT * FROM t_categorieproduit ORDER BY id_categorie DESC"""
 

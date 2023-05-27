@@ -12,23 +12,23 @@
 				{{ form_update.hidden_tag() }}
 				<div class="form-group">
 					<p>
-						{{ form_update.nomCategorie_update_wtf.label }}<br>
-						{{ form_update.nomCategorie_update_wtf(cols=50, rows=3) }}<br>
-						{% for error in form_update.nomCategorie_update_wtf.errors %}
+						{{ form_update.nom_categorieproduit_update.label }}<br>
+						{{ form_update.nom_categorieproduit_update(cols=50, rows=3) }}<br>
+						{% for error in form_update.nom_categorieproduit_update.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_update.descCategorie_update_wtf.label }}<br>
-						{{ form_update.descCategorie_update_wtf(size=32) }}<br>
-						{% for error in form_update.descCategorie_update_wtf.errors %}
+						{{ form_update.desc_categorieproduit_update.label }}<br>
+						{{ form_update.desc_categorieproduit_update(size=32) }}<br>
+						{% for error in form_update.desc_categorieproduit_update.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
 					<p>
-						{{ form_update.imagesCategorie_update_wtf.label }}<br>
-						{{ form_update.imagesCategorie_update_wtf(size=32) }}<br>
-						{% for error in form_update.imagesCategorie_update_wtf.errors %}
+						{{ form_update.images_categorieproduit_update.label }}<br>
+						{{ form_update.images_categorieproduit_update(size=32) }}<br>
+						{% for error in form_update.images_categorieproduit_update.errors %}
 						<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>
@@ -39,4 +39,3 @@
 	</div>
 </div>
 {% endblock %}
-

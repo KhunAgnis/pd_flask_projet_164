@@ -44,26 +44,27 @@ class FormWTFUpdateCategorieProduit(FlaskForm):
     """
 
     nom_categorieproduit_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_categorieproduit_wtf = StringField("Modifier le nom de la catégorie ",
+    nom_categorieproduit_update = StringField("Modifier le nom de la catégorie ",
                                            validators=[Length(min=2, max=200, message="Nom valide attendu"),
                                                        Regexp(nom_categorieproduit_regexp,
                                                               message="Lettre uniquement")
                                                        ])
     desc_categorieproduit_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    desc_categorieproduit_wtf = StringField("Modifier la description ",
+    desc_categorieproduit_update = StringField("Modifier la description ",
                                             validators=[Length(min=2, max=200, message="Description brève attendue"),
                                                         Regexp(desc_categorieproduit_regexp,
                                                                message="Lettre uniquement")
                                                         ])
 
-    images_categorieproduit_regexp = "^https?://[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$"
-    images_categorieproduit_wtf = StringField("Modifier le lien de l'image si besoin ",
+    images_categorieproduit_regexp = r"^(https?|ftp)://[^\s/$.?#].[^\s]*$"
+    images_categorieproduit_update = StringField("Modifier le lien de l'image si besoin ",
                                               validators=[Length(min=2, max=200, message='Insérer un lien valide'),
                                                           Regexp(images_categorieproduit_regexp,
                                                                  message="Format JPG,JPEG,GIF,PNG")
                                                           ])
 
     submit = SubmitField("Mettre à jour cette Catégorie de Produit")
+
 
 
 class FormWTFDeleteCategorieProduit(FlaskForm):

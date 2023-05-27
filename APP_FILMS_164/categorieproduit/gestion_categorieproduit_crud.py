@@ -5,8 +5,10 @@ Auteur : OM 2022.04.11
 from pathlib import Path
 
 
+from flask import redirect
 from flask import request
-
+from flask import session
+from flask import url_for
 
 from APP_FILMS_164.database.database_tools import DBconnection
 from APP_FILMS_164.erreurs.exceptions import *
@@ -41,11 +43,11 @@ def categorieproduit_afficher(order_by, id_categorie_sel):
 
                     mc_afficher.execute(strsql_categorieproduit_afficher)
                 elif order_by == "ASC":
-                    valeur_id_categorieproduit_selected_dictionnaire = {"value_id_categorieproduit_selected": id_categorie_sel}
+                    valeur_id_categorie_selected_dictionnaire = {"value_id_categorie_selected": id_categorie_sel}
                     strsql_categorieproduit_afficher = """SELECT * FROM t_categorieproduit WHERE id_categorie = %(
                     value_id_categorie_selected)s """
 
-                    mc_afficher.execute(strsql_categorieproduit_afficher, valeur_id_categorieproduit_selected_dictionnaire)
+                    mc_afficher.execute(strsql_categorieproduit_afficher, valeur_id_categorie_selected_dictionnaire)
                 else:
                     strsql_categorieproduit_afficher = """SELECT * FROM t_categorieproduit ORDER BY id_categorie DESC"""
 
@@ -88,7 +90,7 @@ def categorieproduit_ajouter_wtf():
                 print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
 
                 strsql_insert_categorieproduit = """INSERT INTO t_categorieproduit
-                                                    (id_categorieproduit,nomCategorie, descCategorie, imagesCategorie) 
+                                                    (id_categorie,nomCategorie, descCategorie, imagesCategorie) 
                                                     VALUES (NULL,%(value_nom_categorieproduit), %(value_desc_categorieproduit),
                                                     %(value_images_categorieproduit)s) """
                 with DBconnection() as mconn_bd:
@@ -128,25 +130,35 @@ Remarque :  Dans le champ "nom_film_update_wtf" du formulaire "films/films_updat
 @app.route("/categorieproduit_update", methods=['GET', 'POST'])
 def categorieproduit_update_wtf():
     # L'utilisateur vient de cliquer sur le bouton "EDIT". Récupère la valeur de "id_film"
-    id_categorieproduit_update = request.values['id_categorieproduit_btn_edit_html']
+    id_categorie_update = request.values['id_categorie_btn_edit_html']
 
     # Objet formulaire pour l'UPDATE
-    form_update_categorieproduit = FormWTFUpdateCategorieProduit()
+    form_update = FormWTFUpdateCategorieProduit()
     try:
-        print(" on submit ", form_update_categorieproduit.validate_on_submit())
-        if form_update_categorieproduit.validate_on_submit():
-            # Récupèrer la valeur du champ depuis "produit_update_wtf.html" après avoir cliqué sur "SUBMIT".
-            nom_categorieproduit_ajouter = form.nom_categorieproduit_update_wtf.data
-            desc_categorieproduit_ajouter = form.desc_categorieproduit_update_wtf.data
-            images_categorieproduit_ajouter = form.images_categorieproduit_update_wtf.data
+        print(" on submit ", form_update.validate_on_submit())
+        if form_update.validate_on_submit():
+            # Récupérer la valeur du champ depuis "categorieproduit_update_wtf.html" après avoir cliqué sur "SUBMIT".
+            nom_categorieproduit_update = form_update.nom_categorieproduit_update.data
+            desc_categorieproduit_update = form_update.desc_categorieproduit_update.data
+            images_categorieproduit_update = form_update.images_categorieproduit_update.data
 
-            valeurs_update_dictionnaire = {"value_nom_categorieproduit": nom_categorieproduit_ajouter}
-            valeurs_update_dictionnaire = {"value_desc_categorieproduit": desc_categorieproduit_ajouter}
-            valeurs_update_dictionnaire = {"value_images_categorieproduit": images_categorieproduit_ajouter}
+            valeurs_update_dictionnaire = {
+                "value_nom_categorieproduit": nom_categorieproduit_update,
+                "value_desc_categorieproduit": desc_categorieproduit_update,
+                "value_images_categorieproduit": images_categorieproduit_update,
+                "value_id_categorieproduit": id_categorie_update
+            }
+
             print("valeurs_update_dictionnaire ", valeurs_update_dictionnaire)
 
-            str_sql_update_nom_categorieproduit = """UPDATE t_categorieproduit SET nomCategorie, descCategorie, imagesCategorie
-                                                    = %(value_nom_categorieproduit)s,"""
+            str_sql_update_nom_categorieproduit = """
+                UPDATE t_categorieproduit
+                SET nomCategorie = %(value_nom_categorieproduit)s,
+                    descCategorie = %(value_desc_categorieproduit)s,
+                    imagesCategorie = %(value_images_categorieproduit)s
+                WHERE id_Categorie = %(value_id_categorieproduit)s
+            """
+
             with DBconnection() as mconn_bd:
                 mconn_bd.execute(str_sql_update_nom_categorieproduit, valeurs_update_dictionnaire)
 
@@ -155,29 +167,31 @@ def categorieproduit_update_wtf():
 
             # afficher et constater que la donnée est mise à jour.
             # Afficher seulement le film modifié, "ASC" et l'"id_film_update"
-            return redirect(url_for('categorieproduit_update', id_categorieproduit_sel=id_categorieproduit_update))
+            return redirect(url_for('categorieproduit_update_wtf', id_categorie_sel=id_categorie_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_film" et "intitule_produit" de la "t_genre"
-            str_sql_id_categorieproduit = "SELECT * FROM t_categorieproduit WHERE id_categorieproduit = %(value_id_categorieproduit)s"
-            valeur_select_dictionnaire = {"value_id_categorieproduit": id_categorieproduit_update}
+            str_sql_id_categorie = "SELECT * FROM t_categorieproduit WHERE id_categorie = %(value_id_categorie)s"
+            valeur_select_dictionnaire = {"value_id_categorie": id_categorie_update}
             with DBconnection() as mybd_conn:
-                mybd_conn.execute(str_sql_id_categorieproduit, valeur_select_dictionnaire)
+                mybd_conn.execute(str_sql_id_categorie, valeur_select_dictionnaire)
             # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom produit" pour l'UPDATE
-            data_film = mybd_conn.fetchone()
-            print("data_film ", data_film, " type ", type(data_film), " produit ",
-                  data_film["nom_film"])
+            data_nom_categorieproduit = mybd_conn.fetchone()
+            print("data_nom_produits ", data_nom_categorieproduit, " type ", type(data_nom_categorieproduit), " nomCategorie ",
+                  data_nom_categorieproduit["nomCategorie"])
 
-            # Afficher la valeur sélectionnée dans le champ du formulaire "film_update_wtf.html"
-            form_update_categorieproduit.nom_categorieproduit_update_wtf.data = data_film["nom_categorieproduit"]
-            # Debug simple pour contrôler la valeur dans la console "run" de PyCharm
-            print(f" duree film  ", data_film["duree_film"], "  type ", type(data_film["duree_film"]))
+            # Afficher la valeur sélectionnée dans le champ du formulaire "categorieproduit_update_wtf.html"
+            form_update.nom_categorieproduit_update.data = data_nom_categorieproduit["nomCategorie"]
+            form_update.desc_categorieproduit_update.data = data_nom_categorieproduit["descCategorie"]
+            form_update.images_categorieproduit_update.data = data_nom_categorieproduit["imagesCategorie"]
 
     except Exception as Exception_categorieproduit_update_wtf:
         raise ExceptionCategorieProduitUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
                                         f"{categorieproduit_update_wtf.__name__} ; "
                                         f"{Exception_categorieproduit_update_wtf}")
 
-    return render_template("categorieproduit/categorieproduit_update_wtf.html", form=form)
+    return render_template("categorieproduit/categorieproduit_update_wtf.html", form_update=form_update)
+
+
 
 
 """Effacer(delete) un film qui a été sélectionné dans le formulaire "films_genres_afficher.html"
@@ -199,7 +213,7 @@ def categorieproduit_delete_wtf():
     data_categorieproduit_delete = None
     btn_submit_del = None
     # L'utilisateur vient de cliquer sur le bouton "DELETE". Récupère la valeur de "id_film"
-    id_categorieproduit_delete = request.values['id_categorieproduit_btn_delete_html']
+    id_categorie_delete = request.values['id_categorie_btn_delete_html']
 
     # Objet formulaire pour effacer le film sélectionné.
     form_delete_categorieproduit = FormWTFDeleteCategorieProduit()
@@ -221,10 +235,10 @@ def categorieproduit_delete_wtf():
 
         # L'utilisateur a vraiment décidé d'effacer.
         if form_delete_categorieproduit.submit_btn_del_categorieproduit.data:
-            valeur_delete_dictionnaire = {"value_id_categorieproduit": id_categorieproduit_delete}
+            valeur_delete_dictionnaire = {"value_id_categorie": id_categorie_delete}
             print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
-            str_sql_delete_categorieproduit = """DELETE FROM t_categorieproduit WHERE id_categorieproduit = %(value_id_categorieproduit)s"""
+            str_sql_delete_categorieproduit = """DELETE FROM t_categorieproduit WHERE id_categorie = %(value_id_categorie)s"""
             # Manière brutale d'effacer d'abord la "fk_film", même si elle n'existe pas dans la "t_produit_film"
             # Ensuite on peut effacer le film vu qu'il n'est plus "lié" (INNODB) dans la "t_produit_film"
             with DBconnection() as mconn_bd:
@@ -236,11 +250,11 @@ def categorieproduit_delete_wtf():
             # afficher les données
             return redirect(url_for('categorieproduit_afficher', id_categorie_sel=0))
         if request.method == "GET":
-            valeur_select_dictionnaire = {"value_id_categorieproduit": id_categorieproduit_delete}
-            print(id_categorieproduit_delete, type(id_categorieproduit_delete))
+            valeur_select_dictionnaire = {"value_id_categorie": id_categorie_delete}
+            print(id_categorie_delete, type(id_categorie_delete))
 
             # Requête qui affiche le film qui doit être efffacé.
-            str_sql_produits_categorieproduit_delete = """SELECT * FROM t_categorieproduit WHERE id_categorieproduit = %(value_id_categorieproduit)s"""
+            str_sql_produits_categorieproduit_delete = """SELECT * FROM t_categorieproduit WHERE id_categorie = %(value_id_categorie)s"""
 
             with DBconnection() as mydb_conn:
                 mydb_conn.execute(str_sql_produits_categorieproduit_delete, valeur_select_dictionnaire)
