@@ -65,10 +65,15 @@
 						<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
 							<a class="nav-link" href="{{ url_for('produits_afficher', order_by='ASC', id_produit_sel=0) }}">Produit</a>
 							<a class="nav-link" href="{{ url_for('couleur_afficher',order_by='ASC', id_couleur_sel=0) }}">Couleur</a>
-							<a class="nav-link" href="{{ url_for('stock_afficher', order_by='ASC', id_stock_sel=0) }}">Stock</a>
+							<a class="nav-link" href="{{ url_for('ajoutstock_afficher', order_by='ASC', id_stock_sel=0) }}">Ajouter du Stock</a>
+							<a class="nav-link" href="{{ url_for('retirerstock_afficher', order_by='ASC', id_stock_sel=0) }}">Retirer du Stock</a>
 							<a class="nav-link" href="{{ url_for('categorieproduit_afficher', order_by='ASC', id_categorie_sel=0) }}">Catégorie</a>
 
 						</ul>
+					</li>
+					</li>
+					<li class="nav-item">
+					<a class="nav-link" href="{{ url_for('stock_afficher', order_by='ASC', id_stock_sel=0) }}">Stock</a>
 					</li>
 
 					</li>
