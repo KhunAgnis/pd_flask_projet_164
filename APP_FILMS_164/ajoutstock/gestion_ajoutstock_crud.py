@@ -5,7 +5,10 @@ Auteur : OM 2022.04.11
 from pathlib import Path
 
 
+from flask import redirect
 from flask import request
+from flask import session
+from flask import url_for
 
 
 from APP_FILMS_164.database.database_tools import DBconnection
@@ -67,3 +70,38 @@ def stock_afficher(order_by, id_stock_sel):
                                           f"{Exception_stock_afficher}")
 
     return render_template("stock/stock_afficher.html", data=data_stock)
+
+
+@app.route("/stock_ajouter", methods=['GET', 'POST'])
+def stock_ajouter():
+    form = FormWTFAjouterStock()
+
+    with DBconnection() as mc_select:
+        strsql_select_produits = """SELECT id_Produit, nomProduit, tailleProduit FROM t_produit"""
+        mc_select.execute(strsql_select_produits)
+        produits = mc_select.fetchall()
+        form.produit_id.choices = [(produit['id_Produit'], f"{produit['nomProduit']} ({produit['tailleProduit']})") for
+                                   produit in produits]
+
+    if request.method == "POST":
+        try:
+            if form.validate_on_submit():
+                lieu_stock = form.lieu_stock.data
+                quantite_stock = form.quantite_stock.data
+                produit_id = form.produit_id.data
+
+                valeurs_insertion_dictionnaire = {
+                    "value_lieu_stock": lieu_stock,
+                    "value_quantite_stock": quantite_stock,
+                    "value_id_produit": produit_id
+                }
+                print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
+
+                # Effectuer les opérations pour ajouter le stock dans la table intermédiaire correspondante
+
+                flash("Le stock a été ajouté avec succès.", "success")
+                return redirect(url_for('stock_afficher', order_by='DESC', id_stock_sel=0))
+        except Exception as e:
+            flash("Une erreur s'est produite lors de l'ajout du stock.", "danger")
+
+    return render_template("stock/stock_ajouter.html", form=form)
