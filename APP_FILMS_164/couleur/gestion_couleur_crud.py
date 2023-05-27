@@ -39,15 +39,15 @@ def couleur_afficher(order_by, id_couleur_sel):
         try:
             with DBconnection() as mc_afficher:
                 if order_by == "ASC" and id_couleur_sel == 0:
-                    strsql_couleur_afficher = """select * from t_couleur ORDER BY id_couleur ASC"""
+                    strsql_couleur_afficher = """select * from t_couleur ORDER BY id_Couleur ASC"""
                     mc_afficher.execute(strsql_couleur_afficher)
                 elif order_by == "ASC":
                     valeur_id_couleur_selected_dictionnaire = {"value_id_couleur_selected": id_couleur_sel}
-                    strsql_couleur_afficher = """SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur_selected)s """
+                    strsql_couleur_afficher = """SELECT * FROM t_couleur WHERE id_Couleur = %(value_id_couleur_selected)s """
                     mc_afficher.execute(strsql_couleur_afficher, valeur_id_couleur_selected_dictionnaire)
 
                 else:
-                    strsql_couleur_afficher = """SELECT * FROM t_couleur ORDER BY id_couleur DESC"""
+                    strsql_couleur_afficher = """SELECT * FROM t_couleur ORDER BY id_Couleur DESC"""
                     mc_afficher.execute(strsql_couleur_afficher)
 
                 data_couleur = mc_afficher.fetchall()
@@ -146,7 +146,7 @@ def couleur_update_wtf():
             return redirect(url_for('couleur_afficher', order_by="ASC", id_couleur_sel=id_couleur_update))
         elif request.method == "GET":
             # Opération sur la BD pour récupérer "id_couleur" et "couleur" de la "t_couleur"
-            str_sql_id_couleur = "SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"
+            str_sql_id_couleur = "SELECT * FROM t_couleur WHERE id_Couleur = %(value_id_couleur)s"
             valeur_select_dictionnaire = {"value_id_couleur": id_couleur_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_couleur, valeur_select_dictionnaire)
@@ -226,7 +226,7 @@ def couleur_delete_wtf():
 
             # Requête qui affiche tous les films_genres qui ont le couleur que l'utilisateur veut effacer
             str_sql_couleur_delete = """SELECT * FROM t_couleur 
-                                            WHERE id_couleur = %(value_id_couleur)s"""
+                                            WHERE id_Couleur = %(value_id_couleur)s"""
 
             with DBconnection() as mydb_conn:
                 mydb_conn.execute(str_sql_couleur_delete, valeur_select_dictionnaire)
@@ -238,7 +238,7 @@ def couleur_delete_wtf():
                 session['data_films_attribue_couleur_delete'] = data_films_attribue_couleur_delete
 
                 # Opération sur la BD pour récupérer "id_couleur" et "intitule_couleur" de la "t_genre"
-                str_sql_id_couleur = "SELECT * FROM t_couleur WHERE id_couleur = %(value_id_couleur)s"
+                str_sql_id_couleur = "SELECT * FROM t_couleur WHERE id_Couleur = %(value_id_couleur)s"
 
                 mydb_conn.execute(str_sql_id_couleur, valeur_select_dictionnaire)
                 # Une seule valeur est suffisante "fetchone()",
@@ -248,7 +248,7 @@ def couleur_delete_wtf():
 
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "couleur_delete_wtf.html"
-            form_delete.nom_couleur_delete_wtf.data = data_couleur["data_couleur"]
+            form_delete.nom_couleur_delete_wtf.data = data_couleur["couleur"]
 
             # Le bouton pour l'action "DELETE" dans le form. "couleur_delete_wtf.html" est caché.
             btn_submit_del = False
