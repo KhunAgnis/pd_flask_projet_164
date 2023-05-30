@@ -20,16 +20,40 @@
 					{% if data_produits_associes %}
 						<thead>
 							<tr>
-								<th>
-									Produit(S)
-								</th>
-							</tr>
+					<th class="" >
+						N° du Produit
+					</th>
+					<th class="">
+						Nom du Produit
+					</th>
+					<th class="">
+						Taille du Produit
+					</th>
+					<th class="">
+						Couleur du Produit
+					</th>
+					<th class="">
+						Catégurie du Produit
+					</th>
+				</tr>
 						</thead>
 						{% for row in data_produits_associes %}
 							<tbody>
 								<tr>
-									<td>
-										{{ row.nom_produits }}
+									<td class="align-middle">
+										{{ row.id_Produit }}
+									</td>
+									<td class="align-middle">
+										{{ row.nomProduit }}
+									</td>
+									<td class="align-middle">
+										{{ row.tailleProduit }}
+									</td>
+									<td class="align-middle">
+										{{ row.couleur }}
+									</td>
+									<td class="align-middle">
+										{{ row.descCategorie }}
 									</td>
 								</tr>
 							</tbody>
