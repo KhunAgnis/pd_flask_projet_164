@@ -33,7 +33,7 @@ def stock_afficher(order_by, id_stock_sel):
         try:
             with DBconnection() as mc_afficher:
                 if order_by == "ASC" and id_stock_sel == 0:
-                    strsql_stock_afficher = """select t_stock.lieuStock, t_stock.quantiteStock, t_produit.nomProduit, t_produit.tailleProduit
+                    strsql_stock_afficher = """select t_stock.lieuStock, t_stock.quantiteStock, t_produit.nomProduit, t_produit.tailleProduit, t_stock.dernieredateajout
                                                from t_stock 
                                                Inner join t_produit on t_stock.fk_Produit = t_produit.id_Produit
                                                ORDER BY lieuStock ASC"""
