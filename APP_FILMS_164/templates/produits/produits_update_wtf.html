@@ -12,28 +12,36 @@
                 {{ form_update.hidden_tag() }}
                 <div class="form-group">
                     {{ form_update.nom_produits_update_wtf.label }}<br>
-                    {{ form_update.nom_produits_update_wtf(class="form-control") }}
+                    {{ form_update.nom_produits_update_wtf(class="form-control form-control-sm", maxlength=20, style="max-width: 400px;") }}
                     {% for error in form_update.nom_produits_update_wtf.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
                 </div>
                 <div class="form-group">
                     {{ form_update.taille_produits_wtf_essai.label }}<br>
-                    {{ form_update.taille_produits_wtf_essai(class="form-control") }}
+                    {{ form_update.taille_produits_wtf_essai(class="form-control form-control-sm", maxlength=20, style="max-width: 400px;") }}
                     {% for error in form_update.taille_produits_wtf_essai.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
                 </div>
                 <div class="form-group">
                     {{ form_update.couleur_produits_update_wtf.label }}<br>
-                    {{ form_update.couleur_produits_update_wtf(class="form-control") }}
+                    <select class="form-control form-control-sm" id="{{ form_update.couleur_produits_update_wtf.id }}" name="{{ form_update.couleur_produits_update_wtf.name }}" style="max-width: 400px;">
+                        {% for couleur in couleurs %}
+                            <option value="{{ couleur.id_couleur }}" {% if couleur.id_couleur == form_update.couleur_produits_update_wtf.data %}selected{% endif %}>{{ couleur.couleur }}</option>
+                        {% endfor %}
+                    </select>
                     {% for error in form_update.couleur_produits_update_wtf.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}
                 </div>
                 <div class="form-group">
                     {{ form_update.categorie_produits_update_wtf.label }}<br>
-                    {{ form_update.categorie_produits_update_wtf(class="form-control") }}
+                    <select class="form-control form-control-sm" id="{{ form_update.categorie_produits_update_wtf.id }}" name="{{ form_update.categorie_produits_update_wtf.name }}" style="max-width: 400px;">
+                        {% for categorie in categorieproduits %}
+                            <option value="{{ categorie.id_categorie }}" {% if categorie.id_categorie == form_update.categorie_produits_update_wtf.data %}selected{% endif %}>{{ categorie.descCategorie }}</option>
+                        {% endfor %}
+                    </select>
                     {% for error in form_update.categorie_produits_update_wtf.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                     {% endfor %}

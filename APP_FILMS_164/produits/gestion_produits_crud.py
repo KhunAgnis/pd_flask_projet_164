@@ -176,6 +176,16 @@ def produits_update_wtf():
 
     # Objet formulaire pour l'UPDATE
     form_update = FormWTFUpdateProduit()
+
+    # Récupérer les valeurs des couleurs depuis la base de données
+    with DBconnection() as mconn_bd:
+        mconn_bd.execute("SELECT id_couleur, couleur FROM t_couleur")
+        couleurs = mconn_bd.fetchall()
+
+        with DBconnection() as mconn_bd:
+            mconn_bd.execute("SELECT id_categorie, descCategorie FROM t_categorieproduit")
+            categorieproduits = mconn_bd.fetchall()
+
     try:
         print(" on submit ", form_update.validate_on_submit())
         if form_update.validate_on_submit():
@@ -213,29 +223,39 @@ def produits_update_wtf():
             # Affiche seulement la valeur modifiée, "ASC" et l'"id_produit_update"
             return redirect(url_for('produits_afficher', order_by="ASC", id_produit_sel=id_produit_update))
         elif request.method == "GET":
-            # Opération sur la BD pour récupérer "id_Produit" et "intitule_produit" de la "t_genre"
-            str_sql_id_produit = "SELECT * FROM t_produit " \
-                               "WHERE id_produit = %(value_id_produit)s"
+            # Opération sur la BD pour récupérer les informations complètes du produit
+            str_sql_id_produit = """
+                SELECT t_produit.*, t_couleur.couleur, t_categorieproduit.descCategorie
+                FROM t_produit
+                INNER JOIN t_couleur ON t_produit.fk_Couleur = t_couleur.id_Couleur
+                INNER JOIN t_categorieproduit ON t_produit.fk_Categorie = t_categorieproduit.id_Categorie
+                WHERE t_produit.id_produit = %(value_id_produit)s
+            """
             valeur_select_dictionnaire = {"value_id_produit": id_produit_update}
             with DBconnection() as mybd_conn:
                 mybd_conn.execute(str_sql_id_produit, valeur_select_dictionnaire)
-            # Une seule valeur est suffisante "fetchone()", vu qu'il n'y a qu'un seul champ "nom produit" pour l'UPDATE
-            data_nom_produit = mybd_conn.fetchone()
-            print("data_nom_produits ", data_nom_produit, " type ", type(data_nom_produit), " produits ",
-                  data_nom_produit["tailleProduit"])
+                data_nom_produit = mybd_conn.fetchone()
+                print("data_nom_produits ", data_nom_produit, " type ", type(data_nom_produit))
 
             # Afficher la valeur sélectionnée dans les champs du formulaire "produit_update_wtf.html"
             form_update.taille_produits_wtf_essai.data = data_nom_produit["tailleProduit"]
             form_update.nom_produits_update_wtf.data = data_nom_produit["nomProduit"]
             form_update.couleur_produits_update_wtf.data = data_nom_produit["fk_Couleur"]
+            form_update.couleur_produits_update_wtf.choices = [(couleur["id_couleur"], couleur["couleur"]) for couleur
+                                                               in couleurs]
             form_update.categorie_produits_update_wtf.data = data_nom_produit["fk_Categorie"]
+            form_update.categorie_produits_update_wtf.choices = [(categorie["id_categorie"], categorie["descCategorie"])
+                                                                 for categorie in categorieproduits]
+
 
     except Exception as Exception_produit_update_wtf:
         raise ExceptionProduitsUpdateWtf(f"fichier : {Path(__file__).name}  ;  "
                                       f"{produits_update_wtf.__name__} ; "
                                       f"{Exception_produit_update_wtf}")
 
-    return render_template("produits/produits_update_wtf.html", form_update=form_update)
+    return render_template("produits/produits_update_wtf.html", form_update=form_update, couleurs=couleurs, categorieproduits=categorieproduits)
+
+
 
 
 """
@@ -262,6 +282,15 @@ def produits_delete_wtf():
 
     # Objet formulaire pour effacer le produit sélectionné.
     form_delete = FormWTFDeleteProduit()
+
+    # Récupérer les valeurs des couleurs depuis la base de données
+    with DBconnection() as mconn_bd:
+        mconn_bd.execute("SELECT id_couleur, couleur FROM t_couleur")
+        couleurs = mconn_bd.fetchall()
+
+        with DBconnection() as mconn_bd:
+            mconn_bd.execute("SELECT id_categorie, descCategorie FROM t_categorieproduit")
+            categorieproduits = mconn_bd.fetchall()
     try:
         print(" on submit ", form_delete.validate_on_submit())
         if request.method == "POST" and form_delete.validate_on_submit():
@@ -342,7 +371,11 @@ def produits_delete_wtf():
             form_delete.nom_produit_delete_wtf.data = data_nom_produit["nomProduit"]
             form_delete.taille_produits_delete_wtf.data = data_nom_produit["tailleProduit"]
             form_delete.couleur_produits_delete_wtf.data = data_nom_produit["fk_Couleur"]
+            form_delete.couleur_produits_delete_wtf.choices = [(couleur["id_couleur"], couleur["couleur"]) for couleur
+                                                               in couleurs]
             form_delete.categorie_produits_delete_wtf.data = data_nom_produit["fk_Categorie"]
+            form_delete.categorie_produits_delete_wtf.choices = [(categorie["id_categorie"], categorie["descCategorie"])
+                                                                 for categorie in categorieproduits]
 
             # Le bouton pour l'action "DELETE" dans le form. "produit_delete_wtf.html" est caché.
             btn_submit_del = False
@@ -355,4 +388,6 @@ def produits_delete_wtf():
     return render_template("produits/produits_delete_wtf.html",
                            form_delete=form_delete,
                            btn_submit_del=btn_submit_del,
-                           data_films_associes=data_films_attribue_produit_delete)
+                           data_films_associes=data_films_attribue_produit_delete,
+                           couleurs=couleurs,
+                           categorieproduits=categorieproduits)

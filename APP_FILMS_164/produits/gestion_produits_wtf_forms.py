@@ -42,26 +42,18 @@ class FormWTFUpdateProduit(FlaskForm):
         Définition d'un "bouton" submit avec un libellé personnalisé.
     """
     nom_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    nom_produits_update_wtf = StringField("Insérer le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
+    nom_produits_update_wtf = StringField("Modifier le nom ", validators=[Length(min=2, max=20, message="min 2 max 20"),
                                                                          Regexp(nom_produits_regexp,
                                                                                 message="Lettre uniquement")
                                                                          ])
     taille_produits_regexp = r"^([A-Z]|[0-9])+$"
-    taille_produits_wtf_essai = StringField("Insérer la taille", validators=[
+    taille_produits_wtf_essai = StringField("Modifier la taille", validators=[
         Length(min=1, max=20, message="Min 1 max 20"),
         Regexp(taille_produits_regexp, message="Chiffre et lettre uniquement (pas de caractères spéciaux)")])
 
-    couleur_produits_update_wtf = SelectField('Choisir la couleur',
-                                              validators=[DataRequired(message="Sélectionner une couleur.")],
-                                              validate_choice=False
-                                              )
+    couleur_produits_update_wtf = SelectField('Couleur', choices=[], validators=[DataRequired()])
+    categorie_produits_update_wtf = SelectField('Catégorie', choices=[], validators=[DataRequired()])
 
-    categorie_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    categorie_produits_update_wtf = StringField("Choisir la catégorie ",
-                                                validators=[Length(min=2, max=20, message="min 2 max 20"),
-                                                            Regexp(categorie_produits_regexp,
-                                                                   message="Chiffre et lettre uniquement (pas de caractères spéciaux)")
-                                                            ])
     submit = SubmitField("Mettre a jour ce produit")
 
 
