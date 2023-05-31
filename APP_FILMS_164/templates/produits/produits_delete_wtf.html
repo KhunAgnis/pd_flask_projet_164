@@ -15,7 +15,7 @@
 						<h3>Ce produit est associé avec la/les couleur(s) suivante(s) :</h3>
 						<h3>Ce produit est associé avec la/les catégorie(s) suivante(s) :</h3>
 					{% else %}
-						<h3>Ce produit à effacer n'est associé à rien.</h3>
+						<h3>Vous vous apprêtez à supprimer ce produit !</h3>
 					{% endif %}
 					{% if data_produits_associes %}
 						<thead>
@@ -65,8 +65,29 @@
 				<div class="form-group">
 					<p>
 						{{ form_delete.nom_produit_delete_wtf.label }}<br>
-						{{ form_delete.nom_produit_delete_wtf(size=32, readonly=true) }}<br>
+						{{ form_delete.nom_produit_delete_wtf(size=32) }}<br>
 						{% for error in form_delete.nom_produit_delete_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form_delete.taille_produits_delete_wtf.label }}<br>
+						{{ form_delete.taille_produits_delete_wtf(size=32) }}<br>
+						{% for error in form_delete.taille_produits_delete_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form_delete.couleur_produits_delete_wtf.label }}<br>
+						{{ form_delete.couleur_produits_delete_wtf(size=32) }}<br>
+						{% for error in form_delete.couleur_produits_delete_wtf.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form_delete.categorie_produits_delete_wtf.label }}<br>
+						{{ form_delete.categorie_produits_delete_wtf(size=32) }}<br>
+						{% for error in form_delete.categorie_produits_delete_wtf.errors %}
 							<span style="color: red;">[{{ error }}]</span>
 						{% endfor %}
 					</p>

@@ -290,12 +290,23 @@ def produits_delete_wtf():
                 btn_submit_del = True
 
             if form_delete.submit_btn_del.data:
-                valeur_delete_dictionnaire = {"value_id_produit": id_produit_delete}
+                nom_produit_delete = form_delete.nom_produit_delete_wtf.data
+                taille_produits_delete = form_delete.taille_produits_delete_wtf.data
+                couleur_produits_delete = form_delete.couleur_produits_delete_wtf.data
+                categorie_produits_delete = form_delete.categorie_produits_delete_wtf.data
+
+                valeur_delete_dictionnaire = {"value_id_produit": id_produit_delete,
+                                              "value_tailleProduit_essai": taille_produits_delete,
+                                              "value_nomproduit": nom_produit_delete,
+                                              "couleur_produits_update": couleur_produits_delete,
+                                              "categorie_produits_update": categorie_produits_delete
+                                              }
+
                 print("valeur_delete_dictionnaire ", valeur_delete_dictionnaire)
 
                 str_sql_delete_produit = """DELETE FROM t_produit WHERE id_produit = %(value_id_produit)s"""
-                str_sql_delete_fk_couleur = """DELETE FROM t_produit WHERE fk_Couleur = %(value_id_produit)s"""
-                str_sql_delete_fk_categorie = """DELETE FROM t_produit WHERE fk_Categorie = %(value_id_produit)s"""
+                str_sql_delete_fk_couleur = """DELETE FROM t_produit WHERE fk_Couleur = %(value_id_couleur)s"""
+                str_sql_delete_fk_categorie = """DELETE FROM t_produit WHERE fk_Categorie = %(value_id_categorie)s"""
                 # Manière brutale d'effacer d'abord la "fk_genre", même si elle n'existe pas dans la "t_produit_film"
                 # Ensuite on peut effacer le produit vu qu'il n'est plus "lié" (INNODB) dans la "t_produit_film"
                 with DBconnection() as mconn_bd:
@@ -338,6 +349,9 @@ def produits_delete_wtf():
 
             # Afficher la valeur sélectionnée dans le champ du formulaire "produit_delete_wtf.html"
             form_delete.nom_produit_delete_wtf.data = data_nom_produit["nomProduit"]
+            form_delete.taille_produits_delete_wtf.data = data_nom_produit["tailleProduit"]
+            form_delete.couleur_produits_delete_wtf.data = data_nom_produit["fk_Couleur"]
+            form_delete.categorie_produits_delete_wtf.data = data_nom_produit["fk_Categorie"]
 
             # Le bouton pour l'action "DELETE" dans le form. "produit_delete_wtf.html" est caché.
             btn_submit_del = False
