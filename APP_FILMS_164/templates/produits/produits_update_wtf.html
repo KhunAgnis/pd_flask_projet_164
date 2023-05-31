@@ -2,48 +2,45 @@
 {% block title %} Editer un Produit (WTF) {% endblock %}
 {% block body %}
 <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<p>
-				Editer un Produit
-			</p>
-			<form action="" method="POST" novalidate>
-				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
-				{{ form_update.hidden_tag() }}
-				<div class="form-group">
-					<p>
-						{{ form_update.nom_produits_update_wtf.label }}<br>
-						{{ form_update.nom_produits_update_wtf(size=32) }}<br>
-						{% for error in form_update.nom_produits_update_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update.taille_produits_wtf_essai.label }}<br>
-						{{ form_update.taille_produits_wtf_essai(size=32) }}<br>
-						{% for error in form_update.taille_produits_wtf_essai.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update.couleur_produits_update_wtf.label }}<br>
-						{{ form_update.couleur_produits_update_wtf(size=32) }}<br>
-						{% for error in form_update.couleur_produits_update_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-					<p>
-						{{ form_update.categorie_produits_update_wtf.label }}<br>
-						{{ form_update.categorie_produits_update_wtf(size=32) }}<br>
-						{% for error in form_update.categorie_produits_update_wtf.errors %}
-							<span style="color: red;">[{{ error }}]</span>
-						{% endfor %}
-					</p>
-				</div>
-				{{ form_update.submit(class="btn btn-primary") }}
-			</form>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                Editer un Produit
+            </p>
+            <form action="" method="POST" novalidate>
+                <!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+                {{ form_update.hidden_tag() }}
+                <div class="form-group">
+                    {{ form_update.nom_produits_update_wtf.label }}<br>
+                    {{ form_update.nom_produits_update_wtf(class="form-control") }}
+                    {% for error in form_update.nom_produits_update_wtf.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form_update.taille_produits_wtf_essai.label }}<br>
+                    {{ form_update.taille_produits_wtf_essai(class="form-control") }}
+                    {% for error in form_update.taille_produits_wtf_essai.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form_update.couleur_produits_update_wtf.label }}<br>
+                    {{ form_update.couleur_produits_update_wtf(class="form-control") }}
+                    {% for error in form_update.couleur_produits_update_wtf.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form_update.categorie_produits_update_wtf.label }}<br>
+                    {{ form_update.categorie_produits_update_wtf(class="form-control") }}
+                    {% for error in form_update.categorie_produits_update_wtf.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </div>
+                {{ form_update.submit(class="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
-

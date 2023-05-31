@@ -26,16 +26,13 @@ class FormWTFAjouterProduit(FlaskForm):
         Regexp(taille_produits_regexp, message="Chiffre et lettre uniquement (pas de caractères spéciaux)")
     ])
     couleur_produits_wtf = SelectField('Choisir la couleur',
-                                       validators=[DataRequired(message="Sélectionner une couleur.")],
-                                       validate_choice=False
+                                       validators=[DataRequired(message="Sélectionner une couleur.")]
                                        )
 
-    categorie_produits_regexp = "^([A-Z]|[a-zÀ-ÖØ-öø-ÿ])[A-Za-zÀ-ÖØ-öø-ÿ]*['\- ]?[A-Za-zÀ-ÖØ-öø-ÿ]+$"
-    categorie_produits_wtf = StringField("Choisir la catégorie ",
-                                         validators=[Length(min=2, max=20, message="min 2 max 20"),
-                                                     Regexp(categorie_produits_regexp,
-                                                            message="Chiffre et lettre uniquement (pas de caractères spéciaux)")
-                                                     ])
+    categorie_produits_wtf = SelectField('Choisir la catégorie',
+                                         validators=[DataRequired(message="Sélectionner une catégorie.")]
+                                         )
+
     submit = SubmitField("Enregistrer ce produit")
 
 

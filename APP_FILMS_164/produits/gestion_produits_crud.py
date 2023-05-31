@@ -129,33 +129,24 @@ def produits_ajouter_wtf():
                 # Pour afficher et constater l'insertion de la valeur, on affiche en ordre inverse. (DESC)
                 return redirect(url_for('produits_afficher', order_by='DESC', id_produit_sel=0))
 
-            if request.method == "GET":
-                with DBconnection() as mc_afficher:
-                    strsql_couleur_produits_afficher = """SELECT * FROM t_couleur ORDER BY id_couleur ASC"""
-                    mc_afficher.execute(strsql_couleur_produits_afficher)
 
-                data_couleur = mc_afficher.fetchall()
-                print("demo_select_wtf data_couleur ", data_couleur, " Type : ", type(data_couleur))
-
-                """
-                    Préparer les valeurs pour la liste déroulante de l'objet "FormWTFAddClient"
-                    la liste déroulante est définie dans le "APP_FILMS_164/clients/gestion_clients_wtf_forms.py" 
-                    le formulaire qui utilise la liste déroulante "APP_FILMS_164/templates/clients/client_add_wtf.html"
-                """
-                couleur_val_list_dropdown = []
-                for i in data_couleur:
-                    couleur_val_list_dropdown = [(i["id_couleur"], i["couleur"]) for i in data_couleur]
-
-                print("couleur_val_list_dropdown ", couleur_val_list_dropdown)
-                # Les valeurs sont chargées dans la liste déroulante
-                form.couleur_produits_wtf.choices = couleur_val_list_dropdown
 
         except Exception as Exception_produits_ajouter_wtf:
             raise ExceptionProduitsAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
                                             f"{produits_ajouter_wtf.__name__} ; "
                                             f"{Exception_produits_ajouter_wtf}")
 
-    return render_template("produits/produits_ajouter_wtf.html", form=form)
+    # Récupérer les valeurs des couleurs depuis la base de données
+    with DBconnection() as mconn_bd:
+        mconn_bd.execute("SELECT id_couleur, couleur FROM t_couleur")
+        couleurs = mconn_bd.fetchall()
+
+        with DBconnection() as mconn_bd:
+            mconn_bd.execute("SELECT id_categorie, descCategorie FROM t_categorieproduit")
+            categorieproduits = mconn_bd.fetchall()
+
+    return render_template("produits/produits_ajouter_wtf.html", form=form, couleurs=couleurs, categorieproduits=categorieproduits)
+
 
 
 """
