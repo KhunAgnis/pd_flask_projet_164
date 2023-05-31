@@ -5,9 +5,9 @@
 """
 
 from flask import render_template, redirect
-from APP_FILMS_164 import app
-from APP_FILMS_164.erreurs.msg_erreurs import *
-from APP_FILMS_164.erreurs.exceptions import *
+from APP_ETAM_164 import app
+from APP_ETAM_164.erreurs.msg_erreurs import *
+from APP_ETAM_164.erreurs.exceptions import *
 
 
 

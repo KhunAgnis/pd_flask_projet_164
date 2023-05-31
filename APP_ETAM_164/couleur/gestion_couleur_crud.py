@@ -9,11 +9,11 @@ from flask import request
 from flask import session
 from flask import url_for
 
-from APP_FILMS_164.database.database_tools import DBconnection
-from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFAjouterCouleur
-from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFDeleteCouleur
-from APP_FILMS_164.couleur.gestion_couleur_wtf_forms import FormWTFUpdateCouleur
+from APP_ETAM_164.database.database_tools import DBconnection
+from APP_ETAM_164.erreurs.exceptions import *
+from APP_ETAM_164.couleur.gestion_couleur_wtf_forms import FormWTFAjouterCouleur
+from APP_ETAM_164.couleur.gestion_couleur_wtf_forms import FormWTFDeleteCouleur
+from APP_ETAM_164.couleur.gestion_couleur_wtf_forms import FormWTFUpdateCouleur
 
 
 

@@ -11,12 +11,12 @@ from flask import url_for
 from flask import render_template
 
 
-from APP_FILMS_164 import app
-from APP_FILMS_164.database.database_tools import DBconnection
-from APP_FILMS_164.erreurs.exceptions import *
-from APP_FILMS_164.produits.gestion_produits_wtf_forms import FormWTFAjouterProduit
-from APP_FILMS_164.produits.gestion_produits_wtf_forms import FormWTFUpdateProduit
-from APP_FILMS_164.produits.gestion_produits_wtf_forms import FormWTFDeleteProduit
+from APP_ETAM_164 import app
+from APP_ETAM_164.database.database_tools import DBconnection
+from APP_ETAM_164.erreurs.exceptions import *
+from APP_ETAM_164.produits.gestion_produits_wtf_forms import FormWTFAjouterProduit
+from APP_ETAM_164.produits.gestion_produits_wtf_forms import FormWTFUpdateProduit
+from APP_ETAM_164.produits.gestion_produits_wtf_forms import FormWTFDeleteProduit
 
 
 """

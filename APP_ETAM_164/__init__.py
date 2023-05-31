@@ -38,25 +38,25 @@ try:
         Tout commence ici. Il faut "indiquer" les routes de l'applicationn.    
         Dans l'application les lignes ci-dessous doivent se trouver ici... soit après l'instanciation de la classe "Flask"
     """
-    from APP_FILMS_164.database import database_tools
-    from APP_FILMS_164.essais_wtf_forms import gestion_essai_wtf
-    from APP_FILMS_164.essais_wtf_forms import gestion_wtf_forms_demo_select
-    from APP_FILMS_164.produits import gestion_produits_crud
-    from APP_FILMS_164.demos_om_164 import routes_demos
+    from APP_ETAM_164.database import database_tools
+    from APP_ETAM_164.essais_wtf_forms import gestion_essai_wtf
+    from APP_ETAM_164.essais_wtf_forms import gestion_wtf_forms_demo_select
+    from APP_ETAM_164.produits import gestion_produits_crud
+    from APP_ETAM_164.demos_om_164 import routes_demos
 
-    from APP_FILMS_164.stock import gestion_stock_wtf_forms
-    from APP_FILMS_164.stock import gestion_stock_crud
-    from APP_FILMS_164.erreurs import msg_avertissements
+    from APP_ETAM_164.stock import gestion_stock_wtf_forms
+    from APP_ETAM_164.stock import gestion_stock_crud
+    from APP_ETAM_164.erreurs import msg_avertissements
 
-    from APP_FILMS_164.couleur import gestion_couleur_crud
-    from APP_FILMS_164.couleur import gestion_couleur_wtf_forms
+    from APP_ETAM_164.couleur import gestion_couleur_crud
+    from APP_ETAM_164.couleur import gestion_couleur_wtf_forms
 
-    from APP_FILMS_164.categorieproduit import gestion_categorieproduit_crud
-    from APP_FILMS_164.categorieproduit import gestion_categorieproduit_wtf_forms
+    from APP_ETAM_164.categorieproduit import gestion_categorieproduit_crud
+    from APP_ETAM_164.categorieproduit import gestion_categorieproduit_wtf_forms
 
-    from APP_FILMS_164.galerie import gestion_galerie_crud
+    from APP_ETAM_164.galerie import gestion_galerie_crud
 
-except Exception as Exception_init_app_films_164:
-    print(f"4567756434 Une erreur est survenue {type(Exception_init_app_films_164)} dans"
-          f"__init__ {Exception_init_app_films_164.args}")
+except Exception as Exception_init_APP_ETAM_164:
+    print(f"4567756434 Une erreur est survenue {type(Exception_init_APP_ETAM_164)} dans"
+          f"__init__ {Exception_init_APP_ETAM_164.args}")
     sys.exit()

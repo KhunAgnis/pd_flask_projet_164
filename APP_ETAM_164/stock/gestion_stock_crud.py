@@ -8,8 +8,8 @@ from pathlib import Path
 from flask import request
 
 
-from APP_FILMS_164.database.database_tools import DBconnection
-from APP_FILMS_164.erreurs.exceptions import *
+from APP_ETAM_164.database.database_tools import DBconnection
+from APP_ETAM_164.erreurs.exceptions import *
 
 
 
