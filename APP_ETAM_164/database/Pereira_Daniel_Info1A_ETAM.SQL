@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `t_categorieproduit` (
   PRIMARY KEY (`id_Categorie`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_categorieproduit : ~2 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_categorieproduit : ~22 rows (environ)
 /*!40000 ALTER TABLE `t_categorieproduit` DISABLE KEYS */;
 INSERT INTO `t_categorieproduit` (`id_Categorie`, `nomCategorie`, `descCategorie`, `imagesCategorie`) VALUES
 	(1, 'Soutien-gorge', 'Sans coque', 'https://www.etam.ch/dw/image/v2/AAWW_PRD/on/demandware.static/-/Sites-ELIN-master/default/dw62f46944/Visuel%20market/SG-MIDNIGHT.jpg?sw=1000&sh=1180&strip=false'),
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `t_couleur` (
   PRIMARY KEY (`id_Couleur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_couleur : ~14 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_couleur : ~15 rows (environ)
 /*!40000 ALTER TABLE `t_couleur` DISABLE KEYS */;
 INSERT INTO `t_couleur` (`id_Couleur`, `couleur`) VALUES
 	(1, 'Noir'),
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `t_produit` (
   CONSTRAINT `FKProduitCouleur` FOREIGN KEY (`fk_Couleur`) REFERENCES `t_couleur` (`id_Couleur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_produit : ~0 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_produit : ~12 rows (environ)
 /*!40000 ALTER TABLE `t_produit` DISABLE KEYS */;
 INSERT INTO `t_produit` (`id_Produit`, `tailleProduit`, `nomProduit`, `fk_Couleur`, `fk_Categorie`) VALUES
 	(1, 'M', 'Pantalon de pyjama imprimé', 5, 21),
@@ -169,21 +169,21 @@ CREATE TABLE IF NOT EXISTS `t_stock` (
   CONSTRAINT `FKProduitStock` FOREIGN KEY (`fk_Produit`) REFERENCES `t_produit` (`id_Produit`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Export de données de la table pereira_daniel_info1a_etam.t_stock : ~0 rows (environ)
+-- Export de données de la table pereira_daniel_info1a_etam.t_stock : ~12 rows (environ)
 /*!40000 ALTER TABLE `t_stock` DISABLE KEYS */;
 INSERT INTO `t_stock` (`id_Stock`, `quantiteStock`, `lieuStock`, `dernieredateajout`, `fk_Produit`) VALUES
-	(1, NULL, 'Garage', NULL, 1),
-	(2, NULL, 'Garage', NULL, 2),
-	(3, NULL, 'Garage', NULL, 3),
-	(4, NULL, 'Garage', NULL, 4),
-	(5, NULL, 'Arrière-boutique', NULL, 5),
-	(6, NULL, 'Arrière-boutique', NULL, 6),
-	(7, NULL, 'Arrière-boutique', NULL, 7),
-	(8, NULL, 'Arrière-boutique', NULL, 8),
-	(9, NULL, 'Rayon', NULL, 9),
-	(10, NULL, 'Rayon', NULL, 10),
-	(11, NULL, 'Rayon', NULL, 11),
-	(12, NULL, 'Rayon', NULL, 12);
+	(1, 30, 'Garage', '2023-05-30', 1),
+	(2, 30, 'Garage', '2023-05-30', 2),
+	(3, 30, 'Garage', '2023-05-30', 3),
+	(4, 30, 'Garage', '2023-05-30', 4),
+	(5, 15, 'Arrière-boutique', '2023-05-30', 5),
+	(6, 15, 'Arrière-boutique', '2023-05-30', 6),
+	(7, 15, 'Arrière-boutique', '2023-05-30', 7),
+	(8, 15, 'Arrière-boutique', '2023-05-30', 8),
+	(9, 10, 'Rayon', '2023-05-30', 9),
+	(10, 10, 'Rayon', '2023-05-30', 10),
+	(11, 10, 'Rayon', '2023-05-30', 11),
+	(12, 10, 'Rayon', '2023-05-30', 12);
 /*!40000 ALTER TABLE `t_stock` ENABLE KEYS */;
 
 -- Export de la structure de déclencheur pereira_daniel_info1a_etam. tr_ajout_stock
