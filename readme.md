@@ -7,6 +7,9 @@ Il s’agit d’une gestion de stock du magasin ETAM, montrant les produits, les
 
 Soit un système CRUD (Create Read Update Delete) adapté aux besoin sur les 4 tables de la BD ETAM : Soit “t_produit”; “t_couleur”; "t_categorieproduit"; "t_stock". 
 
+## Avertissement
+N'ayant pas réussi à faire le lien avec mes tables intermédiaires afin d'ajouter et retirer des produits du stock. C'est pourquoi, il vous faudra avoir un serveur MySql installé afin de modifier depuis celui-ci le nombre de produits dans le stock.
+
 # Quels sont les prérequis pour faire fonctionner mon projet ?
 
 Un serveur MySql doit être installé
